@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  country: MyString
+  name: MyString
+  details: MyText
+  is_active: false
+
+two:
+  country: MyString
+  name: MyString
+  details: MyText
+  is_active: false
