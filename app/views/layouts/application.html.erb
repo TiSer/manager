@@ -7,8 +7,24 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+<h1 id="head"><%= link_to('Manager', '/') %></h1>
 
-<%= yield %>
+<div id="left-column">
+  <%= render_navigation %>
+</div>
+
+<!-- <p id="notice"><%#= notice %></p> !-->
+
+    <% if alert %>
+    	<p id="error"><%= alert %></p>
+    <% end %>
+    <% if flash[:error] %>
+    	<p id="error"><%= flash[:error] %></p>
+    <% end %>
+
+<div id="right-column">
+  <%= yield %>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,6 @@
+#left-column  { float: left; width: 230px; margin: 0.1em 1em; line-height: 1.1em;
+                border-style: dashed; border-width: 0.2em; }
+#right-column { float: right; width: 1030px; margin: 0.1em 1em; line-height: 1.1em;
+                /*border-style: dashed; border-width: 0.1em;*/ }
+
+#head {margin: 1em 0.5em;} 

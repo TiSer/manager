@@ -1,7 +1,10 @@
 <h1>Listing customers</h1>
 
+<h3><%= link_to 'New Customer', new_customer_path %></h3>
+
 <table>
   <tr>
+    <th>#</th>
     <th>Country</th>
     <th>Name</th>
     <th>Details</th>
@@ -13,6 +16,7 @@
 
 <% @customers.each do |customer| %>
   <tr>
+    <td><%= customer.id %></td>
     <td><%= customer.country %></td>
     <td><%= customer.name %></td>
     <td><%= customer.details %></td>
@@ -25,5 +29,3 @@
 </table>
 
 <br />
-
-<%= link_to 'New Customer', new_customer_path %>

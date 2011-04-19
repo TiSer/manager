@@ -1,7 +1,10 @@
 <h1>Listing skills</h1>
 
+<h3><%= link_to 'New Skill', new_skill_path %></h3>
+
 <table>
   <tr>
+    <th>#</th>
     <th>Name</th>
     <th></th>
     <th></th>
@@ -10,6 +13,7 @@
 
 <% @skills.each do |skill| %>
   <tr>
+    <td><%= skill.id %></td>
     <td><%= skill.name %></td>
     <td><%= link_to 'Show', skill %></td>
     <td><%= link_to 'Edit', edit_skill_path(skill) %></td>
@@ -19,5 +23,3 @@
 </table>
 
 <br />
-
-<%= link_to 'New Skill', new_skill_path %>

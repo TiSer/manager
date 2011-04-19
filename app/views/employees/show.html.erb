@@ -1,34 +1,46 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Department:</b>
-  <%= @employee.department.name %>
-</p>
+<table>
+    <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Skills</th>
+    <th>Is active</th>
+  </tr>
 
-<p>
-	<strong>Skills:</strong><br/>
-	<ul>
-		<% @employee.skills.each do |skill| %>
-		<li><%= skill.name %></li>
-		<% end %>
-	</ul>
-</p>
+<tr>
 
-<p>
-  <b>Name:</b>
-  <%= @employee.name %>
-</p>
+  <td>
+    <%= @employee.id %>
+  </td>   
 
-<p>
-  <b>Email:</b>
-  <%= @employee.email %>
-</p>
+  <td>
+    <%= @employee.department.name %>
+  </td>
 
-<p>
-  <b>Is active:</b>
-  <%= @employee.is_active %>
-</p>
+  <td>
+	  <ul>
+		  <% @employee.skills.each do |skill| %>
+		  <li><%= skill.name %></li>
+		  <% end %>
+	  </ul>
+  </td>
 
+  <td>
+    <%= @employee.name %>
+  </td>
+
+  <td>
+    <%= @employee.email %>
+  </td>
+
+  <td>
+    <%= @employee.is_active %>
+  </td>
+</tr>
+</table>
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', employees_path %>
