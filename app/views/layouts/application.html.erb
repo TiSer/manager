@@ -11,9 +11,15 @@
 
 <div id="left-column">
   <%= render_navigation %>
-</div>
 
-<!-- <p id="notice"><%#= notice %></p> !-->
+
+    <% if current_user %>
+				You entered as <%= current_user.email %>. <%= link_to "Logout", destroy_user_session_path %>
+			<% else %>
+				<%= link_to "Login", new_user_session_path %> | <%= link_to "Registration", new_user_registration_path %>
+		<% end %>
+</div>
+ <p id="notice"><%= notice %></p>
 
     <% if alert %>
     	<p id="error"><%= alert %></p>

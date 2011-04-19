@@ -20,8 +20,8 @@
     <td><%= customer.country %></td>
     <td><%= customer.name %></td>
     <td><%= customer.details %></td>
-    <td><%= customer.is_active %></td>
-    <td><%= link_to 'Show', customer %></td>
+    <td><%= activity(customer) %></td>
+    <!-- <td><%#= link_to 'Show', customer %></td> !-->
     <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
     <td><%= link_to 'Destroy', customer, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

@@ -8,7 +8,6 @@
     <th>Name</th>
     <th>Email</th>
     <th>Department</th>
-    <th>Skills</th>
     <th>Is active</th>
   </tr>
 
@@ -18,15 +17,8 @@
     <td><%= link_to employee.name, employee_path(employee) %></td>
     <td><%= employee.email %></td>
     <td><%= employee.department.name %></td>
-    <td>
-	    <ul>
-		    <% employee.skills.each do |skill| %>
-		    <li><%= skill.name %></li>
-		    <% end %>
-	    </ul>
-    </td>
-    <td><%= employee.is_active %></td>
-    <td><%#= link_to 'Show', employee %></td>
+    <td><%= activity(employee) %></td>
+    <!-- <td><%#= link_to 'Show', employee %></td> !-->
     <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
     <td><%= link_to 'Destroy', employee, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

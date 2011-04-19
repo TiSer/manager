@@ -1,6 +1,7 @@
 class SkillsController < ApplicationController
-  # GET /skills
-  # GET /skills.xml
+
+  before_filter :authenticate_admin  
+
   def index
     @skills = Skill.all
 
@@ -44,7 +45,7 @@ class SkillsController < ApplicationController
 
     respond_to do |format|
       if @skill.save
-        format.html { redirect_to(@skill, :notice => 'Skill was successfully created.') }
+        format.html { redirect_to(skills_path, :notice => 'Skill was successfully created.') }
         format.xml  { render :xml => @skill, :status => :created, :location => @skill }
       else
         format.html { render :action => "new" }
@@ -60,7 +61,7 @@ class SkillsController < ApplicationController
 
     respond_to do |format|
       if @skill.update_attributes(params[:skill])
-        format.html { redirect_to(@skill, :notice => 'Skill was successfully updated.') }
+        format.html { redirect_to(skills_path, :notice => 'Skill was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

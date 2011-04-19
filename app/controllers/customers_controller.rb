@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
-  # GET /customers
-  # GET /customers.xml
+
+  before_filter :authenticate_admin
+
   def index
     @customers = Customer.all
 
@@ -44,7 +45,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to(@customer, :notice => 'Customer was successfully created.') }
+        format.html { redirect_to(customers_path, :notice => 'Customer was successfully created.') }
         format.xml  { render :xml => @customer, :status => :created, :location => @customer }
       else
         format.html { render :action => "new" }
@@ -60,7 +61,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.update_attributes(params[:customer])
-        format.html { redirect_to(@customer, :notice => 'Customer was successfully updated.') }
+        format.html { redirect_to(customers_path, :notice => 'Customer was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

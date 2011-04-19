@@ -1,5 +1,7 @@
 Manager::Application.routes.draw do
   
+  devise_for :users
+
   resources :employees
 
   resources :departments
@@ -58,7 +60,6 @@ Manager::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
     root :to => "employees#index"
-
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
 
-  before_filter :prepare, :only => [:new, :create, :edit]
+  before_filter :prepare, :only => [:new, :edit]
+  before_filter :authenticate_admin
 
   def index
     @employees = Employee.all
@@ -45,9 +46,10 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to(@employee, :notice => 'Employee was successfully created.') }
+        format.html { redirect_to(employees_path, :notice => 'Employee was successfully created.') }
         format.xml  { render :xml => @employee, :status => :created, :location => @employee }
       else
+        prepare
         format.html { render :action => "new" }
         format.xml  { render :xml => @employee.errors, :status => :unprocessable_entity }
       end
@@ -62,9 +64,10 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.update_attributes(params[:employee])
-        format.html { redirect_to(@employee, :notice => 'Employee was successfully updated.') }
+        format.html { redirect_to(employees_path, :notice => 'Employee was successfully updated.') }
         format.xml  { head :ok }
       else
+        prepare
         format.html { render :action => "edit" }
         format.xml  { render :xml => @employee.errors, :status => :unprocessable_entity }
       end
@@ -88,7 +91,7 @@ class EmployeesController < ApplicationController
   def prepare
     @departments = []
     Department.all.each do |dep|
-      @departments << [dep.name, dep.id]
+      @departments << [dep.name, dep.id] if dep.is_active
     end
   end    
 
