@@ -1,5 +1,9 @@
 Manager::Application.routes.draw do
-  
+
+  resources :bookings
+
+  resources :projects
+
   devise_for :users
 
   resources :employees
@@ -9,6 +13,8 @@ Manager::Application.routes.draw do
   resources :customers
 
   resources :skills
+
+  get "projecting/staffing" => "projects#staffing", :as => "staffing"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

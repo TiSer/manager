@@ -1,0 +1,29 @@
++ 1. Project scaffold
+
+ id, name, department_id, payment_model, is_active, customer_id
+
++ 2. Participant (employees_projects) migration (Staffing)
+
+    project_id, employee_id
+
++ 3. Booking scaffold
+
+ id, project_id, employee_id, activity_id, date, hours
+
+PS: + default_activity_id
+ 
+ 4. Booking view (add Staffing for Projects index)
+
+ 1) html table
+ 2) Total activity on all projects
+ 3) Colors for activity R - >8,
+                        Y - (0..8),
+                        G - 0  
+
+  - не выводить пользователей из P1 в P2
+  - сортировка по имени 
+
+#--------------------------
+        WITHOUT calendar!!!!!!!!!!!!! (template)  
+
++ booking - dependant destroy (employees)

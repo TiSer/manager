@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110419132135) do
+ActiveRecord::Schema.define(:version => 20110422103100) do
+
+  create_table "bookings", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "employee_id"
+    t.integer  "activity_id"
+    t.datetime "date"
+    t.integer  "hours"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "customers", :force => true do |t|
     t.string   "country"
@@ -40,6 +50,16 @@ ActiveRecord::Schema.define(:version => 20110419132135) do
   create_table "employees_skills", :id => false, :force => true do |t|
     t.integer  "employee_id"
     t.integer  "skill_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.integer  "department_id"
+    t.string   "payment_model"
+    t.boolean  "is_active"
+    t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

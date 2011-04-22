@@ -1,0 +1,31 @@
+<h1>Listing bookings</h1>
+
+<table>
+  <tr>
+    <th>Project</th>
+    <th>Employee</th>
+    <th>Activity</th>
+    <th>Date</th>
+    <th>Hours</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bookings.each do |booking| %>
+  <tr>
+    <td><%= booking.project_id %></td>
+    <td><%= booking.employee_id %></td>
+    <td><%= booking.activity_id %></td>
+    <td><%= booking.date %></td>
+    <td><%= booking.hours %></td>
+    <td><%= link_to 'Show', booking %></td>
+    <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+    <td><%= link_to 'Destroy', booking, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Booking', new_booking_path %>

@@ -7,6 +7,7 @@
     primary.item :skills, "Skills", skills_path
     primary.item :departments, "Departments", departments_path
     primary.item :customers, "Customers", customers_path
+    primary.item :projects, "Projects", projects_path
 
  end
 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  department_id: 1
+  payment_model: MyString
+  is_active: false
+  customer_id: 1
+
+two:
+  name: MyString
+  department_id: 1
+  payment_model: MyString
+  is_active: false
+  customer_id: 1
