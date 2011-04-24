@@ -1,1 +1,31 @@
 <h1>Project staffing</h1>
+
+<table border="1" cellpadding="1" cellspacing="0" width = "100%">
+  <tr>
+    <th>Emploee</th>
+    <% 5.times do %>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wen</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th id="weekend">Sat</th>
+      <th id="weekend">Sun</th>
+    <% end %>
+  </tr>
+  <% @participants.each do |employee|%>
+    <tr>
+        <td><%= employee.name %></td>
+        <% 35.times do %>
+          <td></td>
+        <% end %>
+    </tr>
+  <% end %>
+</table>
+<p>
+  <%= form_tag(add_staff_path(@project.id), :method => "get") do %>
+    <%= submit_tag("Add staff") %>
+  <% end %>
+</p>
+<hr/>
+

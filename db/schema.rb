@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110422103100) do
+ActiveRecord::Schema.define(:version => 20110422103312) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "project_id"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(:version => 20110422103100) do
     t.string   "name"
     t.string   "email"
     t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "default_activity_id"
+  end
+
+  create_table "employees_projects", :id => false, :force => true do |t|
+    t.integer  "employee_id"
+    t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-  before_filter :prepare_departments, :only => [:new, :edit]  
+  before_filter :prepare_departments, :only => [:new, :edit]
   before_filter :prepare_customers, :only => [:new, :edit]
 
   def index
@@ -13,7 +13,34 @@ class ProjectsController < ApplicationController
   end
 
   def staffing
-      
+    @project = Project.find(params[:id])
+    @participants = @project.employees
+  end
+
+  def add_staff
+    @project = Project.find(params[:id])
+    @participants = @project.employees
+
+    @others_ids_str = @participants.map(&:emplyoee_id).join(',')
+
+    if params[:skill]
+      skill = Skill.find(params[:skill][:id])
+       @finded_employees = skill.employee.where("id NOT IN(\"#{@others_ids_str}\") AND is_active = true")
+      @others_ids_str += ',' if @others_ids_str != ''
+      @others_ids_str += @finded_employees.map(&:id).join(',')
+    end
+
+    @others_employees = Employee.where("id NOT IN(\"#{@others_ids_str}\") AND is_active = true")
+
+
+    @skills = []
+    @skills = [[skill.name, skill.id]] if skill
+    Skill.all.each do |skill|
+      @skills << [skill.name, skill.id]
+    end
+    @skills.uniq!
+
+
   end
 
   def show
@@ -100,3 +127,4 @@ class ProjectsController < ApplicationController
   end
 
 end
+

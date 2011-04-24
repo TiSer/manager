@@ -1,6 +1,6 @@
 #left-column  { float: left; width: 230px; margin: 0.1em 1em; line-height: 1.1em;
                 border-style: dashed; border-width: 0.2em; padding: 0.5em }
-#right-column { float: right; width: 1030px; margin: 0.1em 1em; line-height: 1.1em;
+#right-column { float: left;  margin: 0.1em 1em; line-height: 1.1em;
                 /*border-style: dashed; border-width: 0.1em;*/ }
                 border-style: dashed; border-width: 0.2em; }
 
@@ -8,4 +8,7 @@
 
 .activity_box { width: 1em; height: 1em; margin: 0 auto; }
 #true  { background-color: #33CC00; }
-#false { background-color: red; }
+#false { background-color: red; color: white;}
+#weekend { background: #6495ED; color: white;}
+#divider { background: #D2691E; height: 0.5em;}
+
