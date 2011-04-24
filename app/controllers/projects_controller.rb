@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @participants = @project.employees
 
-    @others_ids_str = @participants.map(&:emplyoee_id).join(',')
+    @others_ids_str = @participants.map(&:id).join(',')
 
     if params[:skill]
       skill = Skill.find(params[:skill][:id])
@@ -40,7 +40,14 @@ class ProjectsController < ApplicationController
     end
     @skills.uniq!
 
+  end
 
+  def save_staff
+    @project = Project.find(params[:id])
+    if @project.update_attributes(params[:project])
+       flash[:notice] ='Staff was successfully added.'
+    end
+       redirect_to add_staff_path(@project.id)
   end
 
   def show
