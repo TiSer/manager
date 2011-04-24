@@ -15,9 +15,15 @@
   </tr>
   <% @participants.each do |employee|%>
     <tr>
-        <td><%= employee.name %></td>
-        <% 35.times do %>
-          <td></td>
+        <td>
+          <%= link_to employee.name, employee_path(employee) %> | <%= link_to "del", \
+          delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', \
+          :method => :delete %>
+        </td>
+        <% 5.times do |j|%>
+          <% 7.times do |i|%>
+             <td id="<%='weekend' if [5,6].include?(i) %>"></td>
+          <% end %>
         <% end %>
     </tr>
   <% end %>

@@ -21,6 +21,24 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @participants = @project.employees
 
+
+
+    @others_employees = []
+    Employee.all.each do |employee|
+      @others_employees << employee if !@participants.include?(employee) and\
+                                        employee.is_active == true
+    end
+
+    if params[:skill]
+      skill = Skill.find(params[:skill][:id])
+      @finded_employees = []
+      @others_employees.each do |oe|
+        @finded_employees << oe if oe.skills.include?(skill)
+      end
+      @others_employees = @others_employees.delete_if { |o| @finded_employees.include?(o) }
+    end
+
+=begin
     @others_ids_str = @participants.map(&:id).join(',')
 
     if params[:skill]
@@ -31,7 +49,7 @@ class ProjectsController < ApplicationController
     end
 
     @others_employees = Employee.where("id NOT IN(\"#{@others_ids_str}\") AND is_active = true")
-
+=end
 
     @skills = []
     @skills = [[skill.name, skill.id]] if skill
@@ -49,6 +67,17 @@ class ProjectsController < ApplicationController
     end
        redirect_to add_staff_path(@project.id)
   end
+
+  def destroy_pariticipant
+    @project = Project.find(params[:project_id])
+    participant_id = params[:employee_id]
+    @project.employee_ids = @project.employee_ids.delete_if {|id| id == participant_id.to_i}
+    if @project.update_attributes(params[:project])
+       flash[:notice] ='Participant was successfully deleted.'
+    end
+       redirect_to staffing_path(@project.id)
+  end
+
 
   def show
     @project = Project.find(params[:id])

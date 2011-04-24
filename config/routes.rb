@@ -16,8 +16,8 @@ Manager::Application.routes.draw do
 
   get "project_staffing/:id" => "projects#staffing", :as => "staffing"
   get "project_add_staffing/:id" => "projects#add_staff", :as => "add_staff"
-  post "project_save_staffing/:id" => "projects#save_staff", :as => "save_staffing"
-
+  post "project_save_participant/:id" => "projects#save_staff", :as => "save_staffing"
+  delete "project_delete_participant/:project_id/employee/:employee_id" => "projects#destroy_pariticipant", :as => "delete_pariticipant"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
