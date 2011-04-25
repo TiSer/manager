@@ -24,38 +24,17 @@
     </tr>
 
     <% if @finded_employees %>
-      <% @finded_employees.each do |employee|%>
-        <tr>
-            <td>
-              <%= check_box_tag "project[employee_ids][]", employee.id, \
-              @project.employees.include?(employee) %><%= employee.name %>
-            </td>
-            <% 5.times do |j|%>
-              <% 7.times do |i|%>
-                <td id="<%='weekend' if [5,6].include?(i) %>"></td>
-              <% end %>
-            <% end %>
-        </tr>
-      <% end %>
+      <%= render :partial => "employees", :locals => {:employees => @finded_employees, \
+      :project => @project} %>
     <% end %>
 
     <tr>
-      <th id="divider" colspan="36"></td>
+      <th id="divider" colspan="36" align="left">Others</th>
     </tr>
 
-    <% @others_employees.each do |employee|%>
-      <tr>
-          <td>
-            <%= check_box_tag "project[employee_ids][]", employee.id, \
-            @project.employees.include?(employee) %><%= employee.name %>
-          </td>
-          <% 5.times do |j|%>
-            <% 7.times do |i|%>
-              <td id="<%='weekend' if [5,6].include?(i) %>"></td>
-            <% end %>
-          <% end %>
-      </tr>
-    <% end %>
+    <%= render :partial => "employees", :locals => {:employees => @others_employees, \
+    :project => @project} %>
+
   </table>
   <%= submit_tag("Add selected") %>
 <% end %>

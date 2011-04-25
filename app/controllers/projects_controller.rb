@@ -62,17 +62,24 @@ class ProjectsController < ApplicationController
 
   def save_staff
     @project = Project.find(params[:id])
-    if @project.update_attributes(params[:project])
-       flash[:notice] ='Staff was successfully added.'
+    if params[:project]
+      params[:project][:employee_ids] ||= []
+      @project.employee_ids = (@project.employee_ids << params[:project]\
+      [:employee_ids]).flatten!
+      if @project.save
+         flash[:notice] ='Staff was successfully added.'
+      end
+    else
+     flash[:notice] ='Select employees which you want to add, please.'
     end
-       redirect_to add_staff_path(@project.id)
+    redirect_to add_staff_path(@project.id)
   end
 
   def destroy_pariticipant
     @project = Project.find(params[:project_id])
     participant_id = params[:employee_id]
     @project.employee_ids = @project.employee_ids.delete_if {|id| id == participant_id.to_i}
-    if @project.update_attributes(params[:project])
+    if @project.save
        flash[:notice] ='Participant was successfully deleted.'
     end
        redirect_to staffing_path(@project.id)
