@@ -25,8 +25,7 @@ test:
   database: manager_test
   pool: 5
   username: root
-  password: pwd
-  # socket: /var/run/mysqld/mysqld.sock
+  password: 
 
 production:
   adapter: mysql2
