@@ -67,7 +67,7 @@ class ProjectsController < ApplicationController
       @project.employee_ids = (@project.employee_ids << params[:project]\
       [:employee_ids]).flatten!
       if @project.save
-         flash[:notice] ='Staff was successfully added.'
+         flash[:notice] = 'Staff was successfully added.'
       end
     else
      flash[:notice] ='Select employees which you want to add, please.'

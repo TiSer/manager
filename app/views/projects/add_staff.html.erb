@@ -1,17 +1,21 @@
 <h1>Add staff to project:</h1>
+<br />
 
+<div id="search_by_skill">
 <%= form_tag(add_staff_path(@project.id), :method => "get") do %>
-  <div class="field">
-    <%= label_tag :Skills %><br />
+  <div class="field" align="right">
+    <b style="font-size:1.2em"><%= label_tag :Searching_by_skills %>:</b><br />
     <%= select(:skill,:id, @skills ) %>
+    <%= submit_tag("Search!") %>
   </div>
-  <%= submit_tag("Search by skill") %>
 <% end %>
+</div>
+<br />
 
 <%= form_tag(save_staffing_path(@project.id), :method => "post") do %>
   <table border="1" cellpadding="1" cellspacing="0" width = "100%">
     <tr>
-      <th>Emploee</th>
+      <th>Employee</th>
       <% 5.times do %>
         <th>Mon</th>
         <th>Tue</th>
@@ -36,6 +40,7 @@
     :project => @project} %>
 
   </table>
+
   <%= submit_tag("Add selected") %>
 <% end %>
 

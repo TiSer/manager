@@ -1,8 +1,8 @@
-<h1>Project staffing</h1>
+<h1>Project "<%= link_to "#{@project.name}", project_path(@project) %>" staffing</h1>
 
 <table border="1" cellpadding="1" cellspacing="0" width = "100%">
   <tr>
-    <th>Emploee</th>
+    <th>Employee</th>
     <% 5.times do %>
       <th>Mon</th>
       <th>Tue</th>
@@ -16,9 +16,8 @@
   <% @participants.each do |employee|%>
     <tr>
         <td>
-          <%= link_to employee.name, employee_path(employee) %> | <%= link_to "del", \
-          delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', \
-          :method => :delete %>
+          <%= link_to employee.name, employee_path(employee) %>
+         [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
         </td>
         <% 5.times do |j|%>
           <% 7.times do |i|%>
@@ -34,4 +33,4 @@
   <% end %>
 </p>
 <hr/>
-
+<p><%= link_to 'Back', projects_path %>

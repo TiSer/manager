@@ -5,7 +5,7 @@
 
 <p>
   <b>Department:</b>
-  <%= @project.department_id %>
+  "<%= @project.department.name %>"
 </p>
 
 <p>
@@ -13,14 +13,12 @@
   <%= @project.payment_model %>
 </p>
 
-<p>
   <b>Is active:</b>
-  <%= @project.is_active %>
-</p>
+  <%= activity(@project) %>
 
 <p>
   <b>Customer:</b>
-  <%= @project.customer_id %>
+  "<%= @project.customer.name %>"
 </p>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |

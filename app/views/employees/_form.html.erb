@@ -12,15 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label  :department %><br />
+  <b><%= f.label  :department %><br />
     <%= f.select :department_id, @departments %>
   </div>
-  <p>
-	  Skills:<br/>
+  <table><td>
+	  <b>Skills:</b><br/>
 	  <% for skill in Skill.all do %>
 		  <%= check_box_tag "employee[skill_ids][]", skill.id, @employee.skills.include?(skill) %> <%= skill.name %><br/>
 	  <% end %>
-  </p>
+  </td></table>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
