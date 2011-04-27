@@ -89,10 +89,7 @@ class EmployeesController < ApplicationController
   private #--------------------------------------------------------------------------------
 
   def prepare
-    @departments = []
-    Department.all.each do |dep|
-      @departments << [dep.name, dep.id] if dep.is_active
-    end
+    @departments = Department.dd
   end    
 
 

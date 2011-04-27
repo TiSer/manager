@@ -20,39 +20,39 @@ class ProjectsController < ApplicationController
   def add_staff
     @project = Project.find(params[:id])
     @participants = @project.employees
+    
+    # @current_dep_employees = @project.department.employees - @participants
+    # @others_employees = Employee.active.skilled(params[:skill][:id]) - @current_dep_employees
+
+    # @others_employees = []
+    # Employee.all.each do |employee|
+    #   @others_employees << employee if !@participants.include?(employee) and employee.is_active == true
+    # end
+    # 
+    # if params[:skill]
+    #   skill = Skill.find(params[:skill][:id])
+    #   @finded_employees = []
+    #   @others_employees.each do |oe|
+    #     @finded_employees << oe if oe.skills.include?(skill)
+    #   end
+    #   @others_employees = @others_employees.delete_if { |o| @finded_employees.include?(o) }
+    # end
 
 
-
-    @others_employees = []
-    Employee.all.each do |employee|
-      @others_employees << employee if !@participants.include?(employee) and\
-                                        employee.is_active == true
-    end
-
-    if params[:skill]
-      skill = Skill.find(params[:skill][:id])
-      @finded_employees = []
-      @others_employees.each do |oe|
-        @finded_employees << oe if oe.skills.include?(skill)
-      end
-      @others_employees = @others_employees.delete_if { |o| @finded_employees.include?(o) }
-    end
-
-=begin
     @others_ids_str = @participants.map(&:id).join(',')
 
     if params[:skill]
       skill = Skill.find(params[:skill][:id])
-       @finded_employees = skill.employee.where("id NOT IN(\"#{@others_ids_str}\") AND is_active = true")
+       @finded_employees = skill.employees.where("employees.id NOT IN(#{@others_ids_str}) AND employees.is_active = true")
       @others_ids_str += ',' if @others_ids_str != ''
       @others_ids_str += @finded_employees.map(&:id).join(',')
     end
 
-    @others_employees = Employee.where("id NOT IN(\"#{@others_ids_str}\") AND is_active = true")
-=end
+    @others_employees = Employee.where("id NOT IN(#{@others_ids_str}) AND is_active = true")
+
 
     @skills = []
-    @skills = [[skill.name, skill.id]] if skill
+    # @skills = [[skill.name, skill.id]] if skill
     Skill.all.each do |skill|
       @skills << [skill.name, skill.id]
     end
@@ -156,10 +156,7 @@ class ProjectsController < ApplicationController
   private #--------------------------------------------------------------------------------
 
   def prepare_departments
-    @departments = []
-    Department.all.each do |dep|
-      @departments << [dep.name, dep.id] if dep.is_active
-    end
+    @departments = Department.dd
   end
 
   def prepare_customers

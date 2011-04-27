@@ -8,5 +8,15 @@ class Employee < ActiveRecord::Base
   validates_presence_of :name, :email
   validates_format_of   :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
+  scope :active, where(:is_active => true)
+  
+  # scope :skilled, lambda { |skill_id| {
+  #  where("") 
+  # }}
+
+  def skilled(skill)
+    
+  end
+
 end
 

@@ -5,7 +5,7 @@
 <%= form_tag(add_staff_path(@project.id), :method => "get") do %>
   <div class="field" align="right">
     <b style="font-size:1.2em"><%= label_tag :Searching_by_skills %>:</b><br />
-    <%= select(:skill,:id, @skills ) %>
+    <%= select(:skill,:id, @skills, :selected => params[:skill][:id]) %>
     <%= submit_tag("Search!") %>
   </div>
 <% end %>
