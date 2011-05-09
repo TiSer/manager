@@ -5,7 +5,7 @@
 <%= form_tag(add_staff_path(@project.id), :method => "get") do %>
   <div class="field" align="right">
     <b style="font-size:1.2em"><%= label_tag :Searching_by_skills %>:</b><br />
-    <%= select(:skill,:id, @skills, :selected => params[:skill][:id]) %>
+    <%= select(:skill,:id, @skills, :selected => params[:skill] ? params[:skill][:id] : "", :include_blank => 'All' ) %>
     <%= submit_tag("Search!") %>
   </div>
 <% end %>
@@ -27,17 +27,14 @@
       <% end %>
     </tr>
 
-    <% if @finded_employees %>
-      <%= render :partial => "employees", :locals => {:employees => @finded_employees, \
-      :project => @project} %>
-    <% end %>
+    <%= render :partial => "employees", :locals => {:employees => @current_dep_employees, :project => @project} %>
+
 
     <tr>
       <th id="divider" colspan="36" align="left">Others</th>
     </tr>
 
-    <%= render :partial => "employees", :locals => {:employees => @others_employees, \
-    :project => @project} %>
+    <%= render :partial => "employees", :locals => {:employees => @others_employees, :project => @project} %>
 
   </table>
 

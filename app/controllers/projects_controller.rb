@@ -20,15 +20,24 @@ class ProjectsController < ApplicationController
   def add_staff
     @project = Project.find(params[:id])
     @participants = @project.employees
-    
-    # @current_dep_employees = @project.department.employees - @participants
-    # @others_employees = Employee.active.skilled(params[:skill][:id]) - @current_dep_employees
+
+    if params[:skill] and params[:skill][:id] != ""
+      @active_employees = Employee.skilled(params[:skill][:id]).active
+      @current_dep_employees =  @active_employees.where(:department_id => @project.department.id)
+    else
+      @current_dep_employees = @project.department.employees.active
+      @active_employees = Employee.active
+    end
+
+    @current_dep_employees -= @participants
+    @others_employees = @active_employees - (@current_dep_employees + @participants)
+
 
     # @others_employees = []
     # Employee.all.each do |employee|
     #   @others_employees << employee if !@participants.include?(employee) and employee.is_active == true
     # end
-    # 
+    #
     # if params[:skill]
     #   skill = Skill.find(params[:skill][:id])
     #   @finded_employees = []
@@ -39,24 +48,20 @@ class ProjectsController < ApplicationController
     # end
 
 
-    @others_ids_str = @participants.map(&:id).join(',')
+   # @others_ids_str = @participants.map(&:id).join(',')
 
-    if params[:skill]
-      skill = Skill.find(params[:skill][:id])
-       @finded_employees = skill.employees.where("employees.id NOT IN(#{@others_ids_str}) AND employees.is_active = true")
-      @others_ids_str += ',' if @others_ids_str != ''
-      @others_ids_str += @finded_employees.map(&:id).join(',')
-    end
+    #if params[:skill]
+     # skill = Skill.find(params[:skill][:id])
+      # @finded_employees = skill.employees.where("employees.id NOT IN(#{@others_ids_str}) AND employees.is_active = true")
+    #  @others_ids_str += ',' if @others_ids_str != ''
+    #  @others_ids_str += @finded_employees.map(&:id).join(',')
+   # end
 
-    @others_employees = Employee.where("id NOT IN(#{@others_ids_str}) AND is_active = true")
+   # @others_employees = Employee.where("id NOT IN(#{@others_ids_str}) AND is_active = true")
 
 
-    @skills = []
-    # @skills = [[skill.name, skill.id]] if skill
-    Skill.all.each do |skill|
-      @skills << [skill.name, skill.id]
-    end
-    @skills.uniq!
+    @skills = Skill.dd
+
 
   end
 
@@ -64,8 +69,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     if params[:project]
       params[:project][:employee_ids] ||= []
-      @project.employee_ids = (@project.employee_ids << params[:project]\
-      [:employee_ids]).flatten!
+      @project.employee_ids = (@project.employee_ids << params[:project][:employee_ids]).flatten!
       if @project.save
          flash[:notice] = 'Staff was successfully added.'
       end
@@ -77,11 +81,19 @@ class ProjectsController < ApplicationController
 
   def destroy_pariticipant
     @project = Project.find(params[:project_id])
-    participant_id = params[:employee_id]
-    @project.employee_ids = @project.employee_ids.delete_if {|id| id == participant_id.to_i}
-    if @project.save
-       flash[:notice] ='Participant was successfully deleted.'
-    end
+
+     employee = @project.employees.find(params[:employee_id])
+
+     if employee
+        @project.employees.delete(employee)
+        flash[:notice] ='Participant was successfully deleted.'
+     end
+
+  #  participant_id = params[:employee_id]
+   # @project.employee_ids = @project.employee_ids.delete_if {|id| id == participant_id.to_i}
+    #if @project.save
+     #  flash[:notice] ='Participant was successfully deleted.'
+    #end
        redirect_to staffing_path(@project.id)
   end
 
@@ -160,10 +172,7 @@ class ProjectsController < ApplicationController
   end
 
   def prepare_customers
-    @customers = []
-    Customer.all.each do |cus|
-      @customers << [cus.name, cus.id] if cus.is_active
-    end
+    @customers = Customer.dd
   end
 
 end
