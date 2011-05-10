@@ -7,12 +7,36 @@
 
 
 <div id="redbox" style="display: none">
-    <div style="width: 400px">
-        <p>This is an inline redbox</p>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat. Maecenas euismod congue quam. Maecenas nec dui. Phasellus ipsum ipsum, lobortis ac, eleifend eu, posuere accumsan, ipsum. Morbi massa. Mauris mattis sollicitudin odio. Donec ut ligula. Vivamus quis sapien. Vivamus orci. Curabitur consectetuer, purus in rhoncus iaculis, diam enim commodo magna, sed auctor magna mauris nec odio. Aliquam tempus. Duis at sem. In massa.</p>
+<%= form_for(:booking) do |f| %>
 
-        <a href="#" onclick="RedBox.close(); return false;">Close</a>
-    </div>
+	<%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :project_id %><br />
+    <%= f.text_field :project_id %>
+  </div>
+  <div class="field">
+    <%= f.label :employee_id %><br />
+    <%= f.text_field :employee_id %>
+  </div>
+  <div class="field">
+    <%= f.label :activity_id %><br />
+    <%= f.text_field :activity_id %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.datetime_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :hours %><br />
+    <%= f.text_field :hours %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+  <a href="#" onclick="RedBox.close(); return false;">Close</a>
 </div>
 
 <hr/>
