@@ -1,45 +1,41 @@
 <h1>Project "<%= link_to "#{@project.name}", project_path(@project) %>" staffing</h1>
 
-<p id="test">TESTING</p>
+<div id="redbox">
+  <%= form_for(:booking, :url => bookings_path, :html => { :method => :post } ) do |f| %>
 
-<hr/>
-<%= link_to_redbox 'redtest', 'redbox' %>
+	  <%= f.error_messages %>
 
+    <div class="field">
+      <%= f.hidden_field :project_id, :value => @project.id %>
+    </div>
 
-<div id="redbox" style="display: none">
-<%= form_for(:booking) do |f| %>
+    <div class="field">
+      <%= f.hidden_field :employee_id %>
+    </div>
 
-	<%= f.error_messages %>
+    <div class="field">
+      <%= f.hidden_field :date_1i, :name => "booking[date(1i)]" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
-  </div>
-  <div class="field">
-    <%= f.label :employee_id %><br />
-    <%= f.text_field :employee_id %>
-  </div>
-  <div class="field">
-    <%= f.label :activity_id %><br />
-    <%= f.text_field :activity_id %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.datetime_select :date %>
-  </div>
-  <div class="field">
-    <%= f.label :hours %><br />
-    <%= f.text_field :hours %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.hidden_field :date_2i, :name => "booking[date(2i)]" %>
+    </div>
 
+    <div class="field">
+      <%= f.hidden_field :date_3i, :name => "booking[date(3i)]" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :hours %>
+      <%= f.text_field :hours %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Ok" %>
+    </div>
+  <% end %>
   <a href="#" onclick="RedBox.close(); return false;">Close</a>
 </div>
-
-<hr/>
 
 <table border="0" cellpadding="1" cellspacing="0" align="center">
   <tr>
@@ -60,7 +56,11 @@
            @current_day_id = days
          end
       %>
-      <th id="<%= days + 1 %>"><%= @current_date.monday + days.day%></th>
+      <th id="<%= days + 1 %>">
+        <div id="day"><%= @date.day %></div>
+        <div id="month"><%= @date.month %></div>
+        <div id="year"><%= @date.year %></div>
+      </th>
     <% end %>
   </tr>
   <tr id= "day">

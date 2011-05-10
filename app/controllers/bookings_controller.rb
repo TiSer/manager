@@ -44,7 +44,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to(@booking, :notice => 'Booking was successfully created.') }
+        format.html { redirect_to(staffing_path(@booking.project), :notice => 'Booking was successfully created.') }
         format.xml  { render :xml => @booking, :status => :created, :location => @booking }
       else
         format.html { render :action => "new" }
@@ -81,3 +81,4 @@ class BookingsController < ApplicationController
     end
   end
 end
+
