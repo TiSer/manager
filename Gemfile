@@ -6,6 +6,7 @@ gem 'rails', '3.0.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+gem "redbox"
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -31,7 +32,8 @@ gem 'mysql2'
 # end
 
 gem 'devise'
-#gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git" 
-gem "simple-navigation"	
+#gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem "simple-navigation"
 gem 'will_paginate', '~> 3.0.beta'
 gem 'jquery-rails', '>= 0.2.6'
+

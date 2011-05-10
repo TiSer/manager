@@ -30,6 +30,7 @@ table { -moz-border-radius: 0.5em;
 
 tr#date {display: none;}
 
+tr.employee td.bookable { cursor:pointer; }
   p { color:red; margin:5px; cursor:pointer; }
   p.hilite { background:yellow; }
 
