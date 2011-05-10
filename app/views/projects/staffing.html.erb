@@ -1,6 +1,35 @@
 <h1>Project "<%= link_to "#{@project.name}", project_path(@project) %>" staffing</h1>
 
+<p id="test">TESTING</p>
+
+<table border="0" cellpadding="1" cellspacing="0" align="center">
+  <tr>
+    <td>Month:</td>
+    <td id="month"><%= @current_date.month %></td>
+    <td>Year:</td>
+    <td id="year"><%= @current_date.year %></td>
+  </tr>
+</table>
+
 <table border="1" cellpadding="1" cellspacing="0" width = "100%">
+  <tr id= "date">
+    <th>Date</th>
+    <% 35.times do |days| %>
+      <% @date = @current_date.monday + days.day %>
+      <%
+         if @current_date.midnight == @date
+           @current_day_id = days
+         end
+      %>
+      <th id="<%= days + 1 %>"><%= @current_date.monday + days.day%></th>
+    <% end %>
+  </tr>
+  <tr id= "day">
+    <th>Day</th>
+    <% 35.times do |days| %>
+      <th id="<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= (@current_date.monday + days.day).day%></th>
+    <% end %>
+  </tr>
   <tr>
     <th>Employee</th>
     <% 5.times do %>
@@ -9,21 +38,23 @@
       <th>Wen</th>
       <th>Thu</th>
       <th>Fri</th>
-      <th id="weekend">Sat</th>
-      <th id="weekend">Sun</th>
+      <th class="weekend">Sat</th>
+      <th class="weekend">Sun</th>
     <% end %>
   </tr>
   <% @participants.each do |employee|%>
-    <tr>
+    <tr id="<%=employee.id %>" class="employee">
         <td>
           <%= link_to employee.name, employee_path(employee) %>
          [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
         </td>
-        <% 5.times do |j|%>
-          <% 7.times do |i|%>
-             <td id="<%='weekend' if [5,6].include?(i) %>"></td>
+          <% id = 0 %>
+          <% 5.times do |j|%>
+            <% 7.times do |i|%>
+              <% id +=1 %>
+              <td id="<%= id %>" class="<%='weekend' if [5,6].include?(i) %> bookable"></td>
+            <% end %>
           <% end %>
-        <% end %>
     </tr>
   <% end %>
 </table>
@@ -34,3 +65,4 @@
 </p>
 <hr/>
 <p><%= link_to 'Back', projects_path %>
+

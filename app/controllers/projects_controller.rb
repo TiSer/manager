@@ -15,6 +15,9 @@ class ProjectsController < ApplicationController
   def staffing
     @project = Project.find(params[:id])
     @participants = @project.employees
+
+    @current_date = Time.now
+    #@current_monday = @current_date.monday().day
   end
 
   def add_staff

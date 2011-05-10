@@ -1,12 +1,13 @@
 <% employees.each do |employee|%>
-      <tr>
+      <tr id="<%=employee.id %>" class="employee">
           <td>
-            <%= check_box_tag "project[employee_ids][]", employee.id, \
-            project.employees.include?(employee) %><%= employee.name %>
+            <%= check_box_tag "project[employee_ids][]", employee.id, project.employees.include?(employee) %><%= employee.name %>
           </td>
+          <% id = 0 %>
           <% 5.times do |j|%>
             <% 7.times do |i|%>
-              <td id="<%='weekend' if [5,6].include?(i) %>"></td>
+              <% id +=1 %>
+              <td id="<%= id %>" class="<%='weekend' if [5,6].include?(i) %>"></td>
             <% end %>
           <% end %>
       </tr>

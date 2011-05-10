@@ -11,17 +11,25 @@ table { -moz-border-radius: 0.5em;
        }
 
   td,th {
-        padding: 0.4em; /* Поля вокруг текста */ 
+        padding: 0.4em; /* Поля вокруг текста */
         -moz-border-radius: 0.3em;
-        border: 0.1em solid #CFE9D5; /* Граница вокруг ячеек */ 
+        border: 0.1em solid #CFE9D5; /* Граница вокруг ячеек */
         }
 
 .activity_box { width: 1em; height: 1em; margin: 0 auto; }
 #true  { background-color: #33CC00; }
 #false { background-color: red; color: white;}
 
-#weekend { background: #6495ED; color: white;}
+.weekend { background: #6495ED; color: white;}
 #divider { background: #526F14; color: white;}
 #search_by_skill {border-style:dotted; border-width:0.1em;
                   width:160px;
                   padding:0.2em; margin-bottom:-1em;}
+
+.current_day { background: #BDB76B; color: white; }
+
+tr#date {display: none;}
+
+  p { color:red; margin:5px; cursor:pointer; }
+  p.hilite { background:yellow; }
+
