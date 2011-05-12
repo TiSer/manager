@@ -1,9 +1,6 @@
 $(document).ready(function(){
-	$("#test")
-		.bind('click', function (evt) {
-			console.log($('td.bookable'));
-            RedBox.showInline('redbox'); return false;
-		});
+    $("#booking_end_date").datepicker();
+
     $('td.bookable')
 		.bind('click', function (evt) {
             employee_id = this.parentNode.id
@@ -14,12 +11,16 @@ $(document).ready(function(){
             year = $('div#year', th_date).text()
           /*  console.log('date = ' + day+'/'+month+'/'+year); */
             $("#booking_employee_id").val(employee_id)
+            employee_name = $('a.employee_link' ,this.parentNode).text();
+            $("div#employee_name").text('Employee: ' + employee_name)
+            $("div#current_date").text('Begin Date: ' + day+'.'+month+'.'+year)
 
             $("#booking_date_3i").val(day)
             $("#booking_date_2i").val(month)
             $("#booking_date_1i").val(year)
-
-            RedBox.showInline('redbox'); return false;
+            console.log($('#booking_end_date'));
+            RedBox.showInline('redbox');
+            return false;
 		});
 });
 

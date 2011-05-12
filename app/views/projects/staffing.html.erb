@@ -1,48 +1,58 @@
 <h1>Project "<%= link_to "#{@project.name}", project_path(@project) %>" staffing</h1>
 
 <div id="redbox">
-  <%= form_for(:booking, :url => bookings_path, :html => { :method => :post } ) do |f| %>
+  <div class="modal_box shadow">
+    <%= form_for(:booking, :url => bookings_path, :html => { :method => :post } ) do |f| %>
 
-	  <%= f.error_messages %>
+	    <%= f.error_messages %>
 
-    <div class="field">
-      <%= f.hidden_field :project_id, :value => @project.id %>
-    </div>
+      <div class="field">
+        <%= f.hidden_field :project_id, :value => @project.id %>
+      </div>
 
-    <div class="field">
-      <%= f.hidden_field :employee_id %>
-    </div>
+      <div class="field">
+        <%= f.hidden_field :employee_id %>
+      </div>
+      <div class="modal_label padded"><b>Create booking on</b></div>
+      <div id ="employee_name" class="modal_input padded"></div>
+      <div id ="current_date" class="modal_input padded"></div>
 
-    <div class="field">
-      <%= f.hidden_field :date_1i, :name => "booking[date(1i)]" %>
-    </div>
+      <div class="field modal_input">
+        <%= f.label :end_date %>
+        <%= f.text_field :end_date, :size=>10 %>
+      </div>
 
-    <div class="field">
-      <%= f.hidden_field :date_2i, :name => "booking[date(2i)]" %>
-    </div>
+      <div class="field modal_input">
+        <%= f.label :hours %>
+        <%= f.text_field :hours, :size=>2 %>
+        per day
+      </div>
 
-    <div class="field">
-      <%= f.hidden_field :date_3i, :name => "booking[date(3i)]" %>
-    </div>
+      <div class="field">
+        <%= f.hidden_field :date_1i, :name => "booking[date(1i)]" %>
+      </div>
 
-    <div class="field">
-      <%= f.label :hours %>
-      <%= f.text_field :hours %>
-    </div>
+      <div class="field">
+        <%= f.hidden_field :date_2i, :name => "booking[date(2i)]" %>
+      </div>
 
-    <div class="actions">
-      <%= f.submit "Ok" %>
-    </div>
-  <% end %>
-  <a href="#" onclick="RedBox.close(); return false;">Close</a>
+      <div class="field">
+        <%= f.hidden_field :date_3i, :name => "booking[date(3i)]" %>
+      </div>
+
+      <div class="actions clear_left">
+        <%= f.submit "Ok" %>
+      </div>
+
+
+    <% end %>
+    <p><a href="#" onclick="RedBox.close(); return false;">Close</a></p>
+  </div>
 </div>
 
-<table border="0" cellpadding="1" cellspacing="0" align="center">
+<table border="0" cellpadding="1" cellspacing="0">
   <tr>
-    <td>Month:</td>
-    <td id="month"><%= @current_date.month %></td>
-    <td>Year:</td>
-    <td id="year"><%= @current_date.year %></td>
+    <td id="month"><%= @current_date.strftime('%B %Y') %></td>
   </tr>
 </table>
 
@@ -58,7 +68,7 @@
       %>
       <th id="<%= days + 1 %>">
         <div id="day"><%= @date.day %></div>
-        <div id="month"><%= @date.month %></div>
+        <div id="month"><%= @date.strftime("%m") %></div>
         <div id="year"><%= @date.year %></div>
       </th>
     <% end %>
@@ -84,7 +94,7 @@
   <% @participants.each do |employee|%>
     <tr id="<%=employee.id %>" class="employee">
         <td>
-          <%= link_to employee.name, employee_path(employee) %>
+          <%= link_to employee.name, employee_path(employee), :class => "employee_link" %>
          [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
         </td>
           <% id = 0 %>

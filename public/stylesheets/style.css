@@ -34,3 +34,22 @@ tr.employee td.bookable { cursor:pointer; }
 
 #redbox {display: none; margin: 0 auto; margin-left: -70%;}
 
+.modal_box {width: 200px; height: 400px; background: white;}
+
+.modal_label {color: black; font-size: 1em; margin: 0 auto;}
+
+.modal_bottom {position: relative; top: 250px; background: grey;}
+
+.padded {padding-top: 2em;}
+.modal_input {margin-left: 15px; float: left; padding-top: 2em;}
+
+#employee_name {top: 20px;}
+
+.shadow {
+  -moz-box-shadow: 5px 5px 5px #000;
+  -webkit-box-shadow: 5px 5px 5px #000;
+  box-shadow: 5px 5px 5px #000;
+}
+
+.clear_left {clear: left;}
+
