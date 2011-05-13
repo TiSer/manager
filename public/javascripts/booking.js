@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    $("#booking_end_date").datepicker();
+
+    $("#booking_end_date").datepicker({ dateFormat: 'dd.mm.yy' });
 
     $('td.bookable')
 		.bind('click', function (evt) {
@@ -18,7 +19,7 @@ $(document).ready(function(){
             $("#booking_date_3i").val(day)
             $("#booking_date_2i").val(month)
             $("#booking_date_1i").val(year)
-            console.log($('#booking_end_date'));
+
             RedBox.showInline('redbox');
             return false;
 		});

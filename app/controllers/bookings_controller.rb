@@ -40,16 +40,29 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.xml
   def create
+    end_date = params[:booking][:end_date].split('.')
+  #  p end_date
+    end_date  = Time.new(end_date[2],end_date[1],end_date[0])
+    params[:booking].delete("end_date")
     @booking = Booking.new(params[:booking])
+   # p @booking.date.strftime("%d.%m.%y")
+   date = @booking.date #+ 1.day
+   while date <= end_date + 1.day do
+     booking_item = Booking.new(params[:booking])
+      booking_item.date = date
+      booking_item.save!
+      date += 1.day
+   end
+
 
     respond_to do |format|
-      if @booking.save
+ #     if @booking.save
         format.html { redirect_to(staffing_path(@booking.project), :notice => 'Booking was successfully created.') }
-        format.xml  { render :xml => @booking, :status => :created, :location => @booking }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
-      end
+#        format.xml  { render :xml => @booking, :status => :created, :location => @booking }
+#      else
+#        format.html { render :action => "new" }
+#        format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
+ #    end
     end
   end
 
