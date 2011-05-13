@@ -40,29 +40,20 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.xml
   def create
-    end_date = params[:booking][:end_date].split('.')
-  #  p end_date
-    end_date  = Time.new(end_date[2],end_date[1],end_date[0])
-    params[:booking].delete("end_date")
-    @booking = Booking.new(params[:booking])
-   # p @booking.date.strftime("%d.%m.%y")
-   date = @booking.date #+ 1.day
-   while date <= end_date + 1.day do
-     booking_item = Booking.new(params[:booking])
-      booking_item.date = date
-      booking_item.save!
-      date += 1.day
-   end
+    parse_end_date_for_bookings
 
+    @booking = Booking.new(params[:booking])
 
     respond_to do |format|
- #     if @booking.save
+      if @booking.save
+        create_other_bookings
+
         format.html { redirect_to(staffing_path(@booking.project), :notice => 'Booking was successfully created.') }
-#        format.xml  { render :xml => @booking, :status => :created, :location => @booking }
-#      else
-#        format.html { render :action => "new" }
-#        format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
- #    end
+        format.xml  { render :xml => @booking, :status => :created, :location => @booking }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
+     end
     end
   end
 
@@ -93,5 +84,25 @@ class BookingsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+#---------------------------------------------------------
+  private
+    def parse_end_date_for_bookings
+       end_date = params[:booking][:end_date].split('.')
+       @end_date  = Time.new(end_date[2],end_date[1],end_date[0])
+       params[:booking].delete("end_date")
+    end
+
+    def create_other_bookings
+       date = @booking.date + 1.day
+       while date <= @end_date + 1.day do
+         if !date.saturday? and !date.sunday?
+           booking_item = Booking.new(params[:booking])
+           booking_item.date = date
+           booking_item.save
+         end
+         date += 1.day
+       end
+    end
 end
 

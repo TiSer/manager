@@ -1,5 +1,9 @@
 <h1>Project "<%= link_to "#{@project.name}", project_path(@project) %>" staffing</h1>
 
+<% content_for :booking_js do %>
+  <%= javascript_include_tag "booking.js" %>
+<% end %>
+
 <div id="redbox">
   <div class="modal_box shadow">
     <%= form_for(:booking, :url => bookings_path, :html => { :method => :post } ) do |f| %>

@@ -6,10 +6,8 @@
   <%= stylesheet_link_tag 'redbox' %>
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag 'redbox' %>
-  <%#= javascript_include_tag "http://code.jquery.com/jquery-latest.js" %>
   <%= javascript_include_tag "jquery-ui.min.js" %>
-
-  <%= javascript_include_tag "booking.js" %>
+  <%= yield :booking_js %>
   <%= csrf_meta_tag %>
 </head>
 <body>
