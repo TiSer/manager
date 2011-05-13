@@ -55,8 +55,12 @@
 </div>
 
 <table border="0" cellpadding="1" cellspacing="0">
-  <tr>
-    <td id="month"><%= @current_date.strftime('%B %Y') %></td>
+  <tr id="calendar_controls">
+    <td><%= link_to '<<', staffing_path(@project, :offset => "prev_year",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '<', staffing_path(@project, :offset => "prev_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td id="month"><%= @current_monday.strftime('%B %Y') %></td>
+    <td><%= link_to '>', staffing_path(@project, :offset => "next_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '>>', staffing_path(@project, :offset => "next_year",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
   </tr>
 </table>
 
@@ -64,7 +68,7 @@
   <tr id= "date">
     <th>Date</th>
     <% 35.times do |days| %>
-      <% @date = @current_date.monday + days.day %>
+      <% @date = @current_monday + days.day %>
       <%
          if @current_date.midnight == @date
            @current_day_id = days
@@ -80,7 +84,7 @@
   <tr id= "day">
     <th>Day</th>
     <% 35.times do |days| %>
-      <th id="<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= (@current_date.monday + days.day).day%></th>
+      <th id="<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= ( @current_monday + days.day).day%></th>
     <% end %>
   </tr>
   <tr>

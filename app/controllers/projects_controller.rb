@@ -17,7 +17,26 @@ class ProjectsController < ApplicationController
     @participants = @project.employees
 
     @current_date = Time.now
-    #@current_monday = @current_date.monday().day
+    @current_monday = @current_date.monday
+
+    if params[:month] and params[:year] and params[:day]
+      @current_monday = Time.new(params[:year], params[:month], params[:day])
+    end
+
+    if params[:offset]
+      case params[:offset]
+        when "prev_year"
+          @current_monday -= 1.year
+        when "prev_month"
+          @current_monday -= 1.month
+        when "next_month"
+          @current_monday += 1.month
+        when "next_year"
+          @current_monday += 1.year
+      end
+
+    end
+
   end
 
   def add_staff

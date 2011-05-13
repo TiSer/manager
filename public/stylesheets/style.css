@@ -53,3 +53,5 @@ tr.employee td.bookable { cursor:pointer; }
 
 .clear_left {clear: left;}
 
+#calendar_controls {background: #E0E0E0;}
+
