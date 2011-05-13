@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-    $("#booking_end_date").datepicker({ dateFormat: 'dd.mm.yy', minDate: "0",
+    $.datepicker.setDefaults({firstDay: 1, textDate: '17.05.2011' , changeYear: true, dateFormat: 'dd.mm.yy', minDate: "0"});
+    $("#booking_end_date").datepicker({
        onClose: function() { RedBox.close(); RedBox.showInline('redbox'); }
     });
 
@@ -21,6 +22,7 @@ $(document).ready(function(){
             $("#booking_date_3i").val(day)
             $("#booking_date_2i").val(month)
             $("#booking_date_1i").val(year)
+
 
             RedBox.showInline('redbox');
             return false;
