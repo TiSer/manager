@@ -56,11 +56,11 @@
 
 <table border="0" cellpadding="1" cellspacing="0">
   <tr id="calendar_controls">
-    <td><%= link_to '<<', staffing_path(@project, :offset => "prev_year",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year) %></td>
-    <td><%= link_to '<', staffing_path(@project, :offset => "prev_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '<<', staffing_path(@project, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '<', staffing_path(@project, :offset => "prev_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
     <td id="month"><%= @current_monday.strftime('%B %Y') %></td>
-    <td><%= link_to '>', staffing_path(@project, :offset => "next_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
-    <td><%= link_to '>>', staffing_path(@project, :offset => "next_year",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '>', staffing_path(@project, :offset => "next_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '>>', staffing_path(@project, :offset => "next_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
   </tr>
 </table>
 
@@ -105,11 +105,17 @@
           <%= link_to employee.name, employee_path(employee), :class => "employee_link" %>
          [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
         </td>
+        <% this_bookings = @booking_employees[employee.id] %>
           <% id = 0 %>
           <% 5.times do |j|%>
             <% 7.times do |i|%>
+              <% @date = (@current_monday + id.day).strftime('%d.%m.%Y') %>
               <% id +=1 %>
-              <td id="<%= id %>" class="<%='weekend' if [5,6].include?(i) %> bookable"></td>
+              <td id="<%= id %>" class="<%='weekend' if [5,6].include?(i) %> bookable">
+                <% if this_bookings and this_bookings[@date] %>
+                  <%= this_bookings[@date][0] %>/<%= this_bookings[@date][1] %>
+                <% end %>
+              </td>
             <% end %>
           <% end %>
     </tr>

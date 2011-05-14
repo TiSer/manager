@@ -15,16 +15,37 @@ class ProjectsController < ApplicationController
   def staffing
     @project = Project.find(params[:id])
     @participants = @project.employees
-
+  #  p Booking.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})
+ #   p "BOOKS = ", Booking.where("created_at >=  '#{Time.now.midnight}' AND created_at <= '#{Time.now.midnight+ 1.day}'")
     @current_date = Time.now
     @current_monday = @current_date.monday
 
     staffing_calendar_prev_next
 
-#    @participants.each do |participant|
-#      participant.bookings.where({ :date => @current_monday..(@current_monday + 35.day)})
-#    end
-
+    @booking_employees = {}
+    @participants.each do |participant|
+     #p "participant : ", participant.id
+     this_bookings = participant.bookings_from_monday_to_35th_day(@current_monday)
+     #date_arr = []
+     #@this_bookings.each do |b|
+     # date_arr << b.date if !@this_bookings.include?(b.date)
+     #end
+      #dates = @this_bookings.map(&:date)
+      #arr = dates.uniq!
+    # p "DATE ARR", arr
+      if this_bookings
+        d_arr = this_bookings.map(&:date)
+        dates = d_arr
+        bks_by_date = {}
+        dates.each do |date|
+          project_bks = this_bookings.where(:date => date, :project_id => @project.id).sum("hours")
+          all_bks = this_bookings.where(:date => date).sum("hours")
+          bks_by_date.[]=(date.strftime('%d.%m.%Y'), [project_bks, all_bks])
+        end
+        @booking_employees.[]=(participant.id, bks_by_date)
+      end
+    end
+    p "BOOKINGS_ARRAY = #{@booking_employees}"
   end
 
   def add_staff
@@ -41,34 +62,6 @@ class ProjectsController < ApplicationController
 
     @current_dep_employees -= @participants
     @others_employees = @active_employees - (@current_dep_employees + @participants)
-
-
-    # @others_employees = []
-    # Employee.all.each do |employee|
-    #   @others_employees << employee if !@participants.include?(employee) and employee.is_active == true
-    # end
-    #
-    # if params[:skill]
-    #   skill = Skill.find(params[:skill][:id])
-    #   @finded_employees = []
-    #   @others_employees.each do |oe|
-    #     @finded_employees << oe if oe.skills.include?(skill)
-    #   end
-    #   @others_employees = @others_employees.delete_if { |o| @finded_employees.include?(o) }
-    # end
-
-
-   # @others_ids_str = @participants.map(&:id).join(',')
-
-    #if params[:skill]
-     # skill = Skill.find(params[:skill][:id])
-      # @finded_employees = skill.employees.where("employees.id NOT IN(#{@others_ids_str}) AND employees.is_active = true")
-    #  @others_ids_str += ',' if @others_ids_str != ''
-    #  @others_ids_str += @finded_employees.map(&:id).join(',')
-   # end
-
-   # @others_employees = Employee.where("id NOT IN(#{@others_ids_str}) AND is_active = true")
-
 
     @skills = Skill.dd
 
@@ -192,14 +185,14 @@ class ProjectsController < ApplicationController
 
     if params[:offset]
       case params[:offset]
-        when "prev_year"
-          @current_monday -= 1.year
+        when "prev_week"
+          @current_monday -= 1.week
         when "prev_month"
           @current_monday -= 1.month
         when "next_month"
           @current_monday += 1.month
-        when "next_year"
-          @current_monday += 1.year
+        when "next_week"
+          @current_monday += 1.week
       end
     end
   end

@@ -18,5 +18,10 @@ class Employee < ActiveRecord::Base
     Skill.find(skill).employees
   end
 
+  def bookings_from_monday_to_35th_day(current_monday)
+    #bookings.where({ :date => current_monday.midnight..(current_monday.midnight + 35.day)})
+    bookings.where("date >=  '#{current_monday.midnight}' AND date <= '#{current_monday.midnight+ 35.day}'")
+  end
+
 end
 
