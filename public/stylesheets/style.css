@@ -55,3 +55,7 @@ tr.employee td.bookable { cursor:pointer; }
 
 #calendar_controls {background: #E0E0E0;}
 
+.red_bg { background: #FA8072; }
+.yellow_bg { background: #FF9; }
+.green_bg { background: #00FF7F; }
+

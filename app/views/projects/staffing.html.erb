@@ -109,9 +109,10 @@
           <% id = 0 %>
           <% 5.times do |j|%>
             <% 7.times do |i|%>
-              <% @date = (@current_monday + id.day).strftime('%d.%m.%Y') %>
+              <% mark_date = @current_monday + id.day
+                 @date = mark_date.strftime('%d.%m.%Y') %>
               <% id +=1 %>
-              <td id="<%= id %>" class="<%='weekend' if [5,6].include?(i) %> bookable">
+              <td id="<%= id %>" class="<%= color_marking(this_bookings,mark_date)%> bookable">
                 <% if this_bookings and this_bookings[@date] %>
                   <%= this_bookings[@date][0] %>/<%= this_bookings[@date][1] %>
                 <% end %>
