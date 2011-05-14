@@ -19,23 +19,11 @@ class ProjectsController < ApplicationController
     @current_date = Time.now
     @current_monday = @current_date.monday
 
-    if params[:month] and params[:year] and params[:day]
-      @current_monday = Time.new(params[:year], params[:month], params[:day])
-    end
+    staffing_calendar_prev_next
 
-    if params[:offset]
-      case params[:offset]
-        when "prev_year"
-          @current_monday -= 1.year
-        when "prev_month"
-          @current_monday -= 1.month
-        when "next_month"
-          @current_monday += 1.month
-        when "next_year"
-          @current_monday += 1.year
-      end
-
-    end
+#    @participants.each do |participant|
+#      participant.bookings.where({ :date => @current_monday..(@current_monday + 35.day)})
+#    end
 
   end
 
@@ -195,6 +183,25 @@ class ProjectsController < ApplicationController
 
   def prepare_customers
     @customers = Customer.dd
+  end
+
+  def staffing_calendar_prev_next
+    if params[:month] and params[:year] and params[:day]
+      @current_monday = Time.new(params[:year], params[:month], params[:day])
+    end
+
+    if params[:offset]
+      case params[:offset]
+        when "prev_year"
+          @current_monday -= 1.year
+        when "prev_month"
+          @current_monday -= 1.month
+        when "next_month"
+          @current_monday += 1.month
+        when "next_year"
+          @current_monday += 1.year
+      end
+    end
   end
 
 end

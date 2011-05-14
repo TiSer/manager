@@ -94,14 +94,15 @@ class BookingsController < ApplicationController
     end
 
     def create_other_bookings
-       date = @booking.date + 1.day
-       while date <= @end_date + 1.day do
+       date = @booking.date
+       while date <= @end_date do
+         date += 1.day
          if !date.saturday? and !date.sunday?
            booking_item = Booking.new(params[:booking])
            booking_item.date = date
            booking_item.save
          end
-         date += 1.day
+
        end
     end
 end
