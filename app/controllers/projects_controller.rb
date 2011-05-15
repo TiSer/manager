@@ -190,7 +190,7 @@ class ProjectsController < ApplicationController
 
   def calendar_prev_next
     if params[:month] and params[:year] and params[:day]
-      @current_monday = Time.new(params[:year], params[:month], params[:day])
+      @current_monday = Time.parse(params[:year]+'/'+params[:month]+'/'+params[:day])
     end
 
     if params[:offset]

@@ -94,7 +94,7 @@ class BookingsController < ApplicationController
   private
     def parse_end_date_for_bookings
        end_date = params[:booking][:end_date].split('.')
-       @end_date  = Time.new(end_date[2],end_date[1],end_date[0])
+       @end_date  = Time.parse(end_date[2]+'/'+end_date[1]+'/'+end_date[0])
        params[:booking].delete("end_date")
     end
 
