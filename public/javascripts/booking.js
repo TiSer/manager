@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     $.datepicker.setDefaults({firstDay: 1, changeYear: true, dateFormat: 'dd.mm.yy', minDate: "0"});
     $("#booking_end_date").datepicker({
-       // onClose: function() { RedBox.close(); RedBox.showInline('redbox'); }
+        onClose: function() { RedBox.close(); RedBox.showInline('redbox'); }
     });
 
     $('td.bookable')

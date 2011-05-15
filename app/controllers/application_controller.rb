@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def weekend?(date)
+    date.strftime('%a') == "Sun" or date.strftime('%a') == "Sat"
+  end
+
 end
+

@@ -1,6 +1,6 @@
 module ProjectsHelper
   def color_marking(this_bookings,date)
-    if date.saturday? or date.sunday?
+    if weekend?(date)
       marking = "weekend"
     else
       marking = "green_bg"
@@ -31,7 +31,7 @@ module ProjectsHelper
        marking = "yellow_bg"
     elsif hours_sum >= 8
        marking = "red_bg"
-    elsif date.saturday? or date.sunday?
+    elsif weekend?(date)
        marking = "weekend"
     else
        marking = "green_bg"

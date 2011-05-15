@@ -1,8 +1,8 @@
 var RedBox = {
 showInline: function(id){
               this.showOverlay();
-              // jQuery('#'+id).clone(true).css({display:'block'}).appendTo('#RB_window');
-              jQuery('#'+id).css({display:'block'}).appendTo('#RB_window');
+               jQuery('#'+id).clone(true).css({display:'block'}).appendTo('#RB_window');
+              //jQuery('#'+id).css({display:'block'}).appendTo('#RB_window'); // Some bugs with it
               jQuery("#RB_window").show(0.3);
               this.setWindowPosition();
             },
