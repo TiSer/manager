@@ -12,29 +12,46 @@
 </div>
 <br />
 
-<%= form_tag(save_staffing_path(@project.id), :method => "post") do %>
-  <table border="1" cellpadding="1" cellspacing="0" width = "100%">
-    <tr>
-      <th>Employee</th>
-      <% 5.times do %>
-        <th>Mon</th>
-        <th>Tue</th>
-        <th>Wen</th>
-        <th>Thu</th>
-        <th>Fri</th>
-        <th class="weekend">Sat</th>
-        <th class="weekend">Sun</th>
-      <% end %>
-    </tr>
+<table border="0" cellpadding="1" cellspacing="0">
+  <tr id="calendar_controls">
+    <td><%= link_to '<<', add_staff_path(@project, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '<', add_staff_path(@project, :offset => "prev_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td id="month"><%= @current_monday.strftime('%B %Y') %></td>
+    <td><%= link_to '>', add_staff_path(@project, :offset => "next_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+    <td><%= link_to '>>', add_staff_path(@project, :offset => "next_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
+  </tr>
+</table>
 
-    <%= render :partial => "employees", :locals => {:employees => @current_dep_employees, :project => @project} %>
+<%= form_tag(save_staffing_path(@project.id), :method => "post") do %>
+<table border="1" cellpadding="1" cellspacing="0" width = "100%">
+  <tr id= "day">
+    <th>Day</th>
+    <% 35.times do |days| %>
+      <th id="d<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= ( @current_monday + days.day).day%></th>
+    <% end %>
+  </tr>
+  <tr>
+    <th>Employee</th>
+    <% 5.times do %>
+      <th>Mo</th>
+      <th>Tu</th>
+      <th>We</th>
+      <th>Th</th>
+      <th>Fr</th>
+      <th class="weekend">Sa</th>
+      <th class="weekend">Su</th>
+    <% end %>
+  </tr>
+
+
+    <%= render :partial => "bookings", :locals => {:employees => @current_dep_employees, :project => @project, :bookable => false} %>
 
 
     <tr>
       <th id="divider" colspan="36" align="left">Others</th>
     </tr>
 
-    <%= render :partial => "employees", :locals => {:employees => @others_employees, :project => @project} %>
+    <%= render :partial => "bookings", :locals => {:employees => @others_employees, :project => @project, :bookable => false} %>
 
   </table>
 

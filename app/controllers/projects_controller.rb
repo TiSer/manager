@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
     @current_date = Time.now
     @current_monday = @current_date.monday
 
-    staffing_calendar_prev_next
+    calendar_prev_next
 =begin
     @booking_employees = {}
     @participants.each do |participant|
@@ -53,17 +53,25 @@ class ProjectsController < ApplicationController
     @participants = @project.employees
 
     if params[:skill] and params[:skill][:id] != ""
-      @active_employees = Employee.skilled(params[:skill][:id]).active
-      @current_dep_employees =  @active_employees.where(:department_id => @project.department.id)
+      @active_employees = Employee.skilled(params[:skill][:id]).active.order('name')
+      @current_dep_employees =  @active_employees.where(:department_id => @project.department.id).order('name')
     else
-      @current_dep_employees = @project.department.employees.active
-      @active_employees = Employee.active
+      @current_dep_employees = @project.department.employees.active.order('name')
+      @active_employees = Employee.active.order('name')
     end
 
     @current_dep_employees -= @participants
     @others_employees = @active_employees - (@current_dep_employees + @participants)
 
+    @others_employees = @others_employees
+
     @skills = Skill.dd
+
+    #Must_be_DRYed
+    @current_date = Time.now
+    @current_monday = @current_date.monday
+
+    calendar_prev_next
 
 
   end
@@ -180,7 +188,7 @@ class ProjectsController < ApplicationController
     @customers = Customer.dd
   end
 
-  def staffing_calendar_prev_next
+  def calendar_prev_next
     if params[:month] and params[:year] and params[:day]
       @current_monday = Time.new(params[:year], params[:month], params[:day])
     end
@@ -190,9 +198,9 @@ class ProjectsController < ApplicationController
         when "prev_week"
           @current_monday -= 1.week
         when "prev_month"
-          @current_monday -= 1.month
+          @current_monday -= 4.week
         when "next_month"
-          @current_monday += 1.month
+          @current_monday += 4.week
         when "next_week"
           @current_monday += 1.week
       end
