@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
     @current_monday = @current_date.monday
 
     staffing_calendar_prev_next
-
+=begin
     @booking_employees = {}
     @participants.each do |participant|
      #p "participant : ", participant.id
@@ -45,7 +45,7 @@ class ProjectsController < ApplicationController
         @booking_employees.[]=(participant.id, bks_by_date)
       end
     end
-    p "BOOKINGS_ARRAY = #{@booking_employees}"
+=end
   end
 
   def add_staff
@@ -75,11 +75,13 @@ class ProjectsController < ApplicationController
       @project.employee_ids = (@project.employee_ids << params[:project][:employee_ids]).flatten!
       if @project.save
          flash[:notice] = 'Staff was successfully added.'
+         redirect_to staffing_path(@project.id)
       end
     else
      flash[:notice] ='Select employees which you want to add, please.'
+     redirect_to add_staff_path(@project.id)
     end
-    redirect_to add_staff_path(@project.id)
+
   end
 
   def destroy_pariticipant

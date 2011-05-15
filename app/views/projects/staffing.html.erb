@@ -105,16 +105,21 @@
           <%= link_to employee.name, employee_path(employee), :class => "employee_link" %>
          [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
         </td>
-        <% this_bookings = @booking_employees[employee.id] %>
+        <%# this_bookings = @booking_employees[employee.id] %>
           <% id = 0 %>
           <% 5.times do |j|%>
             <% 7.times do |i|%>
               <% mark_date = @current_monday + id.day
                  @date = mark_date.strftime('%d.%m.%Y') %>
               <% id +=1 %>
-              <td id="d<%= id %>" class="<%= color_marking(this_bookings,mark_date)%> bookable">
-                <% if this_bookings and this_bookings[@date] %>
-                  <%= this_bookings[@date][0] %>/<%= this_bookings[@date][1] %>
+              <% project_bks = employee.bookings.where("date = '#{mark_date}' AND project_id = #{@project.id}").sum("hours")
+                 all_bks = employee.bookings.where("date = '#{mark_date}'").sum("hours") %>
+              <td id="d<%= id %>" class="<%= booking_color_marking(all_bks,mark_date)%> bookable">
+                <%# if this_bookings and this_bookings[@date] %>
+                  <%#= this_bookings[@date][0] %> <%#= this_bookings[@date][1] %>
+                <%# end %>
+                <% if all_bks !=0 %>
+                  <%= project_bks %>/<%= all_bks %>
                 <% end %>
               </td>
             <% end %>
