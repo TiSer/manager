@@ -6,7 +6,7 @@
 
 <div id="redbox">
   <div class="modal_box shadow">
-    <%= form_for(:booking, :url => bookings_path, :html => { :method => :post } ) do |f| %>
+    <%= form_for(:booking, :url => bookings_path, :html => { :method => :post }, :remote => true ) do |f| %>
 
 	    <%= f.error_messages %>
 
@@ -74,7 +74,7 @@
            @current_day_id = days
          end
       %>
-      <th id="<%= days + 1 %>">
+      <th id="d<%= days + 1 %>" class="<%= @date.strftime('%d%m%Y')%>">
         <div id="day"><%= @date.day %></div>
         <div id="month"><%= @date.strftime("%m") %></div>
         <div id="year"><%= @date.year %></div>
@@ -84,7 +84,7 @@
   <tr id= "day">
     <th>Day</th>
     <% 35.times do |days| %>
-      <th id="<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= ( @current_monday + days.day).day%></th>
+      <th id="d<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= ( @current_monday + days.day).day%></th>
     <% end %>
   </tr>
   <tr>
@@ -100,7 +100,7 @@
     <% end %>
   </tr>
   <% @participants.each do |employee|%>
-    <tr id="<%=employee.id %>" class="employee">
+    <tr id="e<%=employee.id %>" class="employee">
         <td>
           <%= link_to employee.name, employee_path(employee), :class => "employee_link" %>
          [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
@@ -112,7 +112,7 @@
               <% mark_date = @current_monday + id.day
                  @date = mark_date.strftime('%d.%m.%Y') %>
               <% id +=1 %>
-              <td id="<%= id %>" class="<%= color_marking(this_bookings,mark_date)%> bookable">
+              <td id="d<%= id %>" class="<%= color_marking(this_bookings,mark_date)%> bookable">
                 <% if this_bookings and this_bookings[@date] %>
                   <%= this_bookings[@date][0] %>/<%= this_bookings[@date][1] %>
                 <% end %>

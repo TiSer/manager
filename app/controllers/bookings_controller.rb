@@ -50,6 +50,11 @@ class BookingsController < ApplicationController
 
         format.html { redirect_to(staffing_path(@booking.project), :notice => 'Booking was successfully created.') }
         format.xml  { render :xml => @booking, :status => :created, :location => @booking }
+        format.js {
+                    @date_begin = @booking.date.strftime('%d%m%Y')
+                    @date_end = @end_date.strftime('%d%m%Y')
+                    @employee_id = @booking.employee.id
+                  }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }

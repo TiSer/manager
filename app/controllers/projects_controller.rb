@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
 
   def staffing
     @project = Project.find(params[:id])
-    @participants = @project.employees
+    @participants = @project.employees.order('name')
   #  p Booking.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})
  #   p "BOOKS = ", Booking.where("created_at >=  '#{Time.now.midnight}' AND created_at <= '#{Time.now.midnight+ 1.day}'")
     @current_date = Time.now
