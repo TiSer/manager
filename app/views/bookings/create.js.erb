@@ -1,0 +1,37 @@
+var db = '<%= @booking.date.strftime('%d%m%Y') %>'
+/* var de = '<%= @end_date.strftime('%d%m%Y') %>' */
+var eid = '<%= @booking.employee.id %>'
+/* var hours = '<%= @booking.hours %>' */
+
+
+RedBox.close();
+
+
+var did = $('th.'+db).attr("id")
+/* var edid = $('th.'+de).attr("id") */
+var num_beg_id = parseInt(did.split('d')[1], 10)
+
+/*
+var num_end_id = parseInt(edid.split('d')[1], 10)
+
+
+
+$("tr#e"+eid+" td#"+did).text(hours)
+$("tr#e"+eid+" td#"+edid).text(hours)
+*/
+/*
+for (i = num_beg_id; i <= num_end_id; i++ ) {
+    $("tr#e"+eid+" td#d"+i).text(hours)
+}
+*/
+
+<% num = 0 %>
+<% @bookings_array_for_ajax.each do |hours| %>
+   i = num_beg_id + <%= num %>
+   <% if hours[1] != 0 %>
+       $("tr#e"+eid+" td#d"+i).text('<%= hours[0] %>/<%= hours[1] %>');
+       $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%= color_marking_ajax(hours[1]) %>');
+   <% end %>
+   <% num+=1 %>
+<% end %>
+

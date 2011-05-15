@@ -51,9 +51,9 @@ class BookingsController < ApplicationController
         format.html { redirect_to(staffing_path(@booking.project), :notice => 'Booking was successfully created.') }
         format.xml  { render :xml => @booking, :status => :created, :location => @booking }
         format.js {
-                    @date_begin = @booking.date.strftime('%d%m%Y')
-                    @date_end = @end_date.strftime('%d%m%Y')
-                    @employee_id = @booking.employee.id
+                    @booking
+                    @end_date
+                    @bookings_array_for_ajax = make_bookings_array
                   }
       else
         format.html { render :action => "new" }
@@ -110,5 +110,19 @@ class BookingsController < ApplicationController
 
        end
     end
+
+    def make_bookings_array
+      employee = @booking.employee
+      date = @booking.date - 1.day
+      bks_arr = []
+       while date <= @end_date do
+        date += 1.day
+        project_bks = employee.bookings.where(:date => date, :project_id => @booking.project.id).sum("hours")
+        all_bks = employee.bookings.where(:date => date).sum("hours")
+        bks_arr << [project_bks, all_bks]
+      end
+      bks_arr
+    end
+
 end
 
