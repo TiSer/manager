@@ -10,13 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110422103312) do
+ActiveRecord::Schema.define(:version => 20110516134046) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "project_id"
     t.integer  "employee_id"
     t.integer  "activity_id"
-    t.datetime "date"
+    t.date     "date"
     t.integer  "hours"
     t.datetime "created_at"
     t.datetime "updated_at"

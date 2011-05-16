@@ -110,10 +110,13 @@
           <% 5.times do |j|%>
             <% 7.times do |i|%>
               <% mark_date = @current_monday + id.day
+				 mark_date_sql = mark_date.strftime('%Y-%m-%d')
                  @date = mark_date.strftime('%d.%m.%Y') %>
+
               <% id +=1 %>
-              <% project_bks = employee.bookings.where("date = '#{mark_date}' AND project_id = #{@project.id}").sum("hours")
-                 all_bks = employee.bookings.where("date = '#{mark_date}'").sum("hours") %>
+              <% project_bks = employee.bookings.where(:date => mark_date_sql, :project_id => @project.id).sum("hours")
+                 all_bks = employee.bookings.where(:date => mark_date_sql).sum("hours") %>
+
               <td id="d<%= id %>" class="<%= booking_color_marking(all_bks,mark_date)%> bookable">
                 <%# if this_bookings and this_bookings[@date] %>
                   <%#= this_bookings[@date][0] %> <%#= this_bookings[@date][1] %>

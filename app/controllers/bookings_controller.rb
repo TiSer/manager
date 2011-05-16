@@ -94,13 +94,13 @@ class BookingsController < ApplicationController
   private
     def parse_end_date_for_bookings
        end_date = params[:booking][:end_date].split('.')
-       @end_date  = Time.parse(end_date[2]+'/'+end_date[1]+'/'+end_date[0])
+       @end_date  = Date.parse(end_date[2]+'/'+end_date[1]+'/'+end_date[0])
        params[:booking].delete("end_date")
     end
 
     def create_other_bookings
        date = @booking.date
-       while date <= @end_date do
+       while date <= (@end_date - 1.days) do
          date += 1.day
          if !weekend?(date)
            booking_item = Booking.new(params[:booking])
