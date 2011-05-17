@@ -44,7 +44,14 @@ class BookingsController < ApplicationController
 
     @booking = Booking.new(params[:booking])
 
+    if @booking.hours <= 0
+      Booking.destroy_all(:date => @booking.date..@end_date)
+    elsif @booking.save
+        create_other_bookings
+    end
+
     respond_to do |format|
+=begin
       if @booking.save
         create_other_bookings
 
@@ -59,6 +66,12 @@ class BookingsController < ApplicationController
         format.html { render :action => "new" }
         format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
      end
+=end
+        format.js {
+                    @booking
+                    @end_date
+                    @bookings_array_for_ajax = make_bookings_array
+                  }
     end
   end
 
