@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_admin
 
   def index
-    @employees = Employee.all
+    @employees = Employee.active.all
 
     respond_to do |format|
       format.html # index.html.erb

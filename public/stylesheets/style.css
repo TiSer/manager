@@ -1,15 +1,16 @@
-#left-column  { float: left; width: 230px; margin: 0.1em 1em; line-height: 1.1em;
-                border-style: dashed; border-width: 0.2em; padding: 0.5em }
-#right-column { float: left;  margin: 0.1em 1em; line-height: 1.1em;
+#left-column  { float: center; line-height: 1.1em;
+                padding: 0.5em; }
+#right-column { float: left; width:99%;  margin: 0.1em 1em; line-height: 1.1em;
                 /*border-style: dashed; border-width: 0.1em;*/ }
                 border-style: dashed; border-width: 0.2em; }
 
-#head {margin: 1em 0.5em;}
+
+#head {}
 
 table { -moz-border-radius: 0.5em;
         border:medium; border: solid; border-color:#E6E1DC;
        }
-
+.head {margin: 0.4em;}
   td,th {
         padding: 0.4em; /* Поля вокруг текста */
         -moz-border-radius: 0.3em;
@@ -59,3 +60,4 @@ tr.employee td.bookable { cursor:pointer; }
 .yellow_bg { background: #FF9; }
 .green_bg { background: #00FF7F; }
 
+.login_form { background: #E6E7DC; margin-top:16px; font-size:1.1em }

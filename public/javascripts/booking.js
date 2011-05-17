@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $.datepicker.setDefaults({firstDay: 1, changeYear: true, dateFormat: 'dd.mm.yy', minDate: "0"});
+    $.datepicker.setDefaults({firstDay: 1, changeYear: true, dateFormat: 'dd.mm.yy'});
     $("#booking_end_date").datepicker({
         onClose: function() { $("#RB_window #booking_end_date").val($("#booking_end_date").val()); }
         // onClose: function() { RedBox.close(); RedBox.showInline('redbox'); }
@@ -26,8 +26,10 @@ $(document).ready(function(){
             $("#booking_date_2i").val(month)
             $("#booking_date_1i").val(year)
 
+            $("#booking_end_date").val(day+'.'+month+'.'+year)
+
             RedBox.showInline('redbox');
             return false;
 		});
 });
-
+//$(val(day+'.'+month+'.'+year))

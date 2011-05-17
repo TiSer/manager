@@ -3,13 +3,13 @@
 
  navigation.items do |primary|
   
-    primary.item :employees, "Employees", root_path
-    primary.item :skills, "Skills", skills_path
-    primary.item :departments, "Departments", departments_path
-    primary.item :customers, "Customers", customers_path
-    primary.item :projects, "Projects", projects_path
-
- end
+    primary.dom_class = 'sf-menu sf-navbar'
+      primary.item :employees, "Employees", root_path
+      primary.item :skills, "Skills", skills_path
+      primary.item :departments, "Departments", departments_path
+      primary.item :customers, "Customers", customers_path
+      primary.item :projects, "Projects", projects_path
+   end
 
 #	SimpleNavigation::Builder.config do |map|
 #  map.navigation :default, :i18n => true do |navigation|

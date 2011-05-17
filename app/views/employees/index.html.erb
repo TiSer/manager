@@ -8,7 +8,7 @@
     <th>Name</th>
     <th>Email</th>
     <th>Department</th>
-    <th>Is active</th>
+    <th><%= button_to "Show active" %>Is active</th>
   </tr>
 
 <% @employees.each do |employee| %>
@@ -16,7 +16,7 @@
     <td><%= employee.id %></td>
     <td><%= link_to employee.name, employee_path(employee) %></td>
     <td><%= employee.email %></td>
-    <td><%= employee.department.name %></td>
+    <td><%= link_to employee.department.name, department_path(employee.department) %></td>
     <td><%= activity(employee) %></td>
     <!-- <td><%#= link_to 'Show', employee %></td> !-->
     <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
