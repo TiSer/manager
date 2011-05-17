@@ -12,11 +12,10 @@
           <% id = 0 %>
           <% 5.times do |j|%>
             <% 7.times do |i|%>
-              <% id +=1 %>
 
               <% mark_date = @current_monday + id.day
               date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
-
+              <% id +=1 %>
 
               <% project_bks = booking_employees[employee.id][:project][date_sql] ||= 0 %>
               <% all_bks =  booking_employees[employee.id][:all][date_sql] ||= 0 %>

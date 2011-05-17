@@ -134,7 +134,7 @@
   <% end %> !-->
 </table>
 <p>
-  <%= form_tag(add_staff_path(@project.id), :method => "get") do %>
+  <%= form_tag(add_staff_path(@project.id, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year), :method => "get") do %>
     <%= submit_tag("Add staff") %>
   <% end %>
 </p>
