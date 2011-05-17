@@ -26,14 +26,14 @@ ActiveRecord::Schema.define(:version => 20110517095622) do
     t.string   "country"
     t.string   "name"
     t.text     "details"
-    t.boolean  "is_active"
+    t.boolean  "is_active",  :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "departments", :force => true do |t|
     t.string   "name"
-    t.boolean  "is_active"
+    t.boolean  "is_active",  :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20110517095622) do
     t.string   "name"
     t.integer  "department_id"
     t.string   "payment_model"
-    t.boolean  "is_active"
+    t.boolean  "is_active",     :default => true
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
