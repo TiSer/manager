@@ -17,6 +17,13 @@ class ProjectsController < ApplicationController
     @participants = @project.employees.order('name')
 
     calendar_prev_next
+
+
+
+    @booking_employees = make_bokings_hash_for(@participants)
+    p "sdfsf fs fdfsdfs", @booking_employees
+
+
 =begin
     @booking_employees = {}
     @participants.each do |participant|
@@ -65,6 +72,8 @@ class ProjectsController < ApplicationController
 
     calendar_prev_next
 
+    @booking_current = make_bokings_hash_for(@current_dep_employees)
+    @booking_others = make_bokings_hash_for(@others_employees)
 
   end
 
@@ -202,6 +211,16 @@ class ProjectsController < ApplicationController
           @current_monday += 1.week
       end
     end
+  end
+
+  def make_bokings_hash_for(employees)
+    booking_employees = {}
+    employees.each do |employee|
+       proj_bks = employee.bookings_from_monday_to_35th_day(@current_monday,@project.id)
+       all_bks = employee.bookings_from_monday_to_35th_day(@current_monday)
+       booking_employees.[]=(employee.id, {:project => proj_bks, :all => all_bks})
+    end
+    booking_employees
   end
 
 end

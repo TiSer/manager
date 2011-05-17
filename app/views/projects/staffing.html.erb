@@ -100,7 +100,7 @@
     <% end %>
   </tr>
 
-  <%= render :partial => "bookings", :locals => {:employees => @participants, :project => @project, :bookable => true} %>
+  <%= render :partial => "bookings", :locals => {:employees => @participants, :project => @project, :bookable => true, :booking_employees => @booking_employees} %>
 <!--
   <% @participants.each do |employee|%>
     <tr id="e<%=employee.id %>" class="employee">

@@ -44,14 +44,14 @@
   </tr>
 
 
-    <%= render :partial => "bookings", :locals => {:employees => @current_dep_employees, :project => @project, :bookable => false} %>
+    <%= render :partial => "bookings", :locals => {:employees => @current_dep_employees, :project => @project, :bookable => false, :booking_employees => @booking_current} %>
 
 
     <tr>
       <th id="divider" colspan="36" align="left">Others</th>
     </tr>
 
-    <%= render :partial => "bookings", :locals => {:employees => @others_employees, :project => @project, :bookable => false} %>
+    <%= render :partial => "bookings", :locals => {:employees => @others_employees, :project => @project, :bookable => false, :booking_employees => @booking_others} %>
 
   </table>
 

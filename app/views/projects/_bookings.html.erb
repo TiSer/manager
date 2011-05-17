@@ -8,15 +8,19 @@
              <%= check_box_tag "project[employee_ids][]", employee.id, project.employees.include?(employee) %><%= employee.name %>
           <% end %>
        </td>
+
           <% id = 0 %>
           <% 5.times do |j|%>
             <% 7.times do |i|%>
-              <% mark_date = @current_monday + id.day
-				 mark_date_sql = mark_date.strftime('%Y-%m-%d')
-                 @date = mark_date.strftime('%d.%m.%Y') %>
               <% id +=1 %>
-              <% project_bks = employee.bookings.where(:date => mark_date_sql, :project_id => @project.id).sum("hours")
-                 all_bks = employee.bookings.where(:date => mark_date_sql).sum("hours") %>
+
+              <% mark_date = @current_monday + id.day
+              date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
+
+
+              <% project_bks = booking_employees[employee.id][:project][date_sql] ||= 0 %>
+              <% all_bks =  booking_employees[employee.id][:all][date_sql] ||= 0 %>
+
               <td id="d<%= id %>" class="<%= booking_color_marking(all_bks,mark_date)%> <%= 'bookable' if bookable %>">
                 <% if all_bks !=0 %>
                   <%= project_bks %>/<%= all_bks %>

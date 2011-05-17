@@ -18,9 +18,19 @@ class Employee < ActiveRecord::Base
     Skill.find(skill).employees
   end
 
-  def bookings_from_monday_to_35th_day(current_monday)
-    #bookings.where({ :date => current_monday.midnight..(current_monday.midnight + 35.day)})
-    bookings.where("date >=  '#{current_monday.midnight}' AND date <= '#{current_monday.midnight+ 35.day}'")
+#  def bookings_from_monday_to_35th_day(current_monday)
+#    #bookings.where({ :date => current_monday.midnight..(current_monday.midnight + 35.day)})
+#    bookings.where("date >=  '#{current_monday.midnight}' AND date <= '#{current_monday.midnight+ 35.day}'")
+#  end
+
+  def bookings_from_monday_to_35th_day(current_monday,project_id = "all")
+    begin_date = current_monday.strftime('%Y-%m-%d')
+    end_date = (current_monday.midnight + 35.day).strftime('%Y-%m-%d')
+    if project_id == "all"
+      bookings.where(:date => begin_date..end_date).group(:date).order(:date).sum(:hours)
+    else
+      bookings.where(:date => begin_date..end_date,:project_id => project_id).group(:date).order(:date).sum(:hours)
+    end
   end
 
 end
