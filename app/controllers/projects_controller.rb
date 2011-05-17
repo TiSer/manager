@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_filter :prepare_customers, :only => [:new, :edit]
 
   def index
-    @projects = Project.all
+    @projects = Project.active.all
 
     respond_to do |format|
       format.html # index.html.erb

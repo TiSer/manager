@@ -4,6 +4,7 @@
     <th>Name</th>
     <th>Email</th>
     <th>Department</th>
+    <th>Projects</th>
     <th>Skills</th>
     <th>Is active</th>
   </tr>
@@ -13,6 +14,21 @@
   <td> <%= @employee.name %> </td>
   <td> <%= @employee.email %> </td>
   <td> <%= @employee.department.name %> </td>
+
+  <% if !@employee.projects.empty? %>
+  <td>
+    <ul>
+		  <% @employee.projects.each do |proj| %>
+		  <li><%= link_to proj.name, proj %></li>
+		  <% end %>
+	  </ul>
+  </td>
+  <% else %>
+  <td>
+     No projects finded.
+  </td>
+  <% end %>
+  </td>
   <td>
 	  <ul>
 		  <% @employee.skills.each do |skill| %>
@@ -26,4 +42,4 @@
 </table>
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<%= link_to 'Back', back_to_previous_page %>

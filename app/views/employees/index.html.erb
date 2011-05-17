@@ -1,8 +1,13 @@
 <h1>Listing employees</h1>
 
+<%= link_to 'Active', employees_path %> |
+<%= link_to 'All', employees_path(:all => 'true') %>
+
 <h3><%= link_to 'New Employee', new_employee_path %></h3>
 
-<table>
+<%#= link_to (check_box_tag ('active', 'all', employee_path, :remote => true) ) %>
+
+<table class="emp_act">
   <tr>
     <th>#</th>
     <th>Name</th>
@@ -16,7 +21,7 @@
     <td><%= employee.id %></td>
     <td><%= link_to employee.name, employee_path(employee) %></td>
     <td><%= employee.email %></td>
-    <td><%= employee.department.name %></td>
+    <td><%= link_to employee.department.name, department_path(employee.department) %></td>
     <td><%= activity(employee) %></td>
     <!-- <td><%#= link_to 'Show', employee %></td> !-->
     <td><%= link_to 'Edit', edit_employee_path(employee) %></td>

@@ -5,5 +5,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :employees
   has_many                :bookings, :dependent => :destroy
 
+  scope :active, where("is_active = true")
+
 end
 

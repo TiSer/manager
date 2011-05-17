@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
   before_filter :authenticate_admin
 
   def index
-    @customers = Customer.all
+    @customers = Customer.active.all
 
     respond_to do |format|
       format.html # index.html.erb

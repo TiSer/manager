@@ -4,13 +4,29 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_admin
 
   def index
-    @employees = Employee.all
+    if params[:all]
+       @employees = Employee.all      
+    else
+       @employees = Employee.active.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @employees }
+      format.js   {  }
     end
   end
+
+  def act
+    @employee = Employee.all
+    @employee. == true ? @employee.act = false : @employee.act = true #если чекбокс установлен снимаем галочку, иначе ставим
+    if @employee.update_attributes
+      flash[:notice] = "Bla."
+      @employee = Employee.all #Получаем весь список tasks чтобы обновить шаблон 
+    end
+    respond_with(@employee)
+  end
+
 
   # GET /employees/1
   # GET /employees/1.xml
