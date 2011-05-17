@@ -15,8 +15,6 @@ class ProjectsController < ApplicationController
   def staffing
     @project = Project.find(params[:id])
     @participants = @project.employees.order('name')
-  #  p Booking.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})
- #   p "BOOKS = ", Booking.where("created_at >=  '#{Time.now.midnight}' AND created_at <= '#{Time.now.midnight+ 1.day}'")
 
     calendar_prev_next
 =begin
@@ -184,10 +182,11 @@ class ProjectsController < ApplicationController
 
   def calendar_prev_next
 
+    @current_date = Time.now
+
     if params[:month] and params[:year] and params[:day]
       @current_monday = Time.parse(params[:year]+'/'+params[:month]+'/'+params[:day])
     else
-      @current_date = Time.now
       @current_monday = @current_date.monday
     end
 
