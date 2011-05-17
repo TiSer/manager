@@ -1,4 +1,4 @@
-var db = '<%= @booking.date.strftime('%d%m%Y') %>'
+var db = '<%= @begin_date.strftime('%d%m%Y') %>'
 /* var de = '<%= @end_date.strftime('%d%m%Y') %>' */
 var eid = '<%= @booking.employee.id %>'
 /* var hours = '<%= @booking.hours %>' */
@@ -10,6 +10,39 @@ RedBox.close();
 var did = $('th.'+db).attr("id")
 /* var edid = $('th.'+de).attr("id") */
 var num_beg_id = parseInt(did.split('d')[1], 10)
+
+<%
+  begin_date = @begin_date
+  date = @begin_date - 1.day %>
+
+<% id = 0 %>
+<% while date <= @end_date - 1.day do %>
+     <% date += 1.day %>
+     i = num_beg_id + <%= id %>
+
+     <% mark_date = begin_date + id.day
+        date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
+
+     console.log('<% project_bks = @bookings_hash_for_ajax[:project][date_sql] ||= 0 %>')
+     console.log('<%= all_bks =  @bookings_hash_for_ajax[:all][date_sql] ||= 0 %>')
+     <% id +=1 %>
+
+     <% if all_bks !=0 %>
+        out_to_cell = '<%= project_bks %>/<%= all_bks %>'
+     <% else %>
+        out_to_cell = ''
+     <% end %>
+
+
+     $("tr#e"+eid+" td#d"+i).text(out_to_cell);
+     $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%= booking_color_marking(all_bks,mark_date)%>');
+
+
+
+
+<% end %>
+
+
 
 /*
 var num_end_id = parseInt(edid.split('d')[1], 10)
@@ -25,13 +58,15 @@ for (i = num_beg_id; i <= num_end_id; i++ ) {
 }
 */
 
-<% num = 0 %>
-<% @bookings_array_for_ajax.each do |hours| %>
-   i = num_beg_id + <%= num %>
-   <% if hours[1] != 0 %>
-       $("tr#e"+eid+" td#d"+i).text('<%= hours[0] %>/<%= hours[1] %>');
-       $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%= color_marking_ajax(hours[1]) %>');
-   <% end %>
-   <% num+=1 %>
-<% end %>
+/*
+<%# num = 0 %>
+<%# @bookings_array_for_ajax.each do |hours| %>
+   i = num_beg_id + <%#= num %>
+   <%# if hours[1] != 0 %>
+       $("tr#e"+eid+" td#d"+i).text('<%#= hours[0] %>/<%#= hours[1] %>');
+       $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%#= color_marking_ajax(hours[1]) %>');
+   <%# end %>
+   <%# num+=1 %>
+<%# end %>
+*/
 

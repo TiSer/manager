@@ -15,10 +15,9 @@
 
               <% mark_date = @current_monday + id.day
               date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
-              <% id +=1 %>
-
               <% project_bks = booking_employees[employee.id][:project][date_sql] ||= 0 %>
               <% all_bks =  booking_employees[employee.id][:all][date_sql] ||= 0 %>
+              <% id +=1 %>
 
               <td id="d<%= id %>" class="<%= booking_color_marking(all_bks,mark_date)%> <%= 'bookable' if bookable %>">
                 <% if all_bks !=0 %>
