@@ -17,8 +17,6 @@ class ProjectsController < ApplicationController
     @participants = @project.employees.order('name')
   #  p Booking.where({ :created_at => (Time.now.midnight - 1.day)..Time.now.midnight})
  #   p "BOOKS = ", Booking.where("created_at >=  '#{Time.now.midnight}' AND created_at <= '#{Time.now.midnight+ 1.day}'")
-    @current_date = Time.now
-    @current_monday = @current_date.monday
 
     calendar_prev_next
 =begin
@@ -66,10 +64,6 @@ class ProjectsController < ApplicationController
     @others_employees = @others_employees
 
     @skills = Skill.dd
-
-    #Must_be_DRYed
-    @current_date = Time.now
-    @current_monday = @current_date.monday
 
     calendar_prev_next
 
@@ -189,8 +183,12 @@ class ProjectsController < ApplicationController
   end
 
   def calendar_prev_next
+
     if params[:month] and params[:year] and params[:day]
       @current_monday = Time.parse(params[:year]+'/'+params[:month]+'/'+params[:day])
+    else
+      @current_date = Time.now
+      @current_monday = @current_date.monday
     end
 
     if params[:offset]

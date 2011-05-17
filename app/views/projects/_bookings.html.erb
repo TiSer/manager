@@ -1,7 +1,12 @@
   <% employees.each do |employee|%>
     <tr id="e<%=employee.id %>" class="employee">
        <td>
-          <%= check_box_tag "project[employee_ids][]", employee.id, project.employees.include?(employee) %><%= employee.name %>
+          <% if bookable %>
+             <%= link_to employee.name, employee_path(employee), :class => "employee_link" %>
+             [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
+          <% else %>
+             <%= check_box_tag "project[employee_ids][]", employee.id, project.employees.include?(employee) %><%= employee.name %>
+          <% end %>
        </td>
           <% id = 0 %>
           <% 5.times do |j|%>

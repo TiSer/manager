@@ -99,6 +99,9 @@
       <th class="weekend">Su</th>
     <% end %>
   </tr>
+
+  <%= render :partial => "bookings", :locals => {:employees => @participants, :project => @project, :bookable => true} %>
+<!--
   <% @participants.each do |employee|%>
     <tr id="e<%=employee.id %>" class="employee">
         <td>
@@ -128,7 +131,7 @@
             <% end %>
           <% end %>
     </tr>
-  <% end %>
+  <% end %> !-->
 </table>
 <p>
   <%= form_tag(add_staff_path(@project.id), :method => "get") do %>
