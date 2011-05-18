@@ -13,16 +13,18 @@
           <% 5.times do |j|%>
             <% 7.times do |i|%>
 
-              <% mark_date = @current_monday + id.day
-              date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
-              <% project_bks = booking_employees[employee.id][:project][date_sql] ||= 0 %>
-              <% all_bks =  booking_employees[employee.id][:all][date_sql] ||= 0 %>
+              <% mark_date = @current_monday + id.day %>
+              <% get_bookings_for_cell(booking_employees,mark_date,employee.id) %>
+              <%#date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
+              <%# project_bks = booking_employees[employee.id][:project][date_sql] ||= 0 %>
+              <%# all_bks =  booking_employees[employee.id][:all][date_sql] ||= 0 %>
               <% id +=1 %>
 
-              <td id="d<%= id %>" class="<%= booking_color_marking(all_bks,mark_date)%> <%= 'bookable' if bookable %>">
-                <% if all_bks !=0 %>
-                  <%= project_bks %>/<%= all_bks %>
-                <% end %>
+              <td id="d<%= id %>" class="<%= booking_color_marking(@all_books,mark_date)%> <%= 'bookable' if bookable %>">
+                <%= bookings_out_to_cell(@project_books, @all_books) %>
+                <%# if all_bks !=0 %>
+                  <%#= project_bks %><%#= all_bks %>
+                <%# end %>
               </td>
             <% end %>
           <% end %>

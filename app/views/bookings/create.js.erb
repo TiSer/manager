@@ -20,22 +20,26 @@ var num_beg_id = parseInt(did.split('d')[1], 10)
      <% date += 1.day %>
      i = num_beg_id + <%= id %>
 
-     <% mark_date = begin_date + id.day
-        date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
+     <% mark_date = begin_date + id.day %>
+/*
+     <%# date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
 
-     console.log('<% project_bks = @bookings_hash_for_ajax[:project][date_sql] ||= 0 %>')
-     console.log('<%= all_bks =  @bookings_hash_for_ajax[:all][date_sql] ||= 0 %>')
+     <%# project_bks = @bookings_hash_for_ajax[:project][date_sql] ||= 0 %>
+     <%# all_bks =  @bookings_hash_for_ajax[:all][date_sql] ||= 0 %>
+
+*/
      <% id +=1 %>
-
-     <% if all_bks !=0 %>
-        out_to_cell = '<%= project_bks %>/<%= all_bks %>'
-     <% else %>
+     <% get_bookings_for_cell(@bookings_hash_for_ajax,mark_date) %>
+/*
+     <%# if all_bks !=0 %>
+        out_to_cell = '<%#= project_bks %>/<%#= all_bks %>'
+     <%# else %>
         out_to_cell = ''
-     <% end %>
+     <%# end %>
+*/
 
-
-     $("tr#e"+eid+" td#d"+i).text(out_to_cell);
-     $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%= booking_color_marking(all_bks,mark_date)%>');
+     $("tr#e"+eid+" td#d"+i).text('<%= bookings_out_to_cell(@project_books, @all_books) %>');
+     $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%= booking_color_marking(@all_books,mark_date)%>');
 
 
 
