@@ -3,7 +3,7 @@
        <td>
           <% if bookable %>
              <%= link_to employee.name, employee_path(employee), :class => "employee_link" %>
-             [<%= link_to "del", delete_pariticipant_path(project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
+             [<%= link_to "del", delete_participant_path(project.id, employee.id), :confirm => 'Are you sure?', :method => :delete, :remote => true %>]
           <% else %>
              <%= check_box_tag "project[employee_ids][]", employee.id, project.employees.include?(employee) %><%= employee.name %>
           <% end %>

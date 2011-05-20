@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
 
   end
 
-  def destroy_pariticipant
+  def destroy_participant
     @project = Project.find(params[:project_id])
 
      employee = @project.employees.find(params[:employee_id])
@@ -73,7 +73,10 @@ class ProjectsController < ApplicationController
         flash[:notice] ='Participant was successfully deleted.'
      end
 
-       redirect_to staffing_path(@project.id)
+    respond_to do |format|
+      format.html { redirect_to(staffing_path(@project.id)) }
+      format.js {@employee_id = employee.id }
+    end
   end
 
 
