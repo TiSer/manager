@@ -12,6 +12,10 @@ module ApplicationHelper
    request.env['HTTP_REFERER']
   end
 
+  def date_sql(mark_date)
+    date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day)
+  end
+
 
   def get_bookings_for_cell(hash,mark_date,employee_id = "none")
     date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day)

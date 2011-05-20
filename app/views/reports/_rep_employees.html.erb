@@ -1,0 +1,27 @@
+  <% employees.each do |employee|%>
+    <tr id="e<%=employee.id %>" class="employee">
+       <td class="grey_bg">
+         <%= link_to employee.name, employee_path(employee) %>
+       </td>
+       <% date_cycle do %>
+         <% all_bookings_for_this_date = get_all_bookings(booking_employees,employee.id,@mark_date) %>
+         <td class="<%= booking_color_marking(all_bookings_for_this_date, @mark_date)%>">
+           <%= to_cell(all_bookings_for_this_date) %>
+         </td>
+       <% end %>
+    </tr>
+    <% get_projects_bookings(booking_employees,employee.id).each do |project_bookings|%>
+      <tr>
+        <td>
+          <% project = get_project_from(project_bookings) %>
+          <%= link_to project.name, project_path(project) %>
+        </td>
+        <% date_cycle do %>
+         <td class="<%= style_if_weekend(@mark_date) %>">
+            <%= to_cell(get_bookings_from(project_bookings,@mark_date)) %>
+         </td>
+        <% end %>
+      </tr>
+     <% end %>
+  <% end %>
+

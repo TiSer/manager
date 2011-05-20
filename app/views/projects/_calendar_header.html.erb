@@ -1,0 +1,36 @@
+<table border="1" cellpadding="1" cellspacing="0" width = "100%">
+  <tr id= "date">
+    <th>Date</th>
+    <% 35.times do |days| %>
+      <% @date = current_monday + days.day %>
+      <%
+         if @current_date.midnight == @date
+           @current_day_id = days
+         end
+      %>
+      <th id="d<%= days + 1 %>" class="<%= @date.strftime('%d%m%Y')%>">
+        <div id="day"><%= @date.day %></div>
+        <div id="month"><%= @date.strftime("%m") %></div>
+        <div id="year"><%= @date.year %></div>
+      </th>
+    <% end %>
+  </tr>
+  <tr id= "day">
+    <th>Day</th>
+    <% 35.times do |days| %>
+      <th id="d<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= ( current_monday + days.day).day%></th>
+    <% end %>
+  </tr>
+  <tr>
+    <th>Employee</th>
+    <% 5.times do %>
+      <th>Mo</th>
+      <th>Tu</th>
+      <th>We</th>
+      <th>Th</th>
+      <th>Fr</th>
+      <th class="weekend">Sa</th>
+      <th class="weekend">Su</th>
+    <% end %>
+  </tr>
+

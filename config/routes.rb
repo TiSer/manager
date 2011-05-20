@@ -1,5 +1,7 @@
 Manager::Application.routes.draw do
 
+
+
   resources :bookings
 
   resources :projects
@@ -13,6 +15,10 @@ Manager::Application.routes.draw do
   resources :customers
 
   resources :skills
+
+  controller :reports do
+    get "reports/employees_bookings" => :employees_bookings, :as => "report_employees_bookings"
+  end
 
   get "project_staffing/:id" => "projects#staffing", :as => "staffing"
   get "project_add_staffing/:id" => "projects#add_staff", :as => "add_staff"

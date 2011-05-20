@@ -61,3 +61,7 @@ tr.employee td.bookable { cursor:pointer; }
 .green_bg { background: #00FF7F; }
 
 .login_form { background: #E6E7DC; margin-top:16px; font-size:1.1em }
+
+.grey_bg {background: #E0E0E0;}
+.sum_bk { margin: 0 auto; text-align: center;}
+
