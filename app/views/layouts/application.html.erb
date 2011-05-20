@@ -11,18 +11,20 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-<h1 class="head"><%= link_to('Manager', '/') %></h1>
+<div id="header">
+  <h1 class="head"><%= link_to('Manager', '/') %></h1>
 
-<div id="left-column">
-  <%= render_navigation %>
- <br/>
-    <div class="login_form">
-    <% if current_user %>
-				You entered as <%= current_user.email %>. <%= link_to "Logout", destroy_user_session_path %>
-			<% else %>
-				<%= link_to "Login", new_user_session_path %> | <%= link_to "Registration", new_user_registration_path %>
-		<% end %>
-    </div>
+  <div id="left-column">
+    <%= render_navigation %>
+   <br/>
+      <div class="login_form">
+        <% if current_user %>
+				    You entered as <%= current_user.email %>. <%= link_to "Logout", destroy_user_session_path %>
+			    <% else %>
+				    <%= link_to "Login", new_user_session_path %> | <%= link_to "Registration", new_user_registration_path %>
+		    <% end %>
+      </div>
+  </div>
 </div>
  <p id="notice"><%= notice %></p>
 
@@ -39,3 +41,4 @@
 
 </body>
 </html>
+

@@ -2,13 +2,16 @@
  SimpleNavigation::Configuration.run do |navigation|
 
  navigation.items do |primary|
-  
+
     primary.dom_class = 'sf-menu sf-navbar'
       primary.item :employees, "Employees", root_path
       primary.item :skills, "Skills", skills_path
       primary.item :departments, "Departments", departments_path
       primary.item :customers, "Customers", customers_path
       primary.item :projects, "Projects", projects_path
+      primary.item :reports, 'Reports', report_employees_bookings_path do |secondary|
+        secondary.item :rep_empls_bks, 'Bookings', report_employees_bookings_path
+      end
    end
 
 #	SimpleNavigation::Builder.config do |map|
@@ -51,3 +54,4 @@
 
 
 end
+

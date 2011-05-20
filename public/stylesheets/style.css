@@ -60,8 +60,10 @@ tr.employee td.bookable { cursor:pointer; }
 .yellow_bg { background: #FF9; }
 .green_bg { background: #00FF7F; }
 
-.login_form { background: #E6E7DC; margin-top:16px; font-size:1.1em }
+.login_form {font-size:1.1em; text-align: right;}
 
 .grey_bg {background: #E0E0E0;}
 .sum_bk { margin: 0 auto; text-align: center;}
+
+#header {background: #FFF8DC; -moz-border-radius: 0.3em; height: 90px;}
 
