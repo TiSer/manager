@@ -48,5 +48,9 @@ class ApplicationController < ActionController::Base
     booking_employees
   end
 
+  def date_sql(mark_date)
+    date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day)
+  end
+
 end
 

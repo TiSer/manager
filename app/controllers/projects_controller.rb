@@ -18,35 +18,7 @@ class ProjectsController < ApplicationController
 
     calendar_prev_next
 
-
-
     @booking_employees = make_bokings_hash_for(@participants)
-
-=begin
-    @booking_employees = {}
-    @participants.each do |participant|
-     #p "participant : ", participant.id
-     this_bookings = participant.bookings_from_monday_to_35th_day(@current_monday)
-     #date_arr = []
-     #@this_bookings.each do |b|
-     # date_arr << b.date if !@this_bookings.include?(b.date)
-     #end
-      #dates = @this_bookings.map(&:date)
-      #arr = dates.uniq!
-    # p "DATE ARR", arr
-      if this_bookings
-        d_arr = this_bookings.map(&:date)
-        dates = d_arr
-        bks_by_date = {}
-        dates.each do |date|
-          project_bks = this_bookings.where(:date => date, :project_id => @project.id).sum("hours")
-          all_bks = this_bookings.where(:date => date).sum("hours")
-          bks_by_date.[]=(date.strftime('%d.%m.%Y'), [project_bks, all_bks])
-        end
-        @booking_employees.[]=(participant.id, bks_by_date)
-      end
-    end
-=end
   end
 
   def add_staff
@@ -97,15 +69,10 @@ class ProjectsController < ApplicationController
      employee = @project.employees.find(params[:employee_id])
 
      if employee
-        @project.employees.delete(employee)
+        delete_pariticipant_and_his_bookings(employee, @project)
         flash[:notice] ='Participant was successfully deleted.'
      end
 
-  #  participant_id = params[:employee_id]
-   # @project.employee_ids = @project.employee_ids.delete_if {|id| id == participant_id.to_i}
-    #if @project.save
-     #  flash[:notice] ='Participant was successfully deleted.'
-    #end
        redirect_to staffing_path(@project.id)
   end
 
@@ -185,6 +152,13 @@ class ProjectsController < ApplicationController
 
   def prepare_customers
     @customers = Customer.dd
+  end
+
+  def delete_pariticipant_and_his_bookings(employee,project)
+    project.employees.delete(employee)
+    current_date = Time.now
+    current_date_sql = date_sql(current_date)
+    Booking.date_greather_than(current_date_sql).where(:employee_id => employee.id, :project_id => project.id).destroy_all
   end
 
 end
