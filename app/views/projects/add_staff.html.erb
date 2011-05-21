@@ -22,7 +22,7 @@
   </tr>
 </table>
 
-<%= form_tag(save_staffing_path(@project.id), :method => "post") do %>
+<%= form_tag(save_staffing_path(@project.id, :day => params[:day],  :month => params[:month], :year => params[:year]), :method => "post") do %>
 
     <%= render :partial => "calendar_header", :locals => {:current_monday => @current_monday} %>
 
@@ -41,6 +41,6 @@
 <% end %>
 
 <p>
-  <%= link_to 'Back to staffing', staffing_path(@project, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %>
+  <%= link_to 'Back to staffing', staffing_path(@project, :day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %>
 </p>
 

@@ -70,7 +70,10 @@
 
 </table>
 <p>
-  <%= form_tag(add_staff_path(@project.id, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year), :method => "get") do %>
+  <%= form_tag(add_staff_path(@project.id, :day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year), :method => "get") do %>
+    <%= hidden_field_tag :day, @current_monday.day %>
+    <%= hidden_field_tag :month, @current_monday.month %>
+    <%= hidden_field_tag :year, @current_monday.year %>
     <%= submit_tag("Add staff") %>
   <% end %>
 </p>

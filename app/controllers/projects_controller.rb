@@ -54,11 +54,11 @@ class ProjectsController < ApplicationController
       @project.employee_ids = (@project.employee_ids << params[:project][:employee_ids]).flatten!
       if @project.save
          flash[:notice] = 'Staff was successfully added.'
-         redirect_to staffing_path(@project.id)
+         redirect_to staffing_path(@project.id, :day => params[:day],  :month => params[:month], :year => params[:year])
       end
     else
      flash[:notice] ='Select employees which you want to add, please.'
-     redirect_to add_staff_path(@project.id)
+     redirect_to add_staff_path(@project.id, :day => params[:day],  :month => params[:month], :year => params[:year])
     end
 
   end
