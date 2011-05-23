@@ -16,15 +16,7 @@
 </div>
 <br />
 
-<table border="0" cellpadding="1" cellspacing="0">
-  <tr id="calendar_controls">
-    <td><%= link_to '<<', add_staff_path(@project, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-    <td><%= link_to '<', add_staff_path(@project, :offset => "prev_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-    <td id="month"><%= @current_monday.strftime('%B %Y') %></td>
-    <td><%= link_to '>', add_staff_path(@project, :offset => "next_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-    <td><%= link_to '>>', add_staff_path(@project, :offset => "next_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-  </tr>
-</table>
+<%= render :partial => "projects/calendar_controls", :locals => {:main_object => @project, :route_name => "add_staff", :current_monday => @current_monday, :options => {:skill => params[:skill]}} %>
 
 <%= form_tag(save_staffing_path(@project.id, :day => params[:day],  :month => params[:month], :year => params[:year]), :method => "post") do %>
 
