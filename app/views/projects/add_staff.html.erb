@@ -9,6 +9,9 @@
 <%= form_tag(add_staff_path(@project.id), :method => "get", :id => 'form_search_by_skill') do %>
   <div class="field" align="right">
     <b style="font-size:1.2em"><%= label_tag :Searching_by_skills %>:</b><br />
+    <%= hidden_field_tag :day, @current_monday.day %>
+    <%= hidden_field_tag :month, @current_monday.month %>
+    <%= hidden_field_tag :year, @current_monday.year %>
     <%= select(:skill,:id, @skills, :selected => params[:skill] ? params[:skill][:id] : "", :include_blank => 'All' ) %>
     <%#= submit_tag("Search!") %>
   </div>
