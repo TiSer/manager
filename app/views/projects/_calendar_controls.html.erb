@@ -1,0 +1,11 @@
+<% options ||= {} %>
+
+<table border="0" cellpadding="1" cellspacing="0">
+  <tr id="calendar_controls">
+    <td><%= calendar_period_link("prev_month", route_name, main_object, current_monday, options) %></td>
+    <td><%= calendar_period_link("prev_week", route_name, main_object, current_monday, options) %></td>
+    <td id="month"><%= current_monday.strftime('%B %Y') %></td>
+    <td><%= calendar_period_link("next_week", route_name, main_object, current_monday, options) %></td>
+    <td><%= calendar_period_link("next_month", route_name, main_object, current_monday, options) %></td>
+  </tr>
+</table>
