@@ -106,6 +106,7 @@ class EmployeesController < ApplicationController
 
   def prepare
     @departments = Department.dd
+    @activities  = Activity.dd
   end    
 
 

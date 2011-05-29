@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517095622) do
+ActiveRecord::Schema.define(:version => 20110528090355) do
+
+  create_table "activities", :force => true do |t|
+    t.string   "name"
+    t.string   "invoice_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bookings", :force => true do |t|
     t.integer  "project_id"

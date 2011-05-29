@@ -1,34 +1,32 @@
-<table>
-    <tr>
-    <th>#</th>
-    <th>Name</th>
-    <th>Employees</th>
-    <th>Projects</th>
-    <th>Is active</th>
-  </tr>
+<div>
+   
+  <p>
+    <b>Name:</b> <%= @department.name %> ( <b>#</b> <%= @department.id %> )
+  </p>
 
-<tr>
-  <td> <%= @department.id %> </td>   
-  <td> <%= @department.name %> </td>
-  <td>
-	 <ul> 
-		  <% @department.employees.each do |emp| %>
-		  <li><%= link_to emp.name, employee_path(emp) %></li>
-		  <% end %>
-	 <ul/>
-  </td>
+  <p>
+    <b>Employees:</b>
+   	 <ul> 
+		    <% @department.employees.each do |emp| %>
+		    <li><%= link_to emp.name, employee_path(emp) %></li>
+		    <% end %>
+	   </ul>
+  </p>
 
-  <td>
-	  <ul>
-		  <% @department.projects.each do |proj| %>
-		  <li><%= link_to proj.name, proj %></li>
-		  <% end %>
-	  </ul>
-  </td>
-  <td><%= activity(@department) %></td>
-</tr>
+  <p>
+    <b>Projects: </b>
+     <ul>
+		   <% @department.projects.each do |proj| %>
+		   <li><%= link_to proj.name, proj %></li>
+		   <% end %>
+	   </ul>
+  </p>
+  
+  <p>
+    <b>Is active: </b><%= activity(@department) %>
+  </p>
 
-</table>
+</div>
 
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', back_to_previous_page %>

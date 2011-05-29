@@ -1,45 +1,44 @@
-<table>
-    <tr>
-    <th>#</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Department</th>
-    <th>Projects</th>
-    <th>Skills</th>
-    <th>Is active</th>
-  </tr>
+<div>
 
-<tr>
-  <td> <%= @employee.id %> </td>   
-  <td> <%= @employee.name %> </td>
-  <td> <%= @employee.email %> </td>
-  <td> <%= @employee.department.name %> </td>
+  <p>
+    <b>Name:</b> <%= @employee.name %> ( <b>#</b> <%= @employee.id %> )
+  </p>
 
-  <% if !@employee.projects.empty? %>
-  <td>
-    <ul>
-		  <% @employee.projects.each do |proj| %>
-		  <li><%= link_to proj.name, proj %></li>
-		  <% end %>
-	  </ul>
-  </td>
-  <% else %>
-  <td>
-     No projects finded.
-  </td>
-  <% end %>
-  </td>
-  <td>
-	  <ul>
-		  <% @employee.skills.each do |skill| %>
-		  <li><%= skill.name %></li>
-		  <% end %>
-	  </ul>
-  </td>
-  <td><%= activity(@employee) %></td>
-</tr>
+  <p>
+    <b>Email:</b> <%= @employee.email %>
+  </p>
 
-</table>
+  <p>
+    <b>Department:</b> <%= @employee.department.name %>
+  </p>
+
+  <p>
+    <b>Projects: </b>
+      <% if !@employee.projects.empty? %>
+        <ul>
+		      <% @employee.projects.each do |proj| %>
+		      <li><%= link_to proj.name, proj %></li>
+		      <% end %>
+	      </ul>
+      <% else %>
+         No projects finded.
+      <% end %>
+  </p>
+
+  <p>
+    <b>Skills: </b>
+   	  <ul>
+		    <% @employee.skills.each do |skill| %>
+		    <li><%= skill.name %></li>
+		    <% end %>
+	    </ul>
+  </p>
+
+  <p>
+    <b>Is active: </b><%= activity(@employee) %>
+  </p>
+
+</div>
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', back_to_previous_page %>

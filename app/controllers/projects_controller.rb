@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
   before_filter :prepare_departments, :only => [:new, :edit]
   before_filter :prepare_customers, :only => [:new, :edit]
+  before_filter :prepare_activities, :only => [:staffing]
 
   def index
     @projects = Project.active.all
@@ -187,6 +188,10 @@ class ProjectsController < ApplicationController
 
   def prepare_customers
     @customers = Customer.dd
+  end
+
+  def prepare_activities
+    @activities = Activity.dd
   end
 
   def calendar_prev_next
