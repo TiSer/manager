@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517095622) do
+ActiveRecord::Schema.define(:version => 20110615164646) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "project_id"
@@ -49,8 +49,10 @@ ActiveRecord::Schema.define(:version => 20110517095622) do
   end
 
   create_table "employees_projects", :id => false, :force => true do |t|
-    t.integer "project_id",  :default => 0, :null => false
-    t.integer "employee_id", :default => 0, :null => false
+    t.integer  "employee_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "employees_skills", :id => false, :force => true do |t|
@@ -66,6 +68,20 @@ ActiveRecord::Schema.define(:version => 20110517095622) do
     t.string   "payment_model"
     t.boolean  "is_active",     :default => true
     t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "salaries", :force => true do |t|
+    t.integer  "employee_id"
+    t.date     "year_month"
+    t.integer  "day_work_hours"
+    t.integer  "type"
+    t.integer  "currency"
+    t.integer  "amount"
+    t.integer  "tax_currency"
+    t.integer  "tax_amount"
+    t.integer  "tax_percent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

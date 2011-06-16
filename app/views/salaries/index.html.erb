@@ -1,0 +1,39 @@
+<h1>Listing salaries</h1>
+
+<table>
+  <tr>
+    <th>Employee</th>
+    <th>Year month</th>
+    <th>Day work hours</th>
+    <th>Type</th>
+    <th>Currency</th>
+    <th>Amount</th>
+    <th>Tax currency</th>
+    <th>Tax amount</th>
+    <th>Tax percent</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @salaries.each do |salary| %>
+  <tr>
+    <td><%= salary.employee_id %></td>
+    <td><%= salary.year_month %></td>
+    <td><%= salary.day_work_hours %></td>
+    <td><%= salary.type %></td>
+    <td><%= salary.currency %></td>
+    <td><%= salary.amount %></td>
+    <td><%= salary.tax_currency %></td>
+    <td><%= salary.tax_amount %></td>
+    <td><%= salary.tax_percent %></td>
+    <td><%= link_to 'Show', salary %></td>
+    <td><%= link_to 'Edit', edit_salary_path(salary) %></td>
+    <td><%= link_to 'Destroy', salary, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Salary', new_salary_path %>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  employee_id: 1
+  year_month: 2011-06-15
+  day_work_hours: 1
+  type: 1
+  currency: 1
+  amount: 1
+  tax_currency: 1
+  tax_amount: 1
+  tax_percent: 1
+
+two:
+  employee_id: 1
+  year_month: 2011-06-15
+  day_work_hours: 1
+  type: 1
+  currency: 1
+  amount: 1
+  tax_currency: 1
+  tax_amount: 1
+  tax_percent: 1

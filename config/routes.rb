@@ -2,6 +2,11 @@ Manager::Application.routes.draw do
 
 
 
+  resources :salaries
+
+
+  get "wellcome/hello"
+
   resources :bookings
 
   resources :projects
@@ -18,6 +23,10 @@ Manager::Application.routes.draw do
 
   controller :reports do
     get "reports/employees_bookings" => :employees_bookings, :as => "report_employees_bookings"
+  end
+
+  controller :salaries do
+    get "employee_salaries/:employee_id" => :employee_salary, :as => "employee_salary"
   end
 
   get "project_staffing/:id" => "projects#staffing", :as => "staffing"
@@ -74,7 +83,7 @@ Manager::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-    root :to => "employees#index"
+    root :to => "wellcome#hello"
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
