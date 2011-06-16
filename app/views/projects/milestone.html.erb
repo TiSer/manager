@@ -1,0 +1,36 @@
+<%= content_for :amount_js do %>
+  <%= javascript_include_tag "amount.js" %>
+<% end %>
+
+<h1>Listing milestones</h1>
+
+<table>
+    <tr>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Amount</th>
+      <th>Name</th>
+      <th>Invoice name</th>
+    </tr>
+
+  <% @project.milestones.each do |milestone| %>
+    <tr>
+      <td><%= milestone.start_date %></td>
+      <td><%= milestone.end_date %></td>
+      <% if @project.payment_model == "By Time" %>
+        <td><%= milestone.by_time_amount(milestone) %></td>
+      <% else %>
+        <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
+      <% end %>
+      <td><%= milestone.name %></td>
+      <td><%= milestone.invoice_name %></td>
+      <td><%= link_to 'X', delete_milestone_path(milestone.project_id, milestone.id), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= render :partial => "milestones/amount" %>
+
+<%= link_to 'New Milestone', new_milestone_path(@project.id) %>

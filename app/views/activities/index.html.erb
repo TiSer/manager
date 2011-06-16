@@ -4,12 +4,14 @@
   <tr>
     <th>Name</th>
     <th>Invoice name</th>
+    <th>Activity cost</th>
   </tr>
 
 <% @activities.each do |activity| %>
   <tr>
     <td><%= activity.name %></td>
     <td><%= activity.invoice_name %></td>
+    <td align="center"><%= activity.activity_cost %></td>
     <td><%= link_to 'Show', activity %></td>
     <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
     <td><%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %></td>

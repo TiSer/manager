@@ -6,50 +6,41 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.active.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
     end
   end
 
+  def milestone
+    @project = Project.find(params[:id])
+    @milestones = Milestone.all
+
+  end
+
+  def by_time_amount
+    Milestone.by_time_amount
+  end
+
+  def destroy_milestone
+    @project = Project.find(params[:project_id])    
+    @milestone = Milestone.find(params[:milestone_id])  
+
+    @milestone.destroy
+
+    respond_to do |format|
+      format.html { redirect_to milestone_path(@project.id) }
+      format.xml  { head :ok }
+    end
+  end
+
   def staffing
     @project = Project.find(params[:id])
     @participants = @project.employees.order('name')
-
     calendar_prev_next
-
-
-
     @booking_employees = make_bokings_hash_for(@participants)
-    p "sdfsf fs fdfsdfs", @booking_employees
 
-
-=begin
-    @booking_employees = {}
-    @participants.each do |participant|
-     #p "participant : ", participant.id
-     this_bookings = participant.bookings_from_monday_to_35th_day(@current_monday)
-     #date_arr = []
-     #@this_bookings.each do |b|
-     # date_arr << b.date if !@this_bookings.include?(b.date)
-     #end
-      #dates = @this_bookings.map(&:date)
-      #arr = dates.uniq!
-    # p "DATE ARR", arr
-      if this_bookings
-        d_arr = this_bookings.map(&:date)
-        dates = d_arr
-        bks_by_date = {}
-        dates.each do |date|
-          project_bks = this_bookings.where(:date => date, :project_id => @project.id).sum("hours")
-          all_bks = this_bookings.where(:date => date).sum("hours")
-          bks_by_date.[]=(date.strftime('%d.%m.%Y'), [project_bks, all_bks])
-        end
-        @booking_employees.[]=(participant.id, bks_by_date)
-      end
-    end
-=end
   end
 
   def add_staff
@@ -104,14 +95,8 @@ class ProjectsController < ApplicationController
         flash[:notice] ='Participant was successfully deleted.'
      end
 
-  #  participant_id = params[:employee_id]
-   # @project.employee_ids = @project.employee_ids.delete_if {|id| id == participant_id.to_i}
-    #if @project.save
-     #  flash[:notice] ='Participant was successfully deleted.'
-    #end
        redirect_to staffing_path(@project.id)
   end
-
 
   def show
     @project = Project.find(params[:id])

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project_id: 1
+  start_date: 2011-05-31
+  end_date: 2011-05-31
+  amount: 1
+  name: MyString
+  invoice_name: MyString
+
+two:
+  project_id: 1
+  start_date: 2011-05-31
+  end_date: 2011-05-31
+  amount: 1
+  name: MyString
+  invoice_name: MyString

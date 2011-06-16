@@ -1,6 +1,6 @@
 class Activity < ActiveRecord::Base
 
-  has_many :bookings  
+  has_many :bookings
 
   def self.dd
     @activit = Activity.all

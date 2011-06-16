@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Project:</b>
+  <%= @milestone.project_id %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @milestone.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @milestone.end_date %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @milestone.amount %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @milestone.name %>
+</p>
+
+<p>
+  <b>Invoice name:</b>
+  <%= @milestone.invoice_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_milestone_path(@milestone) %> |
+<%= link_to 'Back', milestones_path %>

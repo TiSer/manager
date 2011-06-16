@@ -1,5 +1,12 @@
 Manager::Application.routes.draw do
 
+  resources :milestones
+
+  controller :milestones do
+    get  "project_milestone/:id/new" => :new,    :as => "new_milestone"
+    post "project_milestone/:id"     => :create, :as => "milestones"
+  end
+
   resources :activities
 
   resources :bookings
@@ -16,10 +23,21 @@ Manager::Application.routes.draw do
 
   resources :skills
 
+  controller :projects do
+    get  "project_milestone/:id"      => :milestone,     :as => "milestone"
+#    get  "project_add_milestone/:id"  => :new_milestone, :as => "new_milestone"
+#    post "project_save_milestone/:id" => :add_milestone, :as => "add_milestone"
+#    get  "project_edit_amount/:project_id/milestones/:milestone_id" => :milestone_amount , :as => "milestone_amount"
+  end
+
   get "project_staffing/:id" => "projects#staffing", :as => "staffing"
+
   get "project_add_staffing/:id" => "projects#add_staff", :as => "add_staff"
+
   post "project_save_participant/:id" => "projects#save_staff", :as => "save_staffing"
-  delete "project_delete_participant/:project_id/employee/:employee_id" => "projects#destroy_pariticipant", :as => "delete_pariticipant"
+
+  delete "project_delete_participant/:project_id/employee/:employee_id" => "projects#destroy_participant", :as => "delete_pariticipant"
+  delete "project_delete_milestone/:project_id/milestones/:milestone_id"  => "projects#destroy_milestone", :as => "delete_milestone"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
