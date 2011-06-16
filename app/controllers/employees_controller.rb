@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
 
   def index
     if params[:all]
-       @employees = Employee.all      
+       @employees = Employee.all
     else
        @employees = Employee.active.all
     end
@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @employees }
-      format.js   {  }
+      format.js   { @employees }
     end
   end
 
@@ -22,7 +22,7 @@ class EmployeesController < ApplicationController
     @employee. == true ? @employee.act = false : @employee.act = true #если чекбокс установлен снимаем галочку, иначе ставим
     if @employee.update_attributes
       flash[:notice] = "Bla."
-      @employee = Employee.all #Получаем весь список tasks чтобы обновить шаблон 
+      @employee = Employee.all #Получаем весь список tasks чтобы обновить шаблон
     end
     respond_with(@employee)
   end
@@ -111,3 +111,4 @@ class EmployeesController < ApplicationController
 
 
 end
+

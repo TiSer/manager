@@ -9,6 +9,10 @@ Manager::Application.routes.draw do
 
   resources :activities
 
+  resources :salaries
+
+  get "wellcome/hello"
+
   resources :bookings
 
   resources :projects
@@ -25,9 +29,14 @@ Manager::Application.routes.draw do
 
   controller :projects do
     get  "project_milestone/:id"      => :milestone,     :as => "milestone"
-#    get  "project_add_milestone/:id"  => :new_milestone, :as => "new_milestone"
-#    post "project_save_milestone/:id" => :add_milestone, :as => "add_milestone"
-#    get  "project_edit_amount/:project_id/milestones/:milestone_id" => :milestone_amount , :as => "milestone_amount"
+  end
+
+  controller :reports do
+    get "reports/employees_bookings" => :employees_bookings, :as => "report_employees_bookings"
+  end
+
+  controller :salaries do
+    get "employee_salaries/:employee_id" => :employee_salary, :as => "employee_salary"
   end
 
   get "project_staffing/:id" => "projects#staffing", :as => "staffing"
@@ -38,6 +47,7 @@ Manager::Application.routes.draw do
 
   delete "project_delete_participant/:project_id/employee/:employee_id" => "projects#destroy_participant", :as => "delete_pariticipant"
   delete "project_delete_milestone/:project_id/milestones/:milestone_id"  => "projects#destroy_milestone", :as => "delete_milestone"
+  delete "project_delete_participant/:project_id/employee/:employee_id" => "projects#destroy_participant", :as => "delete_participant"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -88,7 +98,7 @@ Manager::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-    root :to => "employees#index"
+    root :to => "wellcome#hello"
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

@@ -4,6 +4,8 @@ class Booking < ActiveRecord::Base
   belongs_to :project
   belongs_to :activity
 
+  named_scope :date_greather_than, lambda { |date| { :conditions => ["date > ?", date] } }
+
   def self.find_by_object(booking)
     finded_booking = self.where(:employee_id => booking.employee.id, :project_id => booking.project.id, :date => booking.date).first
   end

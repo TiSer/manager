@@ -1,0 +1,26 @@
+<h1>Salary on employee:</h1>
+<h2><i><%= @employee.name %></i></h2>
+<hr/>
+
+<table>
+  <tr colspan="4" align="center">
+    <td width="50"><%= link_to '<', employee_salary_path(@employee, :year => (@date - 1.year).year) %></td>
+    <td colspan="2"><%= @date.strftime('%Y') %></td>
+    <td width="50"><%= link_to '>', employee_salary_path(@employee, :year => (@date + 1.year).year) %></td>
+  </tr>
+  <tr>
+    <th>Month</th>
+    <th>Salary</th>
+    <th>Day work hours</th>
+    <th></th>
+  </tr>
+  <% @salaries.each do |sal| %>
+    <tr>
+      <td><%= sal[0] %></td>
+      <td><%= sal[1] %></td>
+      <td><%= sal[2] %></td>
+      <td>Edit</td>
+    </tr>
+  <% end %>
+</table>
+

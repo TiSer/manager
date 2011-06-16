@@ -59,87 +59,18 @@
   </div>
 </div>
 
-<table border="0" cellpadding="1" cellspacing="0">
-  <tr id="calendar_controls">
-    <td><%= link_to '<<', staffing_path(@project, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year) %></td>
-    <td><%= link_to '<', staffing_path(@project, :offset => "prev_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
-    <td id="month"><%= @current_monday.strftime('%B %Y') %></td>
-    <td><%= link_to '>', staffing_path(@project, :offset => "next_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
-    <td><%= link_to '>>', staffing_path(@project, :offset => "next_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year) %></td>
-  </tr>
-</table>
+<%= render :partial => "projects/calendar_controls", :locals => {:main_object => @project, :route_name => "staffing", :current_monday => @current_monday} %>
 
-<table border="1" cellpadding="1" cellspacing="0" width = "100%">
-  <tr id= "date">
-    <th>Date</th>
-    <% 35.times do |days| %>
-      <% @date = @current_monday + days.day %>
-      <%
-         if @current_date.midnight == @date
-           @current_day_id = days
-         end
-      %>
-      <th id="d<%= days + 1 %>" class="<%= @date.strftime('%d%m%Y')%>">
-        <div id="day"><%= @date.day %></div>
-        <div id="month"><%= @date.strftime("%m") %></div>
-        <div id="year"><%= @date.year %></div>
-      </th>
-    <% end %>
-  </tr>
-  <tr id= "day">
-    <th>Day</th>
-    <% 35.times do |days| %>
-      <th id="d<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= ( @current_monday + days.day).day%></th>
-    <% end %>
-  </tr>
-  <tr>
-    <th>Employee</th>
-    <% 5.times do %>
-      <th>Mo</th>
-      <th>Tu</th>
-      <th>We</th>
-      <th>Th</th>
-      <th>Fr</th>
-      <th class="weekend">Sa</th>
-      <th class="weekend">Su</th>
-    <% end %>
-  </tr>
+  <%= render :partial => "calendar_header", :locals => {:current_monday => @current_monday} %>
 
   <%= render :partial => "bookings", :locals => {:employees => @participants, :project => @project, :bookable => true, :booking_employees => @booking_employees} %>
-<!--
-  <% @participants.each do |employee|%>
-    <tr id="e<%=employee.id %>" class="employee">
-        <td>
-          <%= link_to employee.name, employee_path(employee), :class => "employee_link" %>
-         [<%= link_to "del", delete_pariticipant_path(@project.id, employee.id), :confirm => 'Are you sure?', :method => :delete %>]
-        </td>
-        <%# this_bookings = @booking_employees[employee.id] %>
-          <% id = 0 %>
-          <% 5.times do |j|%>
-            <% 7.times do |i|%>
-              <% mark_date = @current_monday + id.day
-				 mark_date_sql = mark_date.strftime('%Y-%m-%d')
-                 @date = mark_date.strftime('%d.%m.%Y') %>
 
-              <% id +=1 %>
-              <% project_bks = employee.bookings.where(:date => mark_date_sql, :project_id => @project.id).sum("hours")
-                 all_bks = employee.bookings.where(:date => mark_date_sql).sum("hours") %>
-
-              <td id="d<%= id %>" class="<%= booking_color_marking(all_bks,mark_date)%> bookable">
-                <%# if this_bookings and this_bookings[@date] %>
-                  <%#= this_bookings[@date][0] %> <%#= this_bookings[@date][1] %>
-                <%# end %>
-                <% if all_bks !=0 %>
-                  <%= project_bks %>/<%= all_bks %>
-                <% end %>
-              </td>
-            <% end %>
-          <% end %>
-    </tr>
-  <% end %> !-->
 </table>
 <p>
-  <%= form_tag(add_staff_path(@project.id, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year), :method => "get") do %>
+  <%= form_tag(add_staff_path(@project.id, :day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year), :method => "get") do %>
+    <%= hidden_field_tag :day, @current_monday.day %>
+    <%= hidden_field_tag :month, @current_monday.month %>
+    <%= hidden_field_tag :year, @current_monday.year %>
     <%= submit_tag("Add staff") %>
   <% end %>
 </p>

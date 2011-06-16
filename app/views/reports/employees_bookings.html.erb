@@ -1,0 +1,9 @@
+<h1>Report: Employees bookings</h1>
+	<%= render :partial => "projects/calendar_controls", :locals => {:main_object => @project, :route_name => "report_employees_bookings", :current_monday => @current_monday} %>
+
+    <%= render :partial => "projects/calendar_header", :locals => {:current_monday => @current_monday} %>
+
+    <%= render :partial => "rep_employees", :locals => {:employees => @employees, :booking_employees => @bookings} %>
+
+  </table>
+

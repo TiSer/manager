@@ -52,22 +52,6 @@ class BookingsController < ApplicationController
     end
 
     respond_to do |format|
-=begin
-      if @booking.save
-        create_other_bookings
-
-        format.html { redirect_to(staffing_path(@booking.project), :notice => 'Booking was successfully created.') }
-        format.xml  { render :xml => @booking, :status => :created, :location => @booking }
-        format.js {
-                    @booking
-                    @end_date
-                    @bookings_array_for_ajax = make_bookings_array
-                  }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
-     end
-=end
         format.js {
                     @booking
                     @end_date
@@ -114,12 +98,6 @@ class BookingsController < ApplicationController
     end
 
     def create_or_update_other_bookings
-#       if finded_booking = Booking.find_by_object(@booking)
-#         finded_booking.hours = @booking.hours
-#         finded_booking.save
-#       else
-#         @booking.save
-#       end
        @booking.update_or_this do
          @booking.save
        end
@@ -137,32 +115,9 @@ class BookingsController < ApplicationController
              booking_item.save
            end
          end
-=begin
-         if finded_booking = Booking.find_by_object(booking_dup)
-           finded_booking.hours = @booking.hours
-           finded_booking.save
-         elsif !weekend?(date)
-           booking_item = Booking.new(params[:booking])
-           booking_item.date = date
-           booking_item.save
-         end
-=end
        end
     end
-=begin
-    def make_bookings_array
-      employee = @booking.employee
-      date = @booking.date - 1.day
-      bks_arr = []
-       while date <= @end_date do
-        date += 1.day
-        project_bks = employee.bookings.where(:date => date, :project_id => @booking.project.id).sum("hours")
-        all_bks = employee.bookings.where(:date => date).sum("hours")
-        bks_arr << [project_bks, all_bks]
-      end
-      bks_arr
-    end
-=end
+
     def make_bookings_hash
       employee = @booking.employee
       project_bks = employee.bookings_on_interval(@begin_date, @end_date, project_id = @booking.project.id)

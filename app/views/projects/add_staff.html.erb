@@ -1,48 +1,29 @@
 <h1>Add staff to project:</h1>
 <br />
 
+<% content_for :add_staff_js do %>
+  <%= javascript_include_tag "add_staff.js" %>
+<% end %>
+
 <div id="search_by_skill">
-<%= form_tag(add_staff_path(@project.id), :method => "get") do %>
+<%= form_tag(add_staff_path(@project.id), :method => "get", :id => 'form_search_by_skill') do %>
   <div class="field" align="right">
     <b style="font-size:1.2em"><%= label_tag :Searching_by_skills %>:</b><br />
+    <%= hidden_field_tag :day, @current_monday.day %>
+    <%= hidden_field_tag :month, @current_monday.month %>
+    <%= hidden_field_tag :year, @current_monday.year %>
     <%= select(:skill,:id, @skills, :selected => params[:skill] ? params[:skill][:id] : "", :include_blank => 'All' ) %>
-    <%= submit_tag("Search!") %>
+    <%#= submit_tag("Search!") %>
   </div>
 <% end %>
 </div>
 <br />
 
-<table border="0" cellpadding="1" cellspacing="0">
-  <tr id="calendar_controls">
-    <td><%= link_to '<<', add_staff_path(@project, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-    <td><%= link_to '<', add_staff_path(@project, :offset => "prev_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-    <td id="month"><%= @current_monday.strftime('%B %Y') %></td>
-    <td><%= link_to '>', add_staff_path(@project, :offset => "next_week",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-    <td><%= link_to '>>', add_staff_path(@project, :offset => "next_month",:day => @current_monday.day, :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %></td>
-  </tr>
-</table>
+<%= render :partial => "projects/calendar_controls", :locals => {:main_object => @project, :route_name => "add_staff", :current_monday => @current_monday, :options => {:skill => params[:skill]}} %>
 
-<%= form_tag(save_staffing_path(@project.id), :method => "post") do %>
-<table border="1" cellpadding="1" cellspacing="0" width = "100%">
-  <tr id= "day">
-    <th>Day</th>
-    <% 35.times do |days| %>
-      <th id="d<%= days + 1 %>" class="<%='current_day' if @current_day_id == days %>"><%= ( @current_monday + days.day).day%></th>
-    <% end %>
-  </tr>
-  <tr>
-    <th>Employee</th>
-    <% 5.times do %>
-      <th>Mo</th>
-      <th>Tu</th>
-      <th>We</th>
-      <th>Th</th>
-      <th>Fr</th>
-      <th class="weekend">Sa</th>
-      <th class="weekend">Su</th>
-    <% end %>
-  </tr>
+<%= form_tag(save_staffing_path(@project.id, :day => params[:day],  :month => params[:month], :year => params[:year]), :method => "post") do %>
 
+    <%= render :partial => "calendar_header", :locals => {:current_monday => @current_monday} %>
 
     <%= render :partial => "bookings", :locals => {:employees => @current_dep_employees, :project => @project, :bookable => false, :booking_employees => @booking_current} %>
 
@@ -59,6 +40,6 @@
 <% end %>
 
 <p>
-  <%= link_to 'Back to staffing', staffing_path(@project, :offset => "prev_month",:day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %>
+  <%= link_to 'Back to staffing', staffing_path(@project, :day => @current_monday.day,  :month => @current_monday.month, :year => @current_monday.year, :skill =>params[:skill]) %>
 </p>
 
