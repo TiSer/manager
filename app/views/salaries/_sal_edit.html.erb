@@ -1,0 +1,37 @@
+<%= form_for(@salary) do |f| %>
+
+ <%= f.error_messages %>
+
+ <%= f.hidden_field :employee_id, :value => @employee.id %>
+ <%= f.hidden_field :year_month, :value => @date %>
+
+  <div class="field">
+    <%= f.label :day_work_hours %><br />
+    <%= f.text_field :day_work_hours %>
+  </div>
+
+  <div class="field">
+    <%= f.label :type %><br />
+    <%= f.select :sal_type, Salary::SALARY_TYPE %>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tax_amount %><br />
+    <%= f.text_field :tax_amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tax_percent %><br />
+    <%= f.text_field :tax_percent %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

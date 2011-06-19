@@ -17,24 +17,47 @@ class SalariesController < ApplicationController
     else
       @date = Time.parse(Time.now.year.to_s+'/01/01')
     end
- #   begin_date = @date
- #   end_date = (@date + 1.year)
     @salaries = []
     12.times do |m|
       month_date = @date + m.month + 1.month - 1.day
       date_sql = Date.civil(month_date.year,month_date.month, month_date.day)
       salary = @employee.salaries.on_month(date_sql).order("salaries.year_month DESC").first
       # p "sal = ", salary
+      month = (@date + m.month)
       if salary
-        row = [(@date + m.month).strftime('%b'), salary.amount, salary.day_work_hours]
+        amount = salary.amount
+        hours = salary.day_work_hours
+        type = salary.sal_type
+        tax_amount = salary.tax_amount
+        tax_percent = salary.tax_percent
       else
-        row = [(@date + m.month).strftime('%b'), "N/A", "N/A"]
+        amount = "N/A"
+        hours = "N/A"
+        type = "N/A"
+        tax_amount = "N/A"
+        tax_percent = "N/A"
       end
+      row = [month.strftime('%b'), amount, hours, month.strftime('%m'), type, tax_amount, tax_percent ]
       @salaries << row
     end
 
   end
 
+  def edit_salary
+    @employee = Employee.find(params[:employee_id])
+    @year = params[:year]
+    @month = params[:month]
+    @date = Time.parse(params[:year]+'/'+params[:month]+'/01')
+    @amount = params[:amount]
+    @hours = params[:hours]
+    @salary = Salary.new({:employee_id => @employee.id, :year_month => @date, :amount => @amount.to_i, :day_work_hours => @hours.to_i, :tax_amount => params[:tax_amount].to_i, :tax_percent => params[:tax_percent].to_i, :sal_type => params[:type].to_i })
+    find_salary = Salary.find_by_object(@salary)
+    p "find = ", find_salary
+    if find_salary
+      @salary = find_salary
+    end
+
+  end
 
   # GET /salaries/1
   # GET /salaries/1.xml
@@ -70,7 +93,7 @@ class SalariesController < ApplicationController
 
     respond_to do |format|
       if @salary.save
-        format.html { redirect_to(@salary, :notice => 'Salary was successfully created.') }
+        format.html { redirect_to(employee_salary_path(@salary.employee, :year => @salary.year_month.year), :notice => 'Salary was successfully created.') }
         format.xml  { render :xml => @salary, :status => :created, :location => @salary }
       else
         format.html { render :action => "new" }
@@ -86,7 +109,7 @@ class SalariesController < ApplicationController
 
     respond_to do |format|
       if @salary.update_attributes(params[:salary])
-        format.html { redirect_to(@salary, :notice => 'Salary was successfully updated.') }
+        format.html { redirect_to(employee_salary_path(@salary.employee, :year => @salary.year_month.year), :notice => 'Salary was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

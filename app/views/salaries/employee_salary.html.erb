@@ -19,7 +19,7 @@
       <td><%= sal[0] %></td>
       <td><%= sal[1] %></td>
       <td><%= sal[2] %></td>
-      <td>Edit</td>
+      <td><%= link_to 'Edit', edit_salary_path(:year => @date.strftime('%Y'), :month => sal[3], :amount => sal[1], :hours => sal[2], :type => sal[4], :tax_amount => sal[5], :tax_percent => sal[6]) %></td>
     </tr>
   <% end %>
 </table>

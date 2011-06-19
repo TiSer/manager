@@ -37,6 +37,7 @@ Manager::Application.routes.draw do
 
   controller :salaries do
     get "employee_salaries/:employee_id" => :employee_salary, :as => "employee_salary"
+    get "edit_salary/:employee_id" => :edit_salary, :as => "edit_salary"
   end
 
   get "project_staffing/:id" => "projects#staffing", :as => "staffing"
