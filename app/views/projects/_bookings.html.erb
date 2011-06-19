@@ -18,7 +18,7 @@
               <% get_bookings_for_cell(booking_employees,mark_date,employee.id) %>
               <% id +=1 %>
 
-              <td id="d<%= id %>" class="<%= booking_color_marking(@all_books,mark_date)%> <%= 'bookable' if bookable %>">
+              <td id="d<%= id %>" class="<%= booking_color_marking(@all_books,mark_date)%> <%= 'bookable' if bookable %>" activity_id="<%= @activity_id %>">
                 <%= bookings_out_to_cell(@project_books, @all_books) %>
               </td>
             <% end %>

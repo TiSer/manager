@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.active.all
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
@@ -20,8 +20,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy_milestone
-    @project = Project.find(params[:project_id])    
-    @milestone = Milestone.find(params[:milestone_id])  
+    @project = Project.find(params[:project_id])
+    @milestone = Milestone.find(params[:milestone_id])
 
     @milestone.destroy
 
@@ -204,9 +204,10 @@ class ProjectsController < ApplicationController
   def make_bokings_hash_for(employees)
     booking_employees = {}
     employees.each do |employee|
-       proj_bks = employee.bookings_from_monday_to_35th_day(@current_monday,@project.id)
+       proj_bks = employee.bookings_from_monday_to_35th_day(@current_monday, @project.id)
        all_bks = employee.bookings_from_monday_to_35th_day(@current_monday)
-       booking_employees.[]=(employee.id, {:project => proj_bks, :all => all_bks})
+       activity = employee.books_activity_on_interval(@current_monday, @current_monday.midnight + 35.day, @project.id)
+       booking_employees.[]=(employee.id, {:project => proj_bks, :all => all_bks, :activity => activity})
     end
     booking_employees
   end
@@ -219,3 +220,4 @@ class ProjectsController < ApplicationController
   end
 
 end
+

@@ -122,7 +122,8 @@ class BookingsController < ApplicationController
       employee = @booking.employee
       project_bks = employee.bookings_on_interval(@begin_date, @end_date, project_id = @booking.project.id)
       all_bks = employee.bookings_on_interval(@begin_date, @end_date)
-      hash = {:project => project_bks, :all => all_bks}
+      activity = employee.books_activity_on_interval(@begin_date, @end_date, @booking.project.id)
+      hash = {:project => project_bks, :all => all_bks, :activity => activity}
     end
 end
 

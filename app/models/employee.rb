@@ -31,13 +31,17 @@ class Employee < ActiveRecord::Base
     end
   end
 
-
   def bookings_from_monday_to_35th_day(current_monday,project_id = "all")
     begin_date = current_monday
     end_date = current_monday.midnight + 35.day
     self.bookings_on_interval(begin_date, end_date, project_id)
   end
 
+  def books_activity_on_interval(beg_d, end_d, project_id)
+    begin_date = beg_d.strftime('%Y-%m-%d')
+    end_date = end_d.strftime('%Y-%m-%d')
+    bookings.where(:date => begin_date..end_date,:project_id => project_id).group(:date).order(:date).sum(:activity_id)
+  end
 
 end
 

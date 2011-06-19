@@ -22,12 +22,15 @@ module ApplicationHelper
     if employee_id == "none"
       project_bks = hash[:project][date_sql]
       all_bks =  hash[:all][date_sql]
+      activity = hash[:activity][date_sql]
     else
       project_bks = hash[employee_id][:project][date_sql]
       all_bks =  hash[employee_id][:all][date_sql]
+      activity = hash[employee_id][:activity][date_sql]
     end
       @project_books = project_bks ||=0
       @all_books = all_bks ||=0
+      @activity_id = activity ||=0
   end
 
   def bookings_out_to_cell(project_bks, all_bks)
@@ -37,7 +40,7 @@ module ApplicationHelper
       out_to_cell = ""
     end
   end
-  
+
   def calendar_period_link(direction, route_name, main_object, current_monday, options={})
     path_options = {:offset => direction, :day => current_monday.day,  :month => current_monday.month, :year => current_monday.year}
     path_options.merge! options

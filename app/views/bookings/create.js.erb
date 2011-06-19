@@ -37,10 +37,10 @@ var num_beg_id = parseInt(did.split('d')[1], 10)
         out_to_cell = ''
      <%# end %>
 */
-
+     var td = $("tr#e"+eid+" td#d"+i)
      $("tr#e"+eid+" td#d"+i).text('<%= bookings_out_to_cell(@project_books, @all_books) %>');
      $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%= booking_color_marking(@all_books,mark_date)%>');
-
+     td.attr("activity_id", <%= @activity_id %>)
 
 
 
