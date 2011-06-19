@@ -26,10 +26,22 @@ $(document).ready(function(){
             $("#booking_date_3i").val(day)
             $("#booking_date_2i").val(month)
             $("#booking_date_1i").val(year)
+            bks = $("tr#"+this.parentNode.id+" td#"+this.id).text()
+            hours = parseInt(bks.split('/')[0], 10)
+            if (hours > 0) {
+              $("#booking_hours").val(hours)
+            }
+            else
+            {
+              $("#booking_hours").val('')
+            }
 
-            $("#booking_activity_id [value="+eval(default_activity_id)+"]").attr("selected", "selected").siblings("option").removeAttr("selected");
+            activity_id = $("tr#"+this.parentNode.id+" td#"+this.id).attr('activity_id')
+            if (activity_id <= 0) {
+                activity_id = default_activity_id
+            }
 
-            console.log(default_activity_id)
+            $("#booking_activity_id [value="+eval(activity_id)+"]").attr("selected", "selected").siblings("option").removeAttr("selected");
 
             $("#booking_end_date").val(day+'.'+month+'.'+year)
 
@@ -37,5 +49,4 @@ $(document).ready(function(){
             return false;
 		});
 });
-//$(val(day+'.'+month+'.'+year))
 

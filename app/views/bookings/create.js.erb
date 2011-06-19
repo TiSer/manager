@@ -1,14 +1,12 @@
 var db = '<%= @begin_date.strftime('%d%m%Y') %>'
-/* var de = '<%= @end_date.strftime('%d%m%Y') %>' */
-var eid = '<%= @booking.employee.id %>'
-/* var hours = '<%= @booking.hours %>' */
 
+var eid = '<%= @booking.employee.id %>'
 
 RedBox.close();
 
 
 var did = $('th.'+db).attr("id")
-/* var edid = $('th.'+de).attr("id") */
+
 var num_beg_id = parseInt(did.split('d')[1], 10)
 
 <%
@@ -21,56 +19,15 @@ var num_beg_id = parseInt(did.split('d')[1], 10)
      i = num_beg_id + <%= id %>
 
      <% mark_date = begin_date + id.day %>
-/*
-     <%# date_sql = Date.civil(mark_date.year,mark_date.month,mark_date.day) %>
 
-     <%# project_bks = @bookings_hash_for_ajax[:project][date_sql] ||= 0 %>
-     <%# all_bks =  @bookings_hash_for_ajax[:all][date_sql] ||= 0 %>
-
-*/
      <% id +=1 %>
      <% get_bookings_for_cell(@bookings_hash_for_ajax,mark_date) %>
-/*
-     <%# if all_bks !=0 %>
-        out_to_cell = '<%#= project_bks %>/<%#= all_bks %>'
-     <%# else %>
-        out_to_cell = ''
-     <%# end %>
-*/
-     var td = $("tr#e"+eid+" td#d"+i)
-     $("tr#e"+eid+" td#d"+i).text('<%= bookings_out_to_cell(@project_books, @all_books) %>');
-     $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%= booking_color_marking(@all_books,mark_date)%>');
-     td.attr("activity_id", <%= @activity_id %>)
 
-
+     td = $("tr#e"+eid+" td#d"+i)
+     td.text('<%= bookings_out_to_cell(@project_books, @all_books) %>');
+     td.removeClass().addClass('bookable <%= booking_color_marking(@all_books,mark_date)%>');
+     td.removeAttr("activity_id");
+     td.attr("activity_id", '<%= @activity_id %>')
 
 <% end %>
-
-
-
-/*
-var num_end_id = parseInt(edid.split('d')[1], 10)
-
-
-
-$("tr#e"+eid+" td#"+did).text(hours)
-$("tr#e"+eid+" td#"+edid).text(hours)
-*/
-/*
-for (i = num_beg_id; i <= num_end_id; i++ ) {
-    $("tr#e"+eid+" td#d"+i).text(hours)
-}
-*/
-
-/*
-<%# num = 0 %>
-<%# @bookings_array_for_ajax.each do |hours| %>
-   i = num_beg_id + <%#= num %>
-   <%# if hours[1] != 0 %>
-       $("tr#e"+eid+" td#d"+i).text('<%#= hours[0] %>/<%#= hours[1] %>');
-       $("tr#e"+eid+" td#d"+i).removeClass().addClass('bookable <%#= color_marking_ajax(hours[1]) %>');
-   <%# end %>
-   <%# num+=1 %>
-<%# end %>
-*/
 
