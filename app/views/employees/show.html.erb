@@ -35,6 +35,10 @@
   </p>
 
   <p>
+   <b>Default activity: </b><%= @employee.default_activity.name %>
+  </p>
+
+  <p>
     <b>Is active: </b><%= activity(@employee) %>
   </p>
 
@@ -42,3 +46,4 @@
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', back_to_previous_page %>
+

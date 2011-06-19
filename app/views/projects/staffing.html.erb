@@ -21,8 +21,8 @@
       <div id ="employee_name" class="modal_input padded"></div>
       <div id ="current_date" class="modal_input padded"></div>
 
-      <div class="field modal_input">
-        <%= f.label :default_activity %>:
+      <div class="field modal_input padded">
+        <%= f.label :activity %>:
         <%= f.select :activity_id, @activities %>
       </div>
 
@@ -48,7 +48,7 @@
       <div class="field">
         <%= f.hidden_field :date_3i, :name => "booking[date(3i)]" %>
       </div>
-      
+
       <div class="actions clear_left">
         <%= f.submit "Ok" %>
       </div>

@@ -11,6 +11,7 @@ $(document).ready(function(){
             employee_id = parseInt(this.parentNode.id.split('e')[1], 10)
 
             th_date = $('tr#date th#' + this.id)
+            default_activity_id = $("tr#e"+employee_id+" td div.hidden_div").text()
 
             day = $('div#day', th_date).text()
             month = $('div#month', th_date).text()
@@ -26,6 +27,10 @@ $(document).ready(function(){
             $("#booking_date_2i").val(month)
             $("#booking_date_1i").val(year)
 
+            $("#booking_activity_id [value="+eval(default_activity_id)+"]").attr("selected", "selected").siblings("option").removeAttr("selected");
+
+            console.log(default_activity_id)
+
             $("#booking_end_date").val(day+'.'+month+'.'+year)
 
             RedBox.showInline('redbox');
@@ -33,3 +38,4 @@ $(document).ready(function(){
 		});
 });
 //$(val(day+'.'+month+'.'+year))
+
