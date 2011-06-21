@@ -22,12 +22,12 @@ class SalariesController < ApplicationController
       month_date = @date + m.month + 1.month - 1.day
       date_sql = Date.civil(month_date.year,month_date.month, month_date.day)
       salary = @employee.salaries.on_month(date_sql).order("salaries.year_month DESC").first
-      # p "sal = ", salary
       month = (@date + m.month)
       if salary
         amount = salary.amount
         hours = salary.day_work_hours
         type = salary.sal_type
+
         tax_amount = salary.tax_amount
         tax_percent = salary.tax_percent
       else

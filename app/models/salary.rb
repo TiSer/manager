@@ -15,5 +15,19 @@ class Salary < ActiveRecord::Base
     finded_salary = self.where(:employee_id => salary.employee.id, :year_month => date_sql).first
   end
 
+  def bookings_on_interval(beg_d, end_d)
+    begin_date = beg_d.strftime('%Y-%m-%d')
+    end_date = end_d.strftime('%Y-%m-%d')
+    bookings = self.employee.bookings.where(:date => begin_date..end_date)
+    amount = 0
+    hours = 0
+    bookings.each do |booking|
+      amount += booking.activity.activity_cost
+      hours += booking.hours
+    end
+    @amount = amount
+    @hours = hours
+  end
+
 end
 
