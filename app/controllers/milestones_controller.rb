@@ -1,4 +1,6 @@
 class MilestonesController < ApplicationController
+
+  before_filter :authenticate_admin
   # GET /milestones
   # GET /milestones.xml
   def index
@@ -85,3 +87,4 @@ class MilestonesController < ApplicationController
     end
   end
 end
+

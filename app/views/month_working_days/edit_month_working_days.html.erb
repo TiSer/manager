@@ -1,0 +1,21 @@
+<h1>Edit month working days:</h1>
+<h2>On: <%= @date.strftime("%b %Y") %></h2>
+
+<%= form_for(@month_working_day) do |f| %>
+
+ <%= f.error_messages %>
+
+ <%= f.hidden_field :year_month, :value => @date %>
+
+  <div class="field">
+    <%= f.label :working_days %><br />
+    <%= f.text_field :working_days %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', year_working_days_list_path(:year => @date.year) %>
+

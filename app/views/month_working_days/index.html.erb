@@ -1,0 +1,28 @@
+<h1>Month working days</h1>
+
+<table>
+  <tr>
+    <th>Year</th>
+    <th>Month</th>
+    <th>Working days</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @month_working_days.each do |month_working_day| %>
+  <tr>
+    <td><%= month_working_day.year_month.strftime("%Y") %></td>
+    <td><%= month_working_day.year_month.strftime("%b") %></td>
+    <td><%= month_working_day.working_days %></td>
+    <td><%= link_to 'Show', month_working_day %></td>
+    <td><%= link_to 'Edit', edit_month_working_day_path(month_working_day) %></td>
+    <td><%= link_to 'Destroy', month_working_day, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Month working day', new_month_working_day_path %>
+

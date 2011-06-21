@@ -1,5 +1,7 @@
 class ReportsController < ApplicationController
 
+  before_filter :authenticate_admin
+
   def employees_bookings
     @employees = Employee.all
     calendar_prev_next

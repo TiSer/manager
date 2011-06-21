@@ -1,0 +1,21 @@
+<h1>Month working days</h1>
+
+<table>
+  <tr colspan="3" align="center">
+    <td width="50"><%= link_to '<', year_working_days_list_path(:year => (@date - 1.year).year) %></td>
+    <td><%= @date.strftime('%Y') %></td>
+    <td width="50"><%= link_to '>', year_working_days_list_path(:year => (@date + 1.year).year) %></td>
+  </tr>
+  <tr>
+    <th>Month</th>
+    <th>Working days</th>
+  </tr>
+  <% @months_on_year_list.each do |month_working_days| %>
+    <tr>
+      <td><%= month_working_days[0] %></td>
+      <td><%= month_working_days[2] %></td>
+      <td><%= link_to 'Edit', edit_month_working_days_path(:year => @date.strftime('%Y'), :month => month_working_days[1] ) %></td>
+    </tr>
+  <% end %>
+</table>
+

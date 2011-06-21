@@ -1,5 +1,7 @@
 Manager::Application.routes.draw do
 
+  resources :month_working_days
+
   resources :milestones
 
   controller :milestones do
@@ -29,6 +31,11 @@ Manager::Application.routes.draw do
 
   controller :projects do
     get  "project_milestone/:id"      => :milestone,     :as => "milestone"
+  end
+
+  controller :month_working_days do
+    get "working_days_list" => :months_on_year_list, :as => "year_working_days_list"
+    get "edit_month_working_days" => :edit_month_working_days, :as => "edit_month_working_days"
   end
 
   controller :reports do

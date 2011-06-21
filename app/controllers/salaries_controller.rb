@@ -1,4 +1,6 @@
 class SalariesController < ApplicationController
+
+  before_filter :authenticate_admin
   # GET /salaries
   # GET /salaries.xml
   def index
@@ -52,7 +54,6 @@ class SalariesController < ApplicationController
     @hours = params[:hours]
     @salary = Salary.new({:employee_id => @employee.id, :year_month => @date, :amount => @amount.to_i, :day_work_hours => @hours.to_i, :tax_amount => params[:tax_amount].to_i, :tax_percent => params[:tax_percent].to_i, :sal_type => params[:type].to_i })
     find_salary = Salary.find_by_object(@salary)
-    p "find = ", find_salary
     if find_salary
       @salary = find_salary
     end

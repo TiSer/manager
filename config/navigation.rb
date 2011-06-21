@@ -6,6 +6,7 @@
     primary.dom_class = 'sf-menu sf-navbar'
       primary.item :employees, "Employees", employees_path
       primary.item :activity, "Activities", activities_path
+      primary.item :working_days, "Working days", year_working_days_list_path
       primary.item :skills, "Skills", skills_path
       primary.item :departments, "Departments", departments_path
       primary.item :customers, "Customers", customers_path

@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
 
+  before_filter :authenticate_admin
   before_filter :prepare_departments, :only => [:new, :edit]
   before_filter :prepare_customers, :only => [:new, :edit]
   before_filter :prepare_activities, :only => [:staffing]

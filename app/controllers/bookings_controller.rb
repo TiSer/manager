@@ -1,6 +1,8 @@
 class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.xml
+  before_filter :authenticate_admin
+
   def index
     @bookings = Booking.all
 
