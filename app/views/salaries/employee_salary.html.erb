@@ -19,7 +19,7 @@
   <% @salaries.each do |sal| %>
     <tr>
       <td><%= sal[0] %></td>
-      <td><%= Salary::SALARY_TYPE[sal[4]-1][0] %></td>
+      <td><%= sal[4] != 'N/A' ? Salary::SALARY_TYPE[sal[4]-1][0] : sal[4] %></td>
       <td><%= sal[1] %></td>
       <td><%= sal[2] %></td>
       <td><%= sal[5] %></td>

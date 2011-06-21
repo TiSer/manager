@@ -11,6 +11,9 @@
       <th>Amount</th>
       <th>Name</th>
       <th>Invoice name</th>
+      <th>Incame</th>
+      <th>Expence</th>
+      <th>Profit</th>
     </tr>
 
   <% @project.milestones.each do |milestone| %>
@@ -24,6 +27,9 @@
       <% end %>
       <td><%= milestone.name %></td>
       <td><%= milestone.invoice_name %></td>
+      <td></td>
+      <td><%= "%0.2f" %milestone.expence %></td>
+      <td></td>
       <td><%= link_to 'X', delete_milestone_path(milestone.project_id, milestone.id), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
@@ -34,3 +40,4 @@
 <%= render :partial => "milestones/amount" %>
 
 <%= link_to 'New Milestone', new_milestone_path(@project.id) %>
+
