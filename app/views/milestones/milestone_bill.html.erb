@@ -1,0 +1,15 @@
+<h1>Bill for milestone</h1>
+
+(booking hours) * (activity cost) = ... <br/>
+<p>
+<% bill.each do |b| %>
+  <% @a = b[0] %>
+  <% @b = b[1] %>
+
+  <%= @a %> * <%= @b %> = <%= (@a * @b) %><br/>
+  <p style="padding-left:20px">+</p>
+<% end %>
+
+<h3>Sum: <%= @summ %> .</h3>
+
+<%= link_to "Back", :back %>

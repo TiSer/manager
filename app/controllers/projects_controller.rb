@@ -2,22 +2,38 @@ class ProjectsController < ApplicationController
 
   before_filter :prepare_departments, :only => [:new, :edit]
   before_filter :prepare_customers, :only => [:new, :edit]
+  before_filter :prepare_activities, :only => [:staffing]
 
   def index
     @projects = Project.active.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
     end
   end
 
+  def milestone
+    @project = Project.find(params[:id])
+    @milestones = Milestone.all
+  end
+
+  def destroy_milestone
+    @project = Project.find(params[:project_id])    
+    @milestone = Milestone.find(params[:milestone_id])  
+
+    @milestone.destroy
+
+    respond_to do |format|
+      format.html { redirect_to milestone_path(@project.id) }
+      format.xml  { head :ok }
+    end
+  end
+
   def staffing
     @project = Project.find(params[:id])
     @participants = @project.employees.order('name')
-
     calendar_prev_next
-
     @booking_employees = make_bokings_hash_for(@participants)
   end
 
@@ -73,12 +89,11 @@ class ProjectsController < ApplicationController
         flash[:notice] ='Participant was successfully deleted.'
      end
 
-    respond_to do |format|
+     respond_to do |format|
       format.html { redirect_to(staffing_path(@project.id)) }
       format.js {@employee_id = employee.id }
-    end
+     end
   end
-
 
   def show
     @project = Project.find(params[:id])
@@ -157,6 +172,44 @@ class ProjectsController < ApplicationController
     @customers = Customer.dd
   end
 
+  def prepare_activities
+    @activities = Activity.dd
+  end
+
+  def calendar_prev_next
+
+    @current_date = Time.now
+
+    if params[:month] and params[:year] and params[:day]
+      @current_monday = Time.parse(params[:year]+'/'+params[:month]+'/'+params[:day])
+    else
+      @current_monday = @current_date.monday
+    end
+
+    if params[:offset]
+      case params[:offset]
+        when "prev_week"
+          @current_monday -= 1.week
+        when "prev_month"
+          @current_monday -= 4.week
+        when "next_month"
+          @current_monday += 4.week
+        when "next_week"
+          @current_monday += 1.week
+      end
+    end
+  end
+
+  def make_bokings_hash_for(employees)
+    booking_employees = {}
+    employees.each do |employee|
+       proj_bks = employee.bookings_from_monday_to_35th_day(@current_monday,@project.id)
+       all_bks = employee.bookings_from_monday_to_35th_day(@current_monday)
+       booking_employees.[]=(employee.id, {:project => proj_bks, :all => all_bks})
+    end
+    booking_employees
+  end
+
   def delete_pariticipant_and_his_bookings(employee,project)
     project.employees.delete(employee)
     current_date = Time.now
@@ -165,4 +218,3 @@ class ProjectsController < ApplicationController
   end
 
 end
-

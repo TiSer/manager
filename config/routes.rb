@@ -1,6 +1,18 @@
 Manager::Application.routes.draw do
 
+  resources :milestones
 
+  controller :milestones do
+    get  "project_milestone/:id/new"  => :new,    :as => "new_milestone"
+    post "project_milestone/:id"      => :create, :as => "milestones"
+    get  "project_milestone/bill/:id" => :milestone_bill, :as => "milestone_bill"
+  end
+
+  resources :activities
+
+  resources :salaries
+
+  get "wellcome/hello"
 
   resources :bookings
 
@@ -16,13 +28,45 @@ Manager::Application.routes.draw do
 
   resources :skills
 
+  controller :projects do
+    get "project_milestone/:id"      => :milestone, :as => "milestone"
+  end
+
+  controller :activity_costs do
+    get "project_activity_costs"                 => :costs,            :as => "costs"
+#    post"project_activity_costs/:project_id"     => :create_act_cost,  :as => "costs"
+    get "project_activity_costs/:project_id"     => :costs,            :as => "activity_costs"
+#    get "project_activity_costs/:project_id/new" => :costs,            :as => "new_activity_cost"
+    get "project_activity_costs/:project_id/:id" => :costs,            :as => "edit_activity_cost"
+    put "project_activity_costs/:project_id/:id" => :update_act_cost,  :as => "update_activity_cost"
+  end
+
+  controller :categories do
+    get "staff/categories"           => :index,   :as => "categories"
+    post"staff/categories"           => :create,  :as => "categories"
+    get "staff/categories/new"       => :index,   :as => "new_category"
+    get "staff/categories/:id"       => :index,   :as => "edit_category"
+    get "staff/categories/:id"       => :index,   :as => "category"
+    put "staff/categories/:id"       => :update,  :as => "update_category"    
+    delete "staff/categories/:id"    => :destroy, :as => "del_category" 
+  end
+
   controller :reports do
     get "reports/employees_bookings" => :employees_bookings, :as => "report_employees_bookings"
   end
 
+  controller :salaries do
+    get "employee_salaries/:employee_id" => :employee_salary, :as => "employee_salary"
+  end
+
   get "project_staffing/:id" => "projects#staffing", :as => "staffing"
+
   get "project_add_staffing/:id" => "projects#add_staff", :as => "add_staff"
+
   post "project_save_participant/:id" => "projects#save_staff", :as => "save_staffing"
+
+  delete "project_delete_participant/:project_id/employee/:employee_id" => "projects#destroy_participant", :as => "delete_pariticipant"
+  delete "project_delete_milestone/:project_id/milestones/:milestone_id"  => "projects#destroy_milestone", :as => "delete_milestone"
   delete "project_delete_participant/:project_id/employee/:employee_id" => "projects#destroy_participant", :as => "delete_participant"
 
   # The priority is based upon order of creation:
@@ -74,7 +118,7 @@ Manager::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-    root :to => "employees#index"
+    root :to => "wellcome#hello"
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

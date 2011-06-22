@@ -1,0 +1,33 @@
+<% is_remote ||= false %>
+
+<div id="dialog" title="milestone">
+
+  <%= form_for(@milestone) do |f| %>
+      <%= f.error_messages %>
+
+    <%= f.hidden_field :project_id, :value => @project.id %>
+
+    <div class="field">
+      <%= f.label :start_date %><br />
+      <%= f.date_select :start_date %>
+    </div>
+    <div class="field">
+      <%= f.label :end_date %><br />
+      <%= f.date_select :end_date %>
+    </div>  
+
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :invoice_name %><br />
+      <%= f.text_field :invoice_name %>
+    </div>    
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+</div>

@@ -15,13 +15,15 @@
   <tr>
     <td><%= project.name %></td>
     <td align="center">"<%= project.department.name %>"</td>
-    <td><%= project.payment_model %></td>
+    <td><%= Project::PAYMENT_MODEL[project.payment_model.to_i-1][0] %></td> <!-- project.payment_model -->
     <td><%= activity(project) %></td>
     <td align="center">"<%= project.customer.name %>"</td>
     <td><%= link_to 'Show', project %></td>
     <td><%= link_to 'Edit', edit_project_path(project) %></td>
     <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>
     <td><%= link_to 'Staffing', staffing_path(project) %></td>
+    <td><%= link_to 'Milestones',milestone_path(project) %></td>
+    <td><%= link_to 'Activities costs',activity_costs_path(project) %></td>
   </tr>
 <% end %>
 </table>

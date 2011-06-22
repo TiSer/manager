@@ -2,6 +2,7 @@ class Booking < ActiveRecord::Base
 
   belongs_to :employee
   belongs_to :project
+  belongs_to :activity
 
   named_scope :date_greather_than, lambda { |date| { :conditions => ["date > ?", date] } }
 

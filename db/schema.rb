@@ -10,7 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517095622) do
+ActiveRecord::Schema.define(:version => 20110619221835) do
+
+  create_table "activities", :force => true do |t|
+    t.string   "name"
+    t.string   "invoice_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "activity_costs", :force => true do |t|
+    t.integer  "activity_id"
+    t.integer  "project_id"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bookings", :force => true do |t|
     t.integer  "project_id"
@@ -60,12 +75,37 @@ ActiveRecord::Schema.define(:version => 20110517095622) do
     t.datetime "updated_at"
   end
 
+  create_table "milestones", :force => true do |t|
+    t.integer  "project_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "amount"
+    t.string   "name"
+    t.string   "invoice_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
     t.string   "payment_model"
     t.boolean  "is_active",     :default => true
     t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "salaries", :force => true do |t|
+    t.integer  "employee_id"
+    t.date     "year_month"
+    t.integer  "day_work_hours"
+    t.integer  "type"
+    t.integer  "currency"
+    t.integer  "amount"
+    t.integer  "tax_currency"
+    t.integer  "tax_amount"
+    t.integer  "tax_percent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

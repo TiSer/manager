@@ -1,0 +1,45 @@
+<h1>Activities costs for "<%= link_to @project.name, project_path(@project.id) %>"</h1>
+
+<% if @project.payment_model == "1" %>
+
+<% form_tag(params[:id].blank? ? costs_url : update_activity_cost_path(params[:project_id][:id]), :method => params[:id].blank? ? :post : :put ) do %>
+
+<%# form_tag (update_activity_cost_path(params[:project_id][:id]), :method => :put) do %>
+
+ <table>
+		<tr>
+			<th>Activity Cost</th>
+		</tr>
+		<tr>
+			<td><%= text_field(:activity_cost, :amount, :size => 20) %></td>
+			<td><%= submit_tag("update") %></td> <!-- params[:id].blank? ? "create" :  -->
+		</tr>
+	</table>
+  <% end %>
+
+<table>
+	<tr>
+		<th>Activity</th>
+		<th>Activity Cost</th>
+    <th></th>
+	</tr>
+
+    <% for activity_cost in @project.activity_costs %>
+        <td><%= activity_cost.activity.name %></td>
+      <%# if activity_cost.amount != nil %>
+    		<td><%= activity_cost.amount %></td>
+  		  <td><%= link_to 'Edit', edit_activity_cost_path(@project.id, activity_cost) %></td><tr>
+<!--		  <%# else %>
+        <td><%#= "0" %> </td>
+		    <td><%#= link_to 'Create', new_activity_cost_path(@project.id, activity.id) %></td></tr>
+      <%# end %> -->
+    <% end %>
+
+	</tr>
+
+<% else %>
+<br/>
+<h3><%= "This is not payment model by time." %></h3>
+<% end %>
+
+</table>

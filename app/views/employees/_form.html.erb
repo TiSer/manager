@@ -3,8 +3,8 @@
 	<%= f.error_messages %>
 
   <div class="field">
-  <b><%= f.label  :department %><br />
-    <%= f.select :department_id, @departments %>
+  <b><%= f.label :department %><br />
+    <%=  f.select :department_id, @departments %>
   </div>
   <table><td>
 	  <b>Skills:</b><br/>
@@ -19,6 +19,10 @@
   <div class="field">
     <%= f.label :email %><br />
     <%= f.text_field :email %>
+  </div>
+  <div class="field">
+  <b><%= f.label :default_activity %>:<br />
+    <%=  f.select :default_activity_id, @activities %>
   </div>
   <div class="field">
     <%= f.label :is_active %><br />

@@ -10,10 +10,11 @@
     <%= f.label  :department %><br />
     <%= f.select :department_id, @departments %>
   </div>
-  <div class="field">
-    <%= f.label :payment_model %><br />
-    <%= f.text_field :payment_model %>
-  </div>
+  <div class="selectContainer">
+   <%= f.label  :payment_model %>:<br/>
+   <%= f.select :payment_model,
+                Project::PAYMENT_MODEL %>
+  </div><br/>
   <div class="field">
     <%= f.label  :customer %><br />
     <%= f.select :customer_id, @customers %>
