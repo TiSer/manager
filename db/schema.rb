@@ -10,13 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110619221835) do
+ActiveRecord::Schema.define(:version => 20110621210718) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
     t.string   "invoice_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+
   end
 
   create_table "activity_costs", :force => true do |t|
@@ -25,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20110619221835) do
     t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "activity_cost"
+
   end
 
   create_table "bookings", :force => true do |t|
@@ -42,6 +45,15 @@ ActiveRecord::Schema.define(:version => 20110619221835) do
     t.string   "name"
     t.text     "details"
     t.boolean  "is_active",  :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "deals", :force => true do |t|
+    t.integer  "employee_id"
+    t.integer  "milestone_id"
+    t.text     "description"
+    t.integer  "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,8 +76,10 @@ ActiveRecord::Schema.define(:version => 20110619221835) do
   end
 
   create_table "employees_projects", :id => false, :force => true do |t|
-    t.integer "project_id",  :default => 0, :null => false
-    t.integer "employee_id", :default => 0, :null => false
+    t.integer  "employee_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "employees_skills", :id => false, :force => true do |t|
@@ -82,6 +96,13 @@ ActiveRecord::Schema.define(:version => 20110619221835) do
     t.integer  "amount"
     t.string   "name"
     t.string   "invoice_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "month_working_days", :force => true do |t|
+    t.date     "year_month"
+    t.integer  "working_days"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -104,10 +125,12 @@ ActiveRecord::Schema.define(:version => 20110619221835) do
     t.integer  "currency"
     t.integer  "amount"
     t.integer  "tax_currency"
+    t.integer  "amount"
     t.integer  "tax_amount"
     t.integer  "tax_percent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sal_type"
   end
 
   create_table "skills", :force => true do |t|

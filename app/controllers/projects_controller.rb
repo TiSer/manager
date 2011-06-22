@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
 
+  before_filter :authenticate_admin
   before_filter :prepare_departments, :only => [:new, :edit]
   before_filter :prepare_customers, :only => [:new, :edit]
   before_filter :prepare_activities, :only => [:staffing]
@@ -21,6 +22,12 @@ class ProjectsController < ApplicationController
   def destroy_milestone
     @project = Project.find(params[:project_id])    
     @milestone = Milestone.find(params[:milestone_id])  
+
+  end
+
+  def destroy_milestone
+    @project = Project.find(params[:project_id])
+    @milestone = Milestone.find(params[:milestone_id])
 
     @milestone.destroy
 
@@ -203,9 +210,10 @@ class ProjectsController < ApplicationController
   def make_bokings_hash_for(employees)
     booking_employees = {}
     employees.each do |employee|
-       proj_bks = employee.bookings_from_monday_to_35th_day(@current_monday,@project.id)
+       proj_bks = employee.bookings_from_monday_to_35th_day(@current_monday, @project.id)
        all_bks = employee.bookings_from_monday_to_35th_day(@current_monday)
-       booking_employees.[]=(employee.id, {:project => proj_bks, :all => all_bks})
+       activity = employee.books_activity_on_interval(@current_monday, @current_monday.midnight + 35.day, @project.id)
+       booking_employees.[]=(employee.id, {:project => proj_bks, :all => all_bks, :activity => activity})
     end
     booking_employees
   end

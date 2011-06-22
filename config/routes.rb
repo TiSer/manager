@@ -8,6 +8,21 @@ Manager::Application.routes.draw do
     get  "project_milestone/bill/:id" => :milestone_bill, :as => "milestone_bill"
   end
 
+  resources :deals
+
+  controller :deals do
+    get  "milestone_deals/:milestone_id" => :milestone_deals, :as => "milestone_deals"
+  end
+
+  resources :month_working_days
+
+  resources :milestones
+
+  controller :milestones do
+    get  "project_milestone/:id/new" => :new,    :as => "new_milestone"
+    post "project_milestone/:id"     => :create, :as => "milestones"
+  end
+
   resources :activities
 
   resources :salaries
@@ -41,18 +56,19 @@ Manager::Application.routes.draw do
     put "project_activity_costs/:project_id/:id" => :update_act_cost,  :as => "update_activity_cost"
   end
 
-  controller :categories do
-    get "staff/categories"           => :index,   :as => "categories"
-    post"staff/categories"           => :create,  :as => "categories"
-    get "staff/categories/new"       => :index,   :as => "new_category"
-    get "staff/categories/:id"       => :index,   :as => "edit_category"
-    get "staff/categories/:id"       => :index,   :as => "category"
-    put "staff/categories/:id"       => :update,  :as => "update_category"    
-    delete "staff/categories/:id"    => :destroy, :as => "del_category" 
+  controller :month_working_days do
+    get "working_days_list" => :months_on_year_list, :as => "year_working_days_list"
+    get "edit_month_working_days" => :edit_month_working_days, :as => "edit_month_working_days"
   end
 
   controller :reports do
     get "reports/employees_bookings" => :employees_bookings, :as => "report_employees_bookings"
+    get "reports/employee_free_hours" => :free_hours, :as => "report_employees_free_hours"
+  end
+
+  controller :salaries do
+    get "employee_salaries/:employee_id" => :employee_salary, :as => "employee_salary"
+    get "edit_salary/:employee_id" => :edit_salary, :as => "edit_salary"
   end
 
   controller :salaries do

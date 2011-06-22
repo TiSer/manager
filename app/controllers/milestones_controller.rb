@@ -1,6 +1,7 @@
 class MilestonesController < ApplicationController
-  # GET /milestones
-  # GET /milestones.xml
+
+  before_filter :authenticate_admin
+
   def index
     @project = Project.find(params[:id])
     @milestones = Milestone.all

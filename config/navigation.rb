@@ -5,12 +5,15 @@
 
     primary.dom_class = 'sf-menu sf-navbar'
       primary.item :employees, "Employees", employees_path
+      primary.item :activity, "Activities", activities_path
+      primary.item :working_days, "Working days", year_working_days_list_path
       primary.item :skills, "Skills", skills_path
       primary.item :departments, "Departments", departments_path
       primary.item :customers, "Customers", customers_path
       primary.item :projects, "Projects", projects_path
       primary.item :reports, 'Reports', report_employees_bookings_path do |secondary|
         secondary.item :rep_empls_bks, 'Bookings', report_employees_bookings_path
+        secondary.item :rep_empls_free_hours, 'Free hours', report_employees_free_hours_path
       end
    end
 
@@ -54,4 +57,3 @@
 
 
 end
-

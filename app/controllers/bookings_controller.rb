@@ -1,6 +1,8 @@
 class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.xml
+  before_filter :authenticate_admin
+
   def index
     @bookings = Booking.all
 
@@ -93,7 +95,6 @@ class BookingsController < ApplicationController
     def parse_end_date_for_bookings
        end_date = params[:booking][:end_date].split('.')
        @end_date = Date.parse(end_date[2]+'/'+end_date[1]+'/'+end_date[0])
-        p "end_date", @end_date
        params[:booking].delete("end_date")
     end
 
@@ -122,7 +123,8 @@ class BookingsController < ApplicationController
       employee = @booking.employee
       project_bks = employee.bookings_on_interval(@begin_date, @end_date, project_id = @booking.project.id)
       all_bks = employee.bookings_on_interval(@begin_date, @end_date)
-      hash = {:project => project_bks, :all => all_bks}
+      activity = employee.books_activity_on_interval(@begin_date, @end_date, @booking.project.id)
+      hash = {:project => project_bks, :all => all_bks, :activity => activity}
     end
 end
 

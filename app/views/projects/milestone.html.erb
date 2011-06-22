@@ -13,6 +13,9 @@
       <th>Amount</th>
       <th>Name</th>
       <th>Invoice name</th>
+      <th>Income</th>
+      <th>Expence</th>
+      <th>Profit</th>
     </tr>
 
   <% @project.milestones.each do |milestone| %>
@@ -21,11 +24,16 @@
       <td><%= milestone.end_date %></td>
       <% if @project.payment_model == "1" %>
         <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
+      <td><%= milestone.name %></td>
+      <td><%= milestone.invoice_name %></td>
+      <% if @project.payment_model == "By Time" %>
+        <td><%= milestone.by_time_amount(milestone) %></td>
       <% else %>
         <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
       <% end %>
-      <td><%= milestone.name %></td>
-      <td><%= milestone.invoice_name %></td>
+      <td><%= milestone.expence %></td>
+      <td></td>
+      <td><%= link_to 'Deals', milestone_deals_path(milestone)%></td>
       <td><%= link_to 'X', delete_milestone_path(milestone.project_id, milestone.id), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>

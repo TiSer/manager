@@ -35,6 +35,13 @@
   </p>
 
   <p>
+   <b>Default activity: </b><%= @employee.default_activity.name %>
+  </p>
+
+  <p><%= link_to 'Salary', employee_salary_path(@employee) %></p>
+
+  <p>
+
     <b>Is active: </b><%= activity(@employee) %>
   </p>
 

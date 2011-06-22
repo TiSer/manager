@@ -1,6 +1,9 @@
 class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.xml
+
+  before_filter :authenticate_admin
+
   def index
     @activities = Activity.all
 
@@ -25,7 +28,6 @@ class ActivitiesController < ApplicationController
   # GET /activities/new.xml
   def new
     @activity = Activity.new
-#    @activity_cost = ActivityCost.new(params[:activity_cost])  ?!?!?!?!??!?!?!?!??!?!?!
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,7 +44,6 @@ class ActivitiesController < ApplicationController
   # POST /activities.xml
   def create
     @activity = Activity.new(params[:activity])
-#    @activity_cost = @activity.activity_cost.amount
 
     respond_to do |format|
       if @activity.save

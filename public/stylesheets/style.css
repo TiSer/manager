@@ -35,7 +35,7 @@ tr.employee td.bookable { cursor:pointer; }
 
 #redbox {display: none; margin: 0 auto; margin-left: -70%;}
 
-.modal_box {width: 200px; height: 300px; background: white;}
+.modal_box {width: 200px; height: 350px; background: white;}
 
 .modal_label {color: black; font-size: 1em; margin: 0 auto;}
 
@@ -74,3 +74,7 @@ tr.employee td.bookable { cursor:pointer; }
 .sum_bk { margin: 0 auto; text-align: center;}
 
 #header {background: #FFF8DC; -moz-border-radius: 0.3em; height: 90px;}
+
+.hidden_div {display: none;}
+
+#month_working_day_year_month_3i {display: none;}

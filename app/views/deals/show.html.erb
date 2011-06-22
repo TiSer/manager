@@ -1,0 +1,24 @@
+<p>
+  <b>Employee:</b>
+  <%= @deal.employee.name %>
+</p>
+
+<p>
+  <b>Milestone:</b>
+  <%= @deal.milestone.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @deal.description %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @deal.cost %>
+</p>
+
+
+<%= link_to 'Edit', edit_deal_path(@deal) %> |
+<%= link_to 'Back', milestone_deals_path(@deal.milestone) %>
+

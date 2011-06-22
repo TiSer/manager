@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  employee_id: 1
+  milestone_id: 1
+  description: MyText
+  cost: 1
+
+two:
+  employee_id: 1
+  milestone_id: 1
+  description: MyText
+  cost: 1

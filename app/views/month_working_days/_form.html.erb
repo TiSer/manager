@@ -1,0 +1,19 @@
+<%= form_for(@month_working_day) do |f| %>
+
+ <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :year_month %><br />
+    <%= f.date_select :year_month %>
+  </div>
+
+  <div class="field">
+    <%= f.label :working_days %><br />
+    <%= f.text_field :working_days %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

@@ -10,6 +10,7 @@
   <%= yield :booking_js %>
   <%= yield :amount_js %>
   <%#= yield :milestone_bill_js %>
+  <%= javascript_include_tag "superfish.js", "hoverIntent.js", "menu.js"  %>
   <%= yield :add_staff_js %>
   <%= csrf_meta_tag %>
 </head>

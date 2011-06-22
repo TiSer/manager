@@ -1,0 +1,20 @@
+<h1>Report: Employees bookings</h1>
+	<%= render :partial => "projects/calendar_controls", :locals => {:main_object => @project, :route_name => "report_employees_free_hours", :current_monday => @current_monday} %>
+
+    <%= render :partial => "projects/calendar_header", :locals => {:current_monday => @current_monday} %>
+
+<% @employees.each do |employee|%>
+    <tr id="e<%=employee.id %>" class="employee">
+       <td class="grey_bg">
+         <%= link_to employee.name, employee_path(employee) %>
+       </td>
+       <% date_cycle do %>
+         <% all_bookings_for_this_date = get_all_bookings(@booking_employees,employee.id,@mark_date) %>
+         <td class="<%= booking_color_marking(all_bookings_for_this_date, @mark_date)%>">
+           <%= to_cell(all_bookings_for_this_date) %>
+         </td>
+       <% end %>
+    </tr>
+<% end %>
+</table>
+

@@ -4,7 +4,7 @@ class Booking < ActiveRecord::Base
   belongs_to :project
   belongs_to :activity
 
-  named_scope :date_greather_than, lambda { |date| { :conditions => ["date > ?", date] } }
+  scope :date_greather_than, lambda { |date| { :conditions => ["date > ?", date] } }
 
   def self.find_by_object(booking)
     finded_booking = self.where(:employee_id => booking.employee.id, :project_id => booking.project.id, :date => booking.date).first
@@ -17,6 +17,7 @@ class Booking < ActiveRecord::Base
   def update_or_this(&block)
     if finded_booking = Booking.find_by_object(self)
       finded_booking.hours = self.hours
+      finded_booking.activity = self.activity
       finded_booking.save
     else
       block.call

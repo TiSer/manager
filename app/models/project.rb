@@ -15,5 +15,13 @@ class Project < ActiveRecord::Base
   ["Fixed Cost", "2" ]
   ]
 
+  def participants_dd
+    participants = []
+    self.employees.each do |participant|
+      participants << [participant.name, participant.id]
+    end
+    participants
+  end
+
 end
 
