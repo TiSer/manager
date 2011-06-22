@@ -1,7 +1,6 @@
 class DealsController < ApplicationController
   # GET /deals
   # GET /deals.xml
-  before_filter :prepare, :only => [:new]
 
   def index
     @deals = Deal.all
@@ -37,6 +36,8 @@ class DealsController < ApplicationController
   # GET /deals/new.xml
   def new
     @deal = Deal.new
+    @milestone = Milestone.find(params[:milestone_id])
+    @participants = @milestone.project.participants_dd
 
     respond_to do |format|
       format.html # new.html.erb
@@ -90,16 +91,9 @@ class DealsController < ApplicationController
     @deal.destroy
 
     respond_to do |format|
-      format.html { redirect_to(deals_url) }
+      format.html { redirect_to(milestone_deals_path(@deal.milestone)) }
       format.xml  { head :ok }
     end
   end
 end
-
-#--------------------------------------------
-private
-  def prepare
-    @milestone = Milestone.find(params[:milestone_id])
-    @participants = @milestone.project.participants_dd
-  end
 
