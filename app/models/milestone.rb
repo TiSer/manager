@@ -27,12 +27,14 @@ class Milestone < ActiveRecord::Base
         elem_cost = booking.hours.to_f / (MonthWorkingDay.on_month(date).first.working_days) * salary.amount  #???????????????
       elsif salary_type == 2
         elem_cost = booking.hours * salary.amount
-      elsif salary_type == 3
-        elem_cost = 0
       end
       expence += elem_cost
     end
-    expence
+    elem_cost = 0
+    self.deals.each do |deal|
+      elem_cost += deal.cost
+    end
+    expence += elem_cost
   end
 
 end
