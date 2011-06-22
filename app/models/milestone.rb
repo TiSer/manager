@@ -28,7 +28,14 @@ class Milestone < ActiveRecord::Base
         if salary_type == 1
           date = booking.date
           date = Date.civil(date.year, date.month, 1)
-          elem_cost = booking.hours.to_f / (MonthWorkingDay.on_month(date).first.working_days) * salary.amount  #???????????????
+          mwd = MonthWorkingDay.on_month(date).first
+          if mwd 
+            wd = mwd.working_days
+          else
+            wd = 17
+            not_available = true    
+          end
+          elem_cost = booking.hours.to_f / (wd) * salary.amount  #???????????????
         elsif salary_type == 2
           elem_cost = booking.hours * salary.amount
         end

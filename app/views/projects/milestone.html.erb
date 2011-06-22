@@ -8,10 +8,10 @@
 
 <table>
     <tr>
+      <th>Name</th>
       <th>Start date</th>
       <th>End date</th>
       <th>Amount</th>
-      <th>Name</th>
       <th>Invoice name</th>
       <th>Income</th>
       <th>Expence</th>
@@ -20,17 +20,15 @@
 
   <% @project.milestones.each do |milestone| %>
     <tr>
-      <td><%= milestone.start_date %></td>
-      <td><%= milestone.end_date %></td>
-      <% if @project.payment_model == "1" %>
-        <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
-      <td><%= milestone.name %></td>
+        <td><%= milestone.name %></td>
+        <td><%= milestone.start_date %></td>
+        <td><%= milestone.end_date %></td>
+          <% if @project.payment_model == "1" %>
+            <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
+          <% else %>
+            <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
+          <% end %>
       <td><%= milestone.invoice_name %></td>
-      <% if @project.payment_model == "By Time" %>
-        <td><%= milestone.by_time_amount(milestone) %></td>
-      <% else %>
-        <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
-      <% end %>
       <td><%= milestone.expence %></td>
       <td></td>
       <td><%= link_to 'Deals', milestone_deals_path(milestone)%></td>
