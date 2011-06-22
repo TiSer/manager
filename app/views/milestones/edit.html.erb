@@ -3,4 +3,4 @@
 <%= render 'form' %>
 
 <%= link_to 'Show', @milestone %> |
-<%= link_to 'Back', milestones_path %>
+<%= link_to 'Back', milestones_path(@project.id) %>

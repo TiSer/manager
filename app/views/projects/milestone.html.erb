@@ -2,7 +2,7 @@
   <%= javascript_include_tag "amount.js" %>
 <% end %>
 
-<h1>Listing milestones</h1>
+<h1>Listing milestones (project "<%= link_to @project.name, project_path(@project) %>")</h1>
 
 <h3><%= link_to 'New Milestone', new_milestone_path(@project.id) %></h3>
 
@@ -11,9 +11,8 @@
       <th>Name</th>
       <th>Start date</th>
       <th>End date</th>
-      <th>Amount</th>
-      <th>Invoice name</th>
       <th>Income</th>
+      <th>Invoice name</th>
       <th>Expence</th>
       <th>Profit</th>
     </tr>
@@ -32,6 +31,7 @@
       <td><%= milestone.expence %></td>
       <td></td>
       <td><%= link_to 'Deals', milestone_deals_path(milestone)%></td>
+      <td><%= link_to 'Edit', edit_milestone_path(@project.id,milestone)%></td>
       <td><%= link_to 'X', delete_milestone_path(milestone.project_id, milestone.id), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
@@ -41,4 +41,4 @@
 
 <%= render :partial => "milestones/amount" %>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back", projects_path %>
