@@ -13,6 +13,7 @@
       primary.item :projects, "Projects", projects_path
       primary.item :reports, 'Reports', report_employees_bookings_path do |secondary|
         secondary.item :rep_empls_bks, 'Bookings', report_employees_bookings_path
+        secondary.item :rep_empls_free_hours, 'Free hours', report_employees_free_hours_path
       end
    end
 

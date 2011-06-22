@@ -46,6 +46,7 @@ Manager::Application.routes.draw do
 
   controller :reports do
     get "reports/employees_bookings" => :employees_bookings, :as => "report_employees_bookings"
+    get "reports/employee_free_hours" => :free_hours, :as => "report_employees_free_hours"
   end
 
   controller :salaries do
