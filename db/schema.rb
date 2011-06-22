@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20110621210718) do
     t.string   "invoice_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "activity_cost"
   end
 
   create_table "activity_costs", :force => true do |t|
@@ -73,8 +74,10 @@ ActiveRecord::Schema.define(:version => 20110621210718) do
   end
 
   create_table "employees_projects", :id => false, :force => true do |t|
-    t.integer "project_id",  :default => 0, :null => false
-    t.integer "employee_id", :default => 0, :null => false
+    t.integer  "employee_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "employees_skills", :id => false, :force => true do |t|

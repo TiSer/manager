@@ -1,5 +1,5 @@
 class Milestone < ActiveRecord::Base
-  
+
   belongs_to :project
   has_many   :deals
 #  has_many :bookings, :throught => ???
@@ -20,7 +20,9 @@ class Milestone < ActiveRecord::Base
   def expence
     @bookings = Booking.where(:date => self.start_date..self.end_date)
     expence = 0.0
-    not_available = false
+    not_salary = false
+    not_working_days = false
+
     @bookings.each do |booking|
       salary = booking.employee.salaries.on_month(booking.date).order("salaries.year_month DESC").first
       if salary
@@ -29,11 +31,11 @@ class Milestone < ActiveRecord::Base
           date = booking.date
           date = Date.civil(date.year, date.month, 1)
           mwd = MonthWorkingDay.on_month(date).first
-          if mwd 
+          if mwd
             wd = mwd.working_days
           else
             wd = 17
-            not_available = true    
+            not_working_days = true
           end
           elem_cost = booking.hours.to_f / (wd) * salary.amount  #???????????????
         elsif salary_type == 2
@@ -41,7 +43,7 @@ class Milestone < ActiveRecord::Base
         end
         expence += elem_cost
       else
-        not_available = true
+        not_salary = true
       end
     end
     elem_cost = 0
@@ -49,11 +51,15 @@ class Milestone < ActiveRecord::Base
       elem_cost += deal.cost
     end
     expence += elem_cost
-    if !not_available
+
+    @not_available = [not_salary, not_working_days] #?????????????????///////
+    if !not_salary and !not_working_days
       "%0.2f" %expence
     else
+
       "N/A"
     end
   end
 
 end
+
