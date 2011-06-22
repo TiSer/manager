@@ -6,9 +6,11 @@ class Employee < ActiveRecord::Base
   has_many                :bookings, :dependent => :destroy
   has_many                :salaries, :dependent => :destroy
   belongs_to              :default_activity, :class_name => "Activity", :foreign_key => "default_activity_id"
+  has_many                :deals
 
   validates_presence_of :name, :email
   validates_format_of   :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+
 
 
   scope :active, where("is_active = true")

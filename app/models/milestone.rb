@@ -1,6 +1,7 @@
 class Milestone < ActiveRecord::Base
 
   belongs_to :project
+  has_many   :deals
 
   def by_time_amount(mile)
     stada = mile.start_date

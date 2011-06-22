@@ -30,6 +30,7 @@
       <td></td>
       <td><%= "%0.2f" %milestone.expence %></td>
       <td></td>
+      <td><%= link_to 'Deals', milestone_deals_path(milestone)%></td>
       <td><%= link_to 'X', delete_milestone_path(milestone.project_id, milestone.id), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>

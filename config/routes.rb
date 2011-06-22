@@ -1,5 +1,11 @@
 Manager::Application.routes.draw do
 
+  resources :deals
+
+  controller :deals do
+    get  "milestone_deals/:milestone_id" => :milestone_deals, :as => "milestone_deals"
+  end
+
   resources :month_working_days
 
   resources :milestones

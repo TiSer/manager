@@ -9,6 +9,13 @@ class Project < ActiveRecord::Base
 
   scope :active, where("is_active = true")
 
+  def participants_dd
+    participants = []
+    self.employees.each do |participant|
+      participants << [participant.name, participant.id]
+    end
+    participants
+  end
 
 end
 

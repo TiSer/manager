@@ -1,0 +1,29 @@
+<h1>Milestone deals</h1>
+
+<table>
+  <tr>
+    <th>Employee</th>
+    <th>Description</th>
+    <th>Cost</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @deals.each do |deal| %>
+  <tr>
+    <td><%= deal.employee.name %></td>
+    <td><%= truncate(strip_tags(deal.description), :length => 50) %></td>
+    <td><%= deal.cost %></td>
+    <td><%= link_to 'Show', deal %></td>
+    <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
+    <td><%= link_to 'Destroy', deal, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Deal', new_deal_path(:milestone_id => @milestone.id) %> |
+<%= link_to 'Back', milestones_path(@milestone.project) %>
+
