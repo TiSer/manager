@@ -17,6 +17,15 @@
   <b>Is active: </b><%= activity_in_text(@customer) %>
 </p>
 
+<p>
+  <b>Projects</b>
+  <ul>
+  <% @projects.each do |project| %>
+    <li><%= link_to project.name, project %></li>
+  <% end %>
+  </ul>
+</p>
+
 
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>

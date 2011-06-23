@@ -5,7 +5,7 @@
 
 <p>
   <b>Department:</b>
-  "<%= @project.department.name %>"
+  <%= link_to @department.name, @department %>
 </p>
 
 <p>
@@ -18,7 +18,16 @@
 
 <p>
   <b>Customer:</b>
-  "<%= @project.customer.name %>"
+  <%= link_to @customer.name, @customer %>
+</p>
+
+
+
+<p>
+  <b>Participants:</b>
+  <% @participants.each do |participant| %>
+   <%= link_to participant.name, participant %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |

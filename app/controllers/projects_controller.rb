@@ -104,6 +104,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @department = @project.department
+    @customer = @project.customer
+    @participants = @project.employees
 
     respond_to do |format|
       format.html # show.html.erb
