@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Project:</b>
-  <%= @milestone.project_id %>
+  "<%= @milestone.project.name %>"
 </p>
 
 <p>
@@ -32,4 +30,5 @@
 
 
 <%= link_to 'Edit', edit_milestone_path(@milestone) %> |
-<%= link_to 'Back', milestones_path %>
+<%#= link_to 'Back', milestones_path(@milestone.project_id) %>
+<%= link_to "Back", :back %>

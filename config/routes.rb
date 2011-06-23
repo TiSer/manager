@@ -6,6 +6,8 @@ Manager::Application.routes.draw do
     get  "project_milestone/:id/new"  => :new,    :as => "new_milestone"
     post "project_milestone/:id"      => :create, :as => "milestones"
     get  "project_milestone/bill/:id" => :milestone_bill, :as => "milestone_bill"
+    get "project_milestone/:project_id/:id/edit" => :edit, :as => "edit_milestone"
+    put "project_milestone/:project_id/:id" => :update, :as => "update_milestone"
   end
 
   resources :deals
@@ -17,11 +19,6 @@ Manager::Application.routes.draw do
   resources :month_working_days
 
   resources :milestones
-
-  controller :milestones do
-    get  "project_milestone/:id/new" => :new,    :as => "new_milestone"
-    post "project_milestone/:id"     => :create, :as => "milestones"
-  end
 
   resources :activities
 
@@ -44,7 +41,7 @@ Manager::Application.routes.draw do
   resources :skills
 
   controller :projects do
-    get "project_milestone/:id"      => :milestone, :as => "milestone"
+    get "project_milestone/:id"      => :milestone, :as => "project_milestone"
   end
 
   controller :activity_costs do

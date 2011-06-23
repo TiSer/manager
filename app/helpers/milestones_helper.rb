@@ -9,12 +9,23 @@ module MilestonesHelper
 
     bookings.each do |booking|
       activity_cos = ActivityCost.where(:project_id => @milestone.project.id, :activity_id => booking.activity_id).last.amount
-      bill_array << [booking.hours,activity_cos]
+      employee = booking.employee.name
+      date = booking.date
+      bill_array << [employee, date, booking.hours,activity_cos]
       temp = booking.hours * activity_cos
       @summ += temp
     end
 
     return bill_array
   end
+
+#  def bill_variables
+#      bill.each do |b|
+#       @a = b[0]
+#       @b = b[1]
+#      end
+#    @a
+#    @b
+#  end
 
 end

@@ -38,6 +38,7 @@ class MilestonesController < ApplicationController
 
   # GET /milestones/1/edit
   def edit
+    @project = Project.find(params[:project_id])
     @milestone = Milestone.find(params[:id])
   end
 
@@ -64,7 +65,7 @@ class MilestonesController < ApplicationController
 
     respond_to do |format|
       if @milestone.update_attributes(params[:milestone])
-        format.html { redirect_to(@milestone, :notice => 'Milestone was successfully updated.') }
+        format.html { redirect_to(milestones_path(@milestone.project.id), :notice => 'Milestone was successfully updated.') }
         format.xml  { head :ok }
         format.js   { }
       else
