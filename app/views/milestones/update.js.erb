@@ -1,2 +1,10 @@
 jQuery('#dialog').dialog("close");
-$("#m"+<%= @milestone.id %>).text(<%= @milestone.amount %>);
+<% expence =  @milestone.expence %>
+<% income =  @milestone.amount %>
+$("#m"+<%= @milestone.id %>).text(<%= income %>);
+        <% if expence.instance_of? Float %>
+           r = '<%= income.to_f - expence %>'
+         <% else %>
+           r = 'N/A'
+         <% end %>
+$("#p"+<%= @milestone.id %>).text(r);

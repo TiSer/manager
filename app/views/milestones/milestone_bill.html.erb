@@ -1,4 +1,4 @@
-<h1>Bill for milestone "<%= link_to @milestone.name, @milestone %>" </h1>
+<h1>Bill for milestone "<%= link_to @milestone.name, @milestone %>" in project "<%= link_to @milestone.project.name, project_milestone_path(@milestone.project) %>" </h1>
 
 <h3>Interval between: (<%= @milestone.start_date %>) - (<%= @milestone.end_date %>).</h3>
 

@@ -48,7 +48,7 @@
       </td>
 
         <% if expence.instance_of? Float %>
-           <td><%= income.to_f - expence %></td>
+           <td id="p<%= milestone.id %>"><%= income.to_f - expence %></td>
          <% else %>
             <td>N/A</td>
          <% end %>

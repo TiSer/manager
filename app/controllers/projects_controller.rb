@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     @milestone.destroy
 
     respond_to do |format|
-      format.html { redirect_to milestone_path(@project.id) }
+      format.html { redirect_to project_milestone_path(@project.id) }
       format.xml  { head :ok }
     end
   end
