@@ -3,6 +3,9 @@ class Activity < ActiveRecord::Base
   has_many :bookings
   has_many :activity_costs
 
+  validates_presence_of :name, :invoice_name
+
+
   def self.dd
     @activit = Activity.all
     @activities = []
@@ -13,3 +16,4 @@ class Activity < ActiveRecord::Base
   end
 
 end
+

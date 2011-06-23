@@ -7,6 +7,8 @@ class Project < ActiveRecord::Base
   has_many                :activity_costs
   has_many                :milestones
 
+  validates_presence_of   :name, :department_id, :payment_model, :customer_id
+
   scope :active, where("is_active = true")
 
     PAYMENT_MODEL =

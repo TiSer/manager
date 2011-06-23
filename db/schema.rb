@@ -10,14 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621210718) do
+ActiveRecord::Schema.define(:version => 20110623095601) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
     t.string   "invoice_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "activity_cost"
   end
 
   create_table "activity_costs", :force => true do |t|

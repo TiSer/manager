@@ -1,13 +1,13 @@
 class ProjectsController < ApplicationController
 
   before_filter :authenticate_admin
-  before_filter :prepare_departments, :only => [:new, :edit]
-  before_filter :prepare_customers, :only => [:new, :edit]
+ # before_filter :prepare_departments, :only => [:new, :edit]
+ # before_filter :prepare_customers, :only => [:new, :edit]
   before_filter :prepare_activities, :only => [:staffing]
 
   def index
     @projects = Project.active.all
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
@@ -20,8 +20,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy_milestone
-    @project = Project.find(params[:project_id])    
-    @milestone = Milestone.find(params[:milestone_id])  
+    @project = Project.find(params[:project_id])
+    @milestone = Milestone.find(params[:milestone_id])
 
   end
 
@@ -112,6 +112,9 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    prepare_departments
+    prepare_customers
+
     @project = Project.new
 
     respond_to do |format|
@@ -122,6 +125,9 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    prepare_departments
+    prepare_customers
+
     @project = Project.find(params[:id])
   end
 
@@ -226,3 +232,4 @@ class ProjectsController < ApplicationController
   end
 
 end
+
