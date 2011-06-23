@@ -11,7 +11,8 @@ module MilestonesHelper
       activity_cos = ActivityCost.where(:project_id => @milestone.project.id, :activity_id => booking.activity_id).last.amount
       employee = booking.employee.name
       date = booking.date
-      bill_array << [employee, date, booking.hours,activity_cos]
+      activity = booking.activity.name
+      bill_array << [employee, date, activity, booking.hours, activity_cos]
       temp = booking.hours * activity_cos
       @summ += temp
     end

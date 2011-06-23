@@ -78,3 +78,5 @@ tr.employee td.bookable { cursor:pointer; }
 .hidden_div {display: none;}
 
 #month_working_day_year_month_3i {display: none;}
+
+.for_sum { border-width:0; }

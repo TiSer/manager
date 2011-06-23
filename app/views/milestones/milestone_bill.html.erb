@@ -7,6 +7,7 @@
       <th>Employee</th>
       <th>Booking date</th>
       <th>Booking hours</th>
+      <th>Activity</th>
       <th>Activity cost</th>
       <th>hours*cost</th>
     </tr>
@@ -14,19 +15,22 @@
       <% bill.each do |bill| %>
         <% @employee = bill[0] %>
         <% @date = bill[1] %>
-        <% @hours = bill[2] %>
-        <% @cost = bill[3] %>
+        <% @activity = bill[2] %>
+        <% @hours = bill[3] %>
+        <% @cost = bill[4] %>
         <td> <%= @employee %>      </td>
         <td> <%= @date %>      </td>
         <td> <%= @hours %>      </td>
+        <td> <%= @activity %>      </td>
         <td> <%= @cost %>      </td>
         <td> <%= @hours * @cost %> </td>
     </tr>
       <% end %>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td class="for_sum"></td>
+      <td class="for_sum"></td>
+      <td class="for_sum"></td>
+      <td class="for_sum"></td>
+      <td class="for_sum"></td>
       <td> <b>Sum:</b> <%= @summ %>. </td>
   </table>
 
