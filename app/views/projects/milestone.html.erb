@@ -11,8 +11,8 @@
       <th>Name</th>
       <th>Start date</th>
       <th>End date</th>
-      <th>Income</th>
       <th>Invoice name</th>
+      <th>Income</th>
       <th>Expence</th>
       <th>Profit</th>
     </tr>
@@ -22,17 +22,24 @@
         <td><%= milestone.name %></td>
         <td><%= milestone.start_date %></td>
         <td><%= milestone.end_date %></td>
+        <td><%= milestone.invoice_name %></td>
           <% if @project.payment_model == "1" %>
             <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
+            <% income = milestone.by_time_amount %>
           <% else %>
             <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
+            <% income = milestone.amount %>
           <% end %>
-      <td><%= milestone.invoice_name %></td>
-      <td><%= milestone.expence %></td>
-      <td></td>
-      <td><%= link_to 'Deals', milestone_deals_path(milestone)%></td>
-      <td><%= link_to 'Edit', edit_milestone_path(@project.id,milestone)%></td>
-      <td><%= link_to 'X', delete_milestone_path(milestone.project_id, milestone.id), :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= milestone.expence %></td>
+        <% expence = milestone.expence %>
+         <% if expence.instance_of? Float %>
+            <td><%= income.to_f - expence %></td>
+          <% else %>
+            <td></td>
+         <% end %>
+        <td><%= link_to 'Deals', milestone_deals_path(milestone)%></td>
+        <td><%= link_to 'Edit', edit_milestone_path(@project.id,milestone)%></td>
+        <td><%= link_to 'X', delete_milestone_path(milestone.project_id, milestone.id), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>

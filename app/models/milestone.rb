@@ -9,12 +9,21 @@ class Milestone < ActiveRecord::Base
     end_data = self.end_date
     @bookings = self.project.bookings.where(:date => start_data..end_data)
     summ = 0
+    activity_cost_absent = 0
     @bookings.each do |booking|
-        activity_cos = ActivityCost.where(:project_id => self.project.id, :activity_id => booking.activity_id).last.amount
-        temp = booking.hours * activity_cos
-        summ += temp
+        activity_cos = ActivityCost.where(:project_id => self.project.id, :activity_id => booking.activity_id).last
+        if activity_cos
+          temp = booking.hours * activity_cos.amount
+          summ += temp
+        else
+          activity_cost_absent = true
+        end
     end
-    summ
+    if activity_cost_absent
+      "N/A"
+    else
+      summ
+    end
   end
 
   def expence

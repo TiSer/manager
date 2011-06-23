@@ -37,6 +37,19 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def costs
+    @project = Project.find(params[:id])
+    @activities = Activity.all
+#    @activity_cost = ActivityCost.find(params[:id])
+
+    @acts = @activities.each do |activity|
+      @activity_co = []
+      @activity_co = ActivityCost.create(:project_id => @project.id, :activity_id => activity.id) if ActivityCost.where(:project_id => @project.id, :activity_id => activity.id) == []
+    end
+
+  end
+
+
   def staffing
     @project = Project.find(params[:id])
     @participants = @project.employees.order('name')

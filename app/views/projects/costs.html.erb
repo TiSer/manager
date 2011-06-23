@@ -1,0 +1,23 @@
+
+<h1>Activities costs for "<%= link_to @project.name, project_path(@project.id) %>"</h1>
+
+<% if @project.payment_model == "1" %>
+
+  <table>
+	  <tr>
+		  <th>Activity</th>
+		  <th>Activity Cost</th>
+      <th></th>
+	  </tr>
+      <% for activity_cost in @project.activity_costs %>
+          <td><%= activity_cost.activity.name %></td>
+      		<td><%= activity_cost.amount %></td>
+    		  <td><%= link_to 'Edit', activity_edit_path(activity_cost.id) %></td><tr>
+      <% end %>
+	  </tr>
+  </table>
+
+<% else %>
+  <br/>
+  <h3><%= "This is not payment model by time." %></h3>
+<% end %>

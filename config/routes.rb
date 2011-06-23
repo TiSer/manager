@@ -41,16 +41,17 @@ Manager::Application.routes.draw do
   resources :skills
 
   controller :projects do
-    get "project_milestone/:id"      => :milestone, :as => "project_milestone"
+    get "project_milestone/:id"  => :milestone, :as => "project_milestone"
+    get "project_activity_costs/:id" => :costs, :as => "activity_costs"
   end
 
   controller :activity_costs do
-    get "project_activity_costs"                 => :costs,            :as => "costs"
-#    post"project_activity_costs/:project_id"     => :create_act_cost,  :as => "costs"
-    get "project_activity_costs/:project_id"     => :costs,            :as => "activity_costs"
-#    get "project_activity_costs/:project_id/new" => :costs,            :as => "new_activity_cost"
-    get "project_activity_costs/:project_id/:id" => :costs,            :as => "edit_activity_cost"
-    put "project_activity_costs/:project_id/:id" => :update_act_cost,  :as => "update_activity_cost"
+    get "activity_edit/:id/edit" => :cost_edit, :as => "activity_edit"
+#    get "project_edit_cost/:id/edit" => :cost,  :as => "activity_cost"
+#    post"project_activity_costs/:project_id"     => :create_act_cost, :as => "costs"
+#    get "project_activity_costs/:project_id/new" => :costs,           :as => "new_activity_cost"
+#    get "project_activity_costs/:project_id/:id"  => :costs,           :as => "edit_activity_cost"
+    put "project_activity_costs/:id" => :update_act_cost,              :as => "activity_cost"
   end
 
   controller :month_working_days do
