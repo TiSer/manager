@@ -10,7 +10,7 @@
 
 <p>
   <b>Payment model:</b>
-  <%= @project.payment_model %>
+  <%= Project::PAYMENT_MODEL[@project.payment_model.to_i-0][0] %>
 </p>
 
   <b>Is active:</b>
@@ -23,3 +23,4 @@
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
+

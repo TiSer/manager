@@ -7,8 +7,6 @@ class Project < ActiveRecord::Base
   has_many                :activity_costs
   has_many                :milestones
 
-  validates_presence_of   :name, :department_id, :payment_model, :customer_id
-
   scope :active, where("is_active = true")
 
     PAYMENT_MODEL =
@@ -16,6 +14,9 @@ class Project < ActiveRecord::Base
   ["By time", "1"],
   ["Fixed Cost", "2" ]
   ]
+
+  validates :payment_model, :inclusion => PAYMENT_MODEL.map {|disp, value| value}
+  validates_presence_of   :name, :department_id, :payment_model, :customer_id
 
   def participants_dd
     participants = []

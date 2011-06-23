@@ -1,8 +1,8 @@
 <h1>Edit salary on employee:</h1>
-<h2><i><%= @employee.name %></i></h2>
-<h2>On: <%= @date.strftime("%b %Y") %></h2>
+<h2><i><%= @salary.employee.name %></i></h2>
+<h2>On: <%= @salary.year_month.strftime("%b %Y") %></h2>
 
 <%= render 'sal_edit' %>
 
-<%= link_to 'Back', employee_salary_path(@employee, :year => @date.year) %>
+<%= link_to 'Back', employee_salary_path(@salary.employee, :year => @salary.year_month.year) %>
 
