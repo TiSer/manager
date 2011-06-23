@@ -50,7 +50,7 @@ class MilestonesController < ApplicationController
 
     respond_to do |format|
       if @milestone.save
-        format.html { redirect_to(milestone_path(@project.id), :notice => 'Milestone was successfully created.') }
+        format.html { redirect_to(milestone_path(@milestone.id), :notice => 'Milestone was successfully created.') }
         format.xml  { render :xml => @milestone, :status => :created, :location => @milestone }
       else
         format.html { render :action => "new" }
