@@ -64,7 +64,7 @@ class Milestone < ActiveRecord::Base
     end
 
     if !not_salary and !not_working_days
-      "%0.2f" %expence
+      expence
     else
       not_available
     end
