@@ -10,6 +10,10 @@ class Salary < ActiveRecord::Base
    ["Deal", 3 ]
   ]
 
+  validates_numericality_of :day_work_hours, :amount, :tax_amount, :tax_percent
+  validates :sal_type, :inclusion => SALARY_TYPE.map {|disp, value| value}
+  validates_numericality_of :day_work_hours, :amount, :greater_than => 0
+
   def self.find_by_object(salary)
     date_sql = Date.civil(salary.year_month.year,salary.year_month.month,salary.year_month.day)
     finded_salary = self.where(:employee_id => salary.employee.id, :year_month => date_sql).first
@@ -30,3 +34,4 @@ class Salary < ActiveRecord::Base
   end
 
 end
+

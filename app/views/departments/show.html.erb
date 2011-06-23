@@ -1,12 +1,12 @@
 <div>
-   
+
   <p>
     <b>Name:</b> <%= @department.name %> ( <b>#</b> <%= @department.id %> )
   </p>
 
   <p>
     <b>Employees:</b>
-   	 <ul> 
+   	 <ul>
 		    <% @department.employees.each do |emp| %>
 		    <li><%= link_to emp.name, employee_path(emp) %></li>
 		    <% end %>
@@ -21,12 +21,13 @@
 		   <% end %>
 	   </ul>
   </p>
-  
+
   <p>
-    <b>Is active: </b><%= activity(@department) %>
+    <b>Is active: </b><%= activity_in_text(@department) %>
   </p>
 
 </div>
 
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', back_to_previous_page %>
+

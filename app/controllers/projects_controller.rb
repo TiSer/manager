@@ -1,13 +1,13 @@
 class ProjectsController < ApplicationController
 
   before_filter :authenticate_admin
-  before_filter :prepare_departments, :only => [:new, :edit]
-  before_filter :prepare_customers, :only => [:new, :edit]
+ # before_filter :prepare_departments, :only => [:new, :edit]
+ # before_filter :prepare_customers, :only => [:new, :edit]
   before_filter :prepare_activities, :only => [:staffing]
 
   def index
     @projects = Project.active.all
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
@@ -20,8 +20,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy_milestone
-    @project = Project.find(params[:project_id])    
-    @milestone = Milestone.find(params[:milestone_id])  
+    @project = Project.find(params[:project_id])
+    @milestone = Milestone.find(params[:milestone_id])
 
   end
 
@@ -117,6 +117,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @department = @project.department
+    @customer = @project.customer
+    @participants = @project.employees
 
     respond_to do |format|
       format.html # show.html.erb
@@ -125,6 +128,8 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    prepare
+
     @project = Project.new
 
     respond_to do |format|
@@ -135,6 +140,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    prepare
+
     @project = Project.find(params[:id])
   end
 
@@ -148,6 +155,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to(@project, :notice => 'Project was successfully created.') }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
+        prepare
         format.html { render :action => "new" }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
@@ -164,6 +172,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to(@project, :notice => 'Project was successfully updated.') }
         format.xml  { head :ok }
       else
+        prepare
         format.html { render :action => "edit" }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
@@ -184,11 +193,8 @@ class ProjectsController < ApplicationController
 
   private #--------------------------------------------------------------------------------
 
-  def prepare_departments
+  def prepare
     @departments = Department.dd
-  end
-
-  def prepare_customers
     @customers = Customer.dd
   end
 
@@ -239,3 +245,4 @@ class ProjectsController < ApplicationController
   end
 
 end
+

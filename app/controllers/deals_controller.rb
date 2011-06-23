@@ -36,8 +36,7 @@ class DealsController < ApplicationController
   # GET /deals/new.xml
   def new
     @deal = Deal.new
-    @milestone = Milestone.find(params[:milestone_id])
-    @participants = @milestone.project.participants_dd
+    prepare_new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,8 +47,7 @@ class DealsController < ApplicationController
   # GET /deals/1/edit
   def edit
     @deal = Deal.find(params[:id])
-    @milestone = @deal.milestone
-    @participants = @milestone.project.participants_dd
+    prepare_edit
   end
 
   # POST /deals
@@ -62,6 +60,8 @@ class DealsController < ApplicationController
         format.html { redirect_to(@deal, :notice => 'Deal was successfully created.') }
         format.xml  { render :xml => @deal, :status => :created, :location => @deal }
       else
+        params[:milestone_id] = params[:deal][:milestone_id]
+        prepare_new
         format.html { render :action => "new" }
         format.xml  { render :xml => @deal.errors, :status => :unprocessable_entity }
       end
@@ -78,6 +78,7 @@ class DealsController < ApplicationController
         format.html { redirect_to(@deal, :notice => 'Deal was successfully updated.') }
         format.xml  { head :ok }
       else
+        prepare_edit
         format.html { render :action => "edit" }
         format.xml  { render :xml => @deal.errors, :status => :unprocessable_entity }
       end
@@ -96,4 +97,17 @@ class DealsController < ApplicationController
     end
   end
 end
+
+#----------------------------------------------------------------------------------------------
+private
+  def prepare_new
+    @milestone = Milestone.find(params[:milestone_id])
+    @participants = @milestone.project.participants_dd
+  end
+
+  def prepare_edit
+    #@deal = Deal.find(params[:id])
+    @milestone = @deal.milestone
+    @participants = @milestone.project.participants_dd
+  end
 

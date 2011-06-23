@@ -4,6 +4,14 @@ module ApplicationHelper
     ("<div class=\"activity_box\" id=\"#{obj.is_active}\"></div>").html_safe
   end
 
+  def activity_in_text( obj )
+    if obj.is_active
+      "Yes"
+    else
+      "No"
+    end
+  end
+
   def weekend?(date)
     date.strftime('%a') == "Sun" or date.strftime('%a') == "Sat"
   end

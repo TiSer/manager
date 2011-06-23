@@ -15,6 +15,9 @@ class Project < ActiveRecord::Base
   ["Fixed Cost", "2" ]
   ]
 
+  validates :payment_model, :inclusion => PAYMENT_MODEL.map {|disp, value| value}
+  validates_presence_of   :name, :department_id, :payment_model, :customer_id
+
   def participants_dd
     participants = []
     self.employees.each do |participant|

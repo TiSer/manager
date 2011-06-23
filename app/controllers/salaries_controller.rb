@@ -101,7 +101,7 @@ class SalariesController < ApplicationController
         format.html { redirect_to(employee_salary_path(@salary.employee, :year => @salary.year_month.year), :notice => 'Salary was successfully created.') }
         format.xml  { render :xml => @salary, :status => :created, :location => @salary }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "edit_salary" }
         format.xml  { render :xml => @salary.errors, :status => :unprocessable_entity }
       end
     end
@@ -117,7 +117,7 @@ class SalariesController < ApplicationController
         format.html { redirect_to(employee_salary_path(@salary.employee, :year => @salary.year_month.year), :notice => 'Salary was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit_salary" }
         format.xml  { render :xml => @salary.errors, :status => :unprocessable_entity }
       end
     end
@@ -135,3 +135,4 @@ class SalariesController < ApplicationController
     end
   end
 end
+

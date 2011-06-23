@@ -24,18 +24,33 @@
         <td><%= milestone.end_date %></td>
         <td><%= milestone.invoice_name %></td>
           <% if @project.payment_model == "1" %>
-            <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
+            <% if milestone.by_time_amount != "N/A" %>
+              <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
+             <% else %> 
+              <td><%= milestone.by_time_amount %></td>
+            <% end %>
             <% income = milestone.by_time_amount %>
           <% else %>
             <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
             <% income = milestone.amount %>
           <% end %>
-        <td><%= milestone.expence %></td>
+        </td>
+       <td> 
         <% expence = milestone.expence %>
-         <% if expence.instance_of? Float %>
-            <td><%= income.to_f - expence %></td>
-          <% else %>
-            <td></td>
+        <% if expence.instance_of?(Array) %>
+          Please set up: <br>
+          <% expence.each do |please_set_up| %>
+            <%= please_set_up %><br/>
+          <% end %>
+        <% else %>
+          <%= "%0.2f" %expence %>
+        <% end %>
+      </td>
+
+        <% if expence.instance_of? Float %>
+           <td><%= income.to_f - expence %></td>
+         <% else %>
+            <td>N/A</td>
          <% end %>
         <td><%= link_to 'Deals', milestone_deals_path(milestone)%></td>
         <td><%= link_to 'Edit', edit_milestone_path(@project.id,milestone)%></td>
@@ -48,4 +63,5 @@
 
 <%= render :partial => "milestones/amount" %>
 
-<%= link_to "Back", projects_path %>
+<%= link_to "Back", :back %>
+

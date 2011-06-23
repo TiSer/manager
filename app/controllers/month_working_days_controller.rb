@@ -37,13 +37,9 @@ class MonthWorkingDaysController < ApplicationController
   def edit_month_working_days
     @year = params[:year]
     @month = params[:month]
-    #@date = Time.parse(params[:year]+'/'+params[:month]+'/01')
     @date = Date.civil(params[:year].to_i,params[:month].to_i, 1)
-    p "dscsdcs = ", @date
     @month_working_day = MonthWorkingDay.new({:year_month => @date})
-    p "MWD = ", @month_working_day
     find_month_working_day = MonthWorkingDay.find_by_object(@month_working_day)
-    p "find = ", find_month_working_day
     if find_month_working_day
       @month_working_day = find_month_working_day
     end
@@ -87,7 +83,7 @@ class MonthWorkingDaysController < ApplicationController
         format.html { redirect_to(year_working_days_list_path(:year => @month_working_day.year_month.year), :notice => 'Month working day was successfully created.') }
         format.xml  { render :xml => @month_working_day, :status => :created, :location => @month_working_day }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "edit_month_working_days" }
         format.xml  { render :xml => @month_working_day.errors, :status => :unprocessable_entity }
       end
     end
@@ -103,7 +99,7 @@ class MonthWorkingDaysController < ApplicationController
         format.html { redirect_to(year_working_days_list_path(:year => @month_working_day.year_month.year), :notice => 'Month working day was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit_month_working_days" }
         format.xml  { render :xml => @month_working_day.errors, :status => :unprocessable_entity }
       end
     end

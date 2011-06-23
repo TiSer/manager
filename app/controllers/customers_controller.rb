@@ -15,6 +15,7 @@ class CustomersController < ApplicationController
   # GET /customers/1.xml
   def show
     @customer = Customer.find(params[:id])
+    @projects = @customer.projects
 
     respond_to do |format|
       format.html # show.html.erb
@@ -82,3 +83,4 @@ class CustomersController < ApplicationController
     end
   end
 end
+
