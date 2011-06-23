@@ -26,7 +26,7 @@
           <% if @project.payment_model == "1" %>
             <% if milestone.by_time_amount != "N/A" %>
               <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
-             <% else %> 
+             <% else %>
               <td><%= milestone.by_time_amount %></td>
             <% end %>
             <% income = milestone.by_time_amount %>
@@ -35,7 +35,7 @@
             <% income = milestone.amount %>
           <% end %>
         </td>
-       <td> 
+       <td>
         <% expence = milestone.expence %>
         <% if expence.instance_of?(Array) %>
           Please set up: <br>
@@ -43,7 +43,7 @@
             <%= please_set_up %><br/>
           <% end %>
         <% else %>
-          <%= "%0.2f" %expence %>
+          <%= link_to "%0.2f" %expence, expence_details_path(milestone) %>
         <% end %>
       </td>
 

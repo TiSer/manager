@@ -1,0 +1,50 @@
+<h1>Expence details for milestone "<%= link_to @milestone.name, @milestone %>" in project "<%= link_to @milestone.project.name, project_milestone_path(@milestone.project) %>" </h1>
+
+<h3>Interval between: (<%= @milestone.start_date %>) - (<%= @milestone.end_date %>).</h3>
+
+  <table>
+    <tr class="grey_bg">
+      <th>Employee</th>
+      <th>Booking date</th>
+      <th>Booking hours</th>
+      <th>Salary type</th>
+      <th>Salary amount</th>
+      <th>Month working days</th>
+      <th>Cost</th>
+    </tr>
+
+    <% @details_hash[:array].each do |detail|  %>
+      <tr>
+        <td> <%=  detail[:employee]  %> </td>
+        <td> <%=  detail[:booking].date  %> </td>
+        <td> <%=  detail[:booking].hours  %> </td>
+        <td> <%=  Salary::SALARY_TYPE[detail[:salary].sal_type-1][0] %> </td>
+        <td> <%=  detail[:salary].amount  %> </td>
+        <td> <%=  detail[:month_working_days] %> </td>
+        <td> <%=  detail[:cost] %> </td>
+     </tr>
+    <% end %>
+    <% if !@details_hash[:deals].empty? %>
+      <tr class="grey_bg">
+        <th>Employee</th>
+        <th colspan="5">Deal description</th>
+        <th width="100px">Deal cost</th>
+      </tr>
+    <% end %>
+    <% @details_hash[:deals].each do |deal| %>
+      <tr>
+        <td><%= deal[:employee] %></td>
+        <td colspan="5"><%= deal[:description] %></td>
+        <td><%= deal[:cost] %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td class="for_sum" colspan="5"></td>
+      <td class="grey_bg" align="right"> <b>Total:</b> </td>
+      <td class="grey_bg" align="right"> <%= @details_hash[:sum] %>. </td>
+    </tr>
+  </table>
+
+<br/>
+<%= link_to "Back", :back %>
+
