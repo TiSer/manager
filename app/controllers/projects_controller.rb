@@ -112,8 +112,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    prepare_departments
-    prepare_customers
+    prepare
 
     @project = Project.new
 
@@ -125,8 +124,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    prepare_departments
-    prepare_customers
+    prepare
 
     @project = Project.find(params[:id])
   end
@@ -141,6 +139,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to(@project, :notice => 'Project was successfully created.') }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
+        prepare
         format.html { render :action => "new" }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
@@ -157,6 +156,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to(@project, :notice => 'Project was successfully updated.') }
         format.xml  { head :ok }
       else
+        prepare
         format.html { render :action => "edit" }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
@@ -177,11 +177,8 @@ class ProjectsController < ApplicationController
 
   private #--------------------------------------------------------------------------------
 
-  def prepare_departments
+  def prepare
     @departments = Department.dd
-  end
-
-  def prepare_customers
     @customers = Customer.dd
   end
 
