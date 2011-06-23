@@ -51,13 +51,19 @@ class Milestone < ActiveRecord::Base
       elem_cost += deal.cost
     end
     expence += elem_cost
+    not_available = []
 
-    @not_available = [not_salary, not_working_days] #?????????????????///////
+    if not_salary
+      not_available << "salaries"
+    end
+    if not_working_days
+      not_available << "working days"
+    end
+
     if !not_salary and !not_working_days
       "%0.2f" %expence
     else
-
-      "N/A"
+      not_available
     end
   end
 

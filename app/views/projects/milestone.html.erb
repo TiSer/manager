@@ -29,10 +29,14 @@
             <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
           <% end %>
       <td>
-        <% if milestone.expence == 'N/A' %>
-          Please set salaries and working days
+        <% expence = milestone.expence %>
+        <% if expence.instance_of?(Array) %>
+          Please set up: <br>
+          <% expence.each do |please_set_up| %>
+            <%= please_set_up %><br/>
+          <% end %>
         <% else %>
-          <%= milestone.expence %>
+          <%= expence %>
         <% end %>
       </td>
       <td></td>
