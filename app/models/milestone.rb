@@ -4,6 +4,9 @@ class Milestone < ActiveRecord::Base
   has_many   :deals
 #  has_many :bookings, :throught => ???
 
+  validates_presence_of :name, :invoice_name
+
+
   def by_time_amount
     start_data = self.start_date
     end_data = self.end_date

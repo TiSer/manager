@@ -5,8 +5,8 @@
 <table>
   <tr>
     <th>#</th>
-    <th>Country</th>
     <th>Name</th>
+    <th>Country</th>
     <th>Details</th>
     <th>Is active</th>
   </tr>
@@ -14,11 +14,10 @@
 <% @customers.each do |customer| %>
   <tr>
     <td><%= customer.id %></td>
+    <td><%= link_to customer.name, customer %></td>
     <td><%= customer.country %></td>
-    <td><%= customer.name %></td>
     <td><%= customer.details %></td>
     <td><%= activity(customer) %></td>
-    <!-- <td><%#= link_to 'Show', customer %></td> !-->
     <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
     <td><%= link_to 'Destroy', customer, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
@@ -26,3 +25,4 @@
 </table>
 
 <br />
+
