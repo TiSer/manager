@@ -13,7 +13,7 @@
 <% @deals.each do |deal| %>
   <tr>
     <td><%= deal.employee.name %></td>
-    <td><%= truncate(strip_tags(deal.description), :length => 50) %></td>
+    <td><%= truncate(deal.description, :length => 50) %></td>
     <td><%= deal.cost %></td>
     <td><%= link_to 'Show', deal %></td>
     <td><%= link_to 'Edit', edit_deal_path(deal) %></td>

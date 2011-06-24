@@ -33,6 +33,10 @@
 	background:		#E6E1DC;
 }
 
+.sf-menu li ul {
+    position: absolute;
+}
+
 .sf-menu li ul li {
 	float:			none;
 }
@@ -48,3 +52,4 @@
 	background:		#CFDEFF;
 	outline:		0;
 }
+

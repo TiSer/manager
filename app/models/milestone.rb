@@ -18,8 +18,8 @@ class Milestone < ActiveRecord::Base
         if activity_cos
           temp = 0
           if !activity_cos.amount
-            activity_cost_absent = true          
-          else  
+            activity_cost_absent = true
+          else
             temp = booking.hours * activity_cos.amount
           end
           summ += temp
@@ -35,7 +35,7 @@ class Milestone < ActiveRecord::Base
   end
 
   def expence
-    @bookings = Booking.where(:date => self.start_date..self.end_date)
+    @bookings = self.project.bookings.where(:date => self.start_date..self.end_date)
     expence = 0.0
     not_salary = false
     not_working_days = false
@@ -54,7 +54,7 @@ class Milestone < ActiveRecord::Base
             wd = 17
             not_working_days = true
           end
-          elem_cost = booking.hours.to_f / (wd) * salary.amount  #???????????????
+          elem_cost = booking.hours.to_f / (wd*salary.day_work_hours) * salary.amount  #???????????????
         elsif salary_type == 2
           elem_cost = booking.hours * salary.amount
         end
@@ -83,6 +83,68 @@ class Milestone < ActiveRecord::Base
       not_available
     end
   end
+
+  def expence_details_in_hash
+    bookings = self.project.bookings.where(:date => self.start_date..self.end_date).order("bookings.date")
+    expence = 0.0
+    not_salary = false
+    not_working_days = false
+    exp_det_arr = []
+    bookings.each do |booking|
+      details = {}
+      details.[]=(:booking, booking)
+      details.[]=(:employee, booking.employee.name)
+      salary = booking.employee.salaries.on_month(booking.date).order("salaries.year_month DESC").first
+      if salary
+        details.[]=(:salary, salary)
+        salary_type = salary.sal_type
+        if salary_type == 1
+          date = booking.date
+          date = Date.civil(date.year, date.month, 1)
+          mwd = MonthWorkingDay.on_month(date).first
+          if mwd
+            wd = mwd.working_days
+            details.[]=(:month_working_days, wd)
+          else
+            wd = 17
+            not_working_days = true
+          end
+          elem_cost = booking.hours.to_f / (wd*salary.day_work_hours) * salary.amount  #???????????????
+          details.[]=(:cost, "%0.2f" %elem_cost)
+        elsif salary_type == 2
+          elem_cost = booking.hours * salary.amount
+          details.[]=(:cost, "%0.2f" %elem_cost)
+        end
+        expence += elem_cost
+        exp_det_arr << details
+      else
+        not_salary = true
+      end
+    end
+    elem_cost = 0
+    deals = []
+    self.deals.each do |deal|
+      elem_cost += deal.cost
+      deals << {:employee => deal.employee.name, :description => deal.description, :cost => "%0.2f" %deal.cost}
+    end
+    expence += elem_cost
+
+    not_available = []
+
+    if not_salary
+      not_available << "salaries"
+    end
+    if not_working_days
+      not_available << "working days"
+    end
+
+    if !not_salary and !not_working_days
+      {:array => exp_det_arr, :deals => deals, :sum => "%0.2f" %expence}
+    else
+      not_available
+    end
+  end
+
 
 end
 

@@ -26,6 +26,11 @@ class MilestonesController < ApplicationController
     @bookings = @milestone.project.bookings
   end
 
+  def expence_details
+    @milestone = Milestone.find(params[:id])
+    @details_hash = @milestone.expence_details_in_hash
+  end
+
   def new
     @project = Project.find(params[:id])
     @milestone = Milestone.new
@@ -88,3 +93,4 @@ class MilestonesController < ApplicationController
     end
   end
 end
+
