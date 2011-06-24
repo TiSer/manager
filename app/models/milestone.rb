@@ -54,7 +54,7 @@ class Milestone < ActiveRecord::Base
             wd = 17
             not_working_days = true
           end
-          elem_cost = booking.hours.to_f / (wd) * salary.amount  #???????????????
+          elem_cost = booking.hours.to_f / (wd*salary.day_work_hours) * salary.amount  #???????????????
         elsif salary_type == 2
           elem_cost = booking.hours * salary.amount
         end
@@ -109,7 +109,7 @@ class Milestone < ActiveRecord::Base
             wd = 17
             not_working_days = true
           end
-          elem_cost = booking.hours.to_f / (wd) * salary.amount  #???????????????
+          elem_cost = booking.hours.to_f / (wd*salary.day_work_hours) * salary.amount  #???????????????
           details.[]=(:cost, elem_cost)
         elsif salary_type == 2
           elem_cost = booking.hours * salary.amount
