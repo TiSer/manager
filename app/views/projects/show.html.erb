@@ -1,35 +1,38 @@
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
+<div>
 
-<p>
-  <b>Department:</b>
-  <%= link_to @department.name, @department %>
-</p>
+  <h1><b>Project:</b> "<%= @project.name %>" </h1>
 
-<p>
-  <b>Payment model:</b>
-  <%= Project::PAYMENT_MODEL[@project.payment_model.to_i-1][0] %>
-</p>
+  <p><%= link_to 'Staffing', staffing_path(@project) %> | <%= link_to 'Milestones',project_milestone_path(@project) %> | <%= link_to 'Activities costs',activity_costs_path(@project) %></p>
+<br/>
+  <p>
+    <b>Participants:</b>
+    <% @participants.each do |participant| %>
+     <%= link_to participant.name, participant %>
+    <% end %>
+  </p>
 
-  <b>Is active:</b>
-  <%= activity_in_text(@project) %>
+  <p>
+    <b>Customer:</b>
+    <%= link_to @customer.name, @customer %>
+  </p>
 
-<p>
-  <b>Customer:</b>
-  <%= link_to @customer.name, @customer %>
-</p>
+  <p>
+    <b>Department:</b>
+    <%= link_to @department.name, @department %>
+  </p>
 
+  <p>
+    <b>Payment model:</b>
+    <%= Project::PAYMENT_MODEL[@project.payment_model.to_i-1][0] %>
+  </p>
 
+  <p>
+    <b>Is active:</b>
+    <%= activity_in_text(@project) %>
+  </p>
+<br/>
 
-<p>
-  <b>Participants:</b>
-  <% @participants.each do |participant| %>
-   <%= link_to participant.name, participant %>
-  <% end %>
-</p>
+  <%= link_to 'Edit', edit_project_path(@project) %> |
+  <%= link_to 'Back', projects_path %>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
-
+</div>

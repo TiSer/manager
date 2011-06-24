@@ -1,8 +1,6 @@
 <div>
 
-  <p>
-    <b>Name:</b> <%= @department.name %> ( <b>#</b> <%= @department.id %> )
-  </p>
+  <h1><b>Department:</b> "<%= @department.name %>" </h1>
 
   <p>
     <b>Employees:</b>
@@ -27,6 +25,7 @@
   </p>
 
 </div>
+<br/>
 
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', departments_path %>
