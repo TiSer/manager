@@ -25,17 +25,17 @@
         <td><%= milestone.invoice_name %></td>
           <% if @project.payment_model == "1" %>
             <% if milestone.by_time_amount != "N/A" %>
-              <td><%= link_to milestone.by_time_amount, milestone_bill_path(milestone) %></td>
+              <td class="money"><%= link_to two_numbers_after_point(milestone.by_time_amount), milestone_bill_path(milestone) %></td>
              <% else %>
               <td><%= milestone.by_time_amount %></td>
             <% end %>
             <% income = milestone.by_time_amount %>
           <% else %>
-            <td class="amo" id="m<%= milestone.id %>"><%= milestone.amount %></td>
+            <td class="amo money" id="m<%= milestone.id %>"><%= two_numbers_after_point(milestone.amount) %></td>
             <% income = milestone.amount %>
           <% end %>
         </td>
-       <td>
+       <td class="money">
         <% expence = milestone.expence %>
         <% if expence.instance_of?(Array) %>
           Please set up: <br>
@@ -43,12 +43,13 @@
             <%= please_set_up %><br/>
           <% end %>
         <% else %>
-          <%= link_to "%0.2f" %expence, expence_details_path(milestone) %>
+          <%= link_to two_numbers_after_point(expence), expence_details_path(milestone) %>
         <% end %>
       </td>
 
         <% if expence.instance_of? Float %>
-           <td id="p<%= milestone.id %>"><%= income.to_f - expence %></td>
+           <% profit = income.to_f - expence %>
+           <td id="p<%= milestone.id %>" class="money <%= profit <= 0 ? 'red_bg' : '' %>"><%= two_numbers_after_point(profit) %></td>
          <% else %>
             <td>N/A</td>
          <% end %>

@@ -110,10 +110,10 @@ class Milestone < ActiveRecord::Base
             not_working_days = true
           end
           elem_cost = booking.hours.to_f / (wd*salary.day_work_hours) * salary.amount  #???????????????
-          details.[]=(:cost, "%0.2f" %elem_cost)
+          details.[]=(:cost, elem_cost)
         elsif salary_type == 2
           elem_cost = booking.hours * salary.amount
-          details.[]=(:cost, "%0.2f" %elem_cost)
+          details.[]=(:cost, elem_cost)
         end
         expence += elem_cost
         exp_det_arr << details
@@ -125,7 +125,7 @@ class Milestone < ActiveRecord::Base
     deals = []
     self.deals.each do |deal|
       elem_cost += deal.cost
-      deals << {:employee => deal.employee.name, :description => deal.description, :cost => "%0.2f" %deal.cost}
+      deals << {:employee => deal.employee.name, :description => deal.description, :cost => deal.cost}
     end
     expence += elem_cost
 
@@ -139,7 +139,7 @@ class Milestone < ActiveRecord::Base
     end
 
     if !not_salary and !not_working_days
-      {:array => exp_det_arr, :deals => deals, :sum => "%0.2f" %expence}
+      {:array => exp_det_arr, :deals => deals, :sum => expence}
     else
       not_available
     end

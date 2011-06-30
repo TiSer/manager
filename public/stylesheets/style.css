@@ -80,3 +80,7 @@ tr.employee td.bookable { cursor:pointer; }
 #month_working_day_year_month_3i {display: none;}
 
 .for_sum { border-width:0; }
+.money {font-style: italic;  text-align: right;}
+.centred { text-align: center;}
+.deal_descrpition {text-align: left;}
+

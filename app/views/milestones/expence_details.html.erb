@@ -14,16 +14,17 @@
     </tr>
 
     <% @details_hash[:array].each do |detail|  %>
-      <tr>
+      <tr class="centred">
         <td> <%=  detail[:employee]  %> </td>
         <td> <%=  detail[:booking].date  %> </td>
         <td> <%=  detail[:booking].hours  %> </td>
-        <td> <%=  Salary::SALARY_TYPE[detail[:salary].sal_type-1][0] %> </td>
-        <td> <%=  detail[:salary].amount  %> </td>
+        <td> <%=  Salary.name_of_type(detail[:salary]) %> </td>
+        <td class="money"> <%= two_numbers_after_point(detail[:salary].amount)  %> </td>
         <td> <%=  detail[:month_working_days] %> </td>
-        <td> <%=  detail[:cost] %> </td>
+        <td class="money"> <%= two_numbers_after_point(detail[:cost]) %> </td>
      </tr>
     <% end %>
+
     <% if !@details_hash[:deals].empty? %>
       <tr class="grey_bg">
         <th>Employee</th>
@@ -32,16 +33,17 @@
       </tr>
     <% end %>
     <% @details_hash[:deals].each do |deal| %>
-      <tr>
+      <tr class="centred">
         <td><%= deal[:employee] %></td>
-        <td colspan="5"><%= deal[:description] %></td>
-        <td><%= deal[:cost] %></td>
+        <td colspan="5" class="deal_descrpition"><%= deal[:description] %></td>
+        <td class="money"><%= two_numbers_after_point(deal[:cost]) %></td>
       </tr>
     <% end %>
+
     <tr>
       <td class="for_sum" colspan="5"></td>
       <td class="grey_bg" align="right"> <b>Total:</b> </td>
-      <td class="grey_bg" align="right"> <%= @details_hash[:sum] %> </td>
+      <td class="grey_bg money"> <b><%= two_numbers_after_point(@details_hash[:sum]) %></b> </td>
     </tr>
   </table>
 

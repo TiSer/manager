@@ -2,9 +2,16 @@ jQuery('#dialog').dialog("close");
 <% expence =  @milestone.expence %>
 <% income =  @milestone.amount %>
 $("#m"+<%= @milestone.id %>).text(<%= income %>);
+profit_cell = $("#p"+<%= @milestone.id %>);
+profit_cell.removeClass("red_bg")
+
         <% if expence.instance_of? Float %>
-           r = '<%= income.to_f - expence %>'
+           r = '<%= two_numbers_after_point(income.to_f - expence) %>'
+           if ( r <= 0 ) {
+             profit_cell.addClass("red_bg")
+           }
          <% else %>
            r = 'N/A'
          <% end %>
-$("#p"+<%= @milestone.id %>).text(r);
+profit_cell.text(r);
+

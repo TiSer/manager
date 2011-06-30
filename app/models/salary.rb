@@ -33,5 +33,9 @@ class Salary < ActiveRecord::Base
     @hours = hours
   end
 
+  def self.name_of_type(salary)
+    Salary::SALARY_TYPE[salary.sal_type-1][0]
+  end
+
 end
 

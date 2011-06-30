@@ -69,3 +69,11 @@ module ApplicationHelper
 
 end
 
+  def two_numbers_after_point(value)
+    if value
+      "%0.2f" %value
+    else
+      ""
+    end
+  end
+
