@@ -1,32 +1,32 @@
-<p>
-  <b>Country:</b>
-  <%= @customer.country %>
-</p>
+<div>
 
-<p>
-  <b>Name:</b>
-  <%= @customer.name %>
-</p>
+  <h1><b>Customer:</b> "<%= @customer.name %>" </h1>
 
-<p>
-  <b>Details:</b>
-  <%= @customer.details %>
-</p>
+  <p>
+    <b>Projects</b>
+    <ul>
+    <% @projects.each do |project| %>
+      <li><%= link_to project.name, project %></li>
+    <% end %>
+    </ul>
+  </p>
 
-<p>
-  <b>Is active: </b><%= activity_in_text(@customer) %>
-</p>
+  <p>
+    <b>Country:</b>
+    <%= @customer.country %>
+  </p>
 
-<p>
-  <b>Projects</b>
-  <ul>
-  <% @projects.each do |project| %>
-    <li><%= link_to project.name, project %></li>
-  <% end %>
-  </ul>
-</p>
+  <p>
+    <b>Details:</b>
+    <%= @customer.details %>
+  </p>
 
+  <p>
+    <b>Is active: </b><%= activity_in_text(@customer) %>
+  </p>
+<br/>
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+  <%= link_to 'Edit', edit_customer_path(@customer) %> |
+  <%= link_to 'Back', customers_path %>
 
+</div>

@@ -1,17 +1,9 @@
 <div>
 
-  <p>
-    <b>Name:</b> <%= @employee.name %> ( <b>#</b> <%= @employee.id %> )
-  </p>
+  <h1><b>Employee:</b> <%= @employee.name %></h1>
 
-  <p>
-    <b>Email:</b> <%= @employee.email %>
-  </p>
-
-  <p>
-    <b>Department:</b> <%= @employee.department.name %>
-  </p>
-
+  <h3><%= link_to 'Salary', employee_salary_path(@employee) %></h3>
+<br/>
   <p>
     <b>Projects: </b>
       <% if !@employee.projects.empty? %>
@@ -23,6 +15,14 @@
       <% else %>
          No projects finded.
       <% end %>
+  </p>
+
+  <p>
+    <b>Email:</b> <%= @employee.email %>
+  </p>
+
+  <p>
+    <b>Department:</b> <%= @employee.department.name %>
   </p>
 
   <p>
@@ -38,14 +38,12 @@
    <b>Default activity: </b><%= @employee.default_activity.name %>
   </p>
 
-  <p><%= link_to 'Salary', employee_salary_path(@employee) %></p>
-
   <p>
-
     <b>Is active: </b><%= activity_in_text(@employee) %>
   </p>
 
 </div>
+<br/>
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', employees_path %>
